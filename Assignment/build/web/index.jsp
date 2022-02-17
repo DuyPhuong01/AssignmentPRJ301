@@ -22,7 +22,7 @@
                     <div class="select-btn">
                         <ul style="width:200px;">
                             <li values="0" class="option">Default</li>
-                            <li values="1" class="option">Name</li>
+                            <li values="1" class="option">ByName</li>
                             <li values="2" class="option">Price</li>
                             <li values="3" class="option">Newest</li>
                         </ul>
