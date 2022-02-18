@@ -206,7 +206,7 @@ public class DAO extends DBContext {
         return null;
     }
 
-    public void addProduct(Product p, int categoryID) {
+    public int addProduct(Product p, int categoryID) {
         String sql1 = "insert into Products (ProductName, BrandID, Price, Status) values (?, ?, ?, ?)";
         String sql2 = "insert into CatePro (ProductID, CategoryID) values (?, ?)";
         try {
@@ -222,10 +222,11 @@ public class DAO extends DBContext {
             st2.setInt(1, productID);
             st2.setInt(2, categoryID);
             st2.executeUpdate();
-
+            return productID;
         } catch (SQLException e) {
             System.out.println(e);
         }
+        return -1;
     }
     
     public void deleteProduct(int productID) {
