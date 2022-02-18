@@ -120,28 +120,22 @@ public class AddProductServlet extends HttpServlet {
             throws IOException, ServletException{
         String path = getFolderUploadPath();
         Part filePart = request.getPart("productPhoto");
-        String fileName = getFileName(filePart);
+        String fileType = getFileType(filePart);
 
         OutputStream out = null;
         InputStream filecontent = null;
 
         try {
-            File f = new File(path + File.separator + "product-" + productID + ".jpg");
-            System.out.println(path + File.separator + "product-" + productID + ".jpg");
-            if(f.exists()){
-                System.out.println("File " + fileName + " already exist at " + path);
-            } else {
-                out = new FileOutputStream(f);
-                filecontent = filePart.getInputStream();
-
-                int read = 0;
-                final byte[] bytes = new byte[1024];
-
-                while ((read = filecontent.read(bytes)) != -1) {
-                    out.write(bytes, 0, read);
-                }
-                System.out.println("New file " + fileName + " created at " + path);
+            File f = new File(path + File.separator + "product-" + productID + fileType);
+            System.out.println(path + File.separator + "product-" + productID + fileType);
+            out = new FileOutputStream(f);
+            filecontent = filePart.getInputStream();
+            int read = 0;
+            final byte[] bytes = new byte[1024];
+            while ((read = filecontent.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
             }
+            System.out.println("New file created at " + path);
         } catch (FileNotFoundException fne) {
             System.out.println("<br/> ERROR: " + fne.getMessage());
         } finally {
@@ -150,14 +144,9 @@ public class AddProductServlet extends HttpServlet {
         }
     }
     
-    private String getFileName(final Part part) {
-        for (String content : part.getHeader("content-disposition").split(";")) {
-            if (content.trim().startsWith("filename")) {
-                return content.substring(
-                        content.indexOf('=') + 1).trim().replace("\"", "");
-            }
-        }
-        return null;
+    private String getFileType(final Part part) {
+        String content = part.getHeader("content-disposition");
+        return content.substring(content.indexOf('.')).trim().replace("\"", "");
     }
     public String getFolderUploadPath() {
       String path = getServletContext().getRealPath("/") + "images";
