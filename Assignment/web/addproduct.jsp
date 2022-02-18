@@ -40,9 +40,8 @@
             Price: <input type="number" name="price"><br/>
             Picture: <input type="file" name="productPhoto"><br/>
             Activate Status: 
-                <input type="radio" name="activate" value="in_stock" checked>In Stock<br/>
-                <input type="radio" name="activate" value="out_of_stock">Out Of Stock<br/>
-                <input type="radio" name="activate" value="running_low">Running Low<br/>
+                <input type="radio" name="activate" value="1" checked>In Stock<br/>
+                <input type="radio" name="activate" value="0">Out Of Stock<br/>
             <input type="submit" value="Add Product">
             </table>
         </form></div></div>

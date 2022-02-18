@@ -13,12 +13,12 @@ public class Product {
     private String color;
     private int quantity;
     private String image;
-    private String status;
+    private int status;
 
     public Product() {
     }
 
-    public Product(int productID, String productName, int brandID, double price, String status) {
+    public Product(int productID, String productName, int brandID, double price, int status) {
         this.productID = productID;
         this.productName = productName;
         this.brandID = brandID;
@@ -82,11 +82,11 @@ public class Product {
         this.image = image;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

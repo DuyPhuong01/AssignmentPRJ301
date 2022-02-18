@@ -151,7 +151,7 @@ public class DAO extends DBContext {
                 p.setProductName(rs.getString("ProductName"));
                 p.setBrandID(rs.getInt("BrandID"));
                 p.setPrice(rs.getDouble("Price"));
-                p.setStatus(rs.getString("Status"));
+                p.setStatus(rs.getInt("Status"));
                 return p;
             }
         } catch (SQLException e) {
@@ -177,7 +177,7 @@ public class DAO extends DBContext {
                 p.setProductName(rs.getString("ProductName"));
                 p.setBrandID(rs.getInt("BrandID"));
                 p.setPrice(rs.getDouble("Price"));
-                p.setStatus(rs.getString("Status"));
+                p.setStatus(rs.getInt("Status"));
                 list.add(p);
             }
         } catch (SQLException e) {
@@ -197,7 +197,7 @@ public class DAO extends DBContext {
                 p.setProductName(rs.getString("ProductName"));
                 p.setBrandID(rs.getInt("BrandID"));
                 p.setPrice(rs.getDouble("Price"));
-                p.setStatus(rs.getString("Status"));
+                p.setStatus(rs.getInt("Status"));
                 return p;
             }
         } catch (SQLException e) {
@@ -215,7 +215,7 @@ public class DAO extends DBContext {
             st1.setString(1, p.getProductName());
             st1.setInt(2, p.getBrandID());
             st1.setDouble(3, p.getPrice());
-            st1.setString(4, p.getStatus());
+            st1.setInt(4, p.getStatus());
             st1.executeUpdate();
 
             int productID = getLastProduct().getProductID();

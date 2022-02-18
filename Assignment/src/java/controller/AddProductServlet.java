@@ -88,12 +88,13 @@ public class AddProductServlet extends HttpServlet {
         String brandID_raw = request.getParameter("brandID");
         String name = request.getParameter("name");
         String price_raw = request.getParameter("price");
-        String activate = request.getParameter("activate");
+        String activate_raw = request.getParameter("activate");
         
         try {
             int categoryID = Integer.parseInt(categoryID_raw);
             int brandID = Integer.parseInt(brandID_raw);
             double price = Double.parseDouble(price_raw);
+            int activate = Integer.parseInt(activate_raw);
             DAO dao = new DAO();
             
             Product p = new Product();
@@ -101,8 +102,8 @@ public class AddProductServlet extends HttpServlet {
             p.setProductName(name);
             p.setPrice(price);
             p.setStatus(activate);
-            /* upload product image */
             int productID = dao.addProduct(p, categoryID);
+            /* upload product image */
             uploadFile(request, response, productID);
             response.sendRedirect("main");
         } catch(NumberFormatException e) {
@@ -113,7 +114,7 @@ public class AddProductServlet extends HttpServlet {
             int productID)
             throws IOException, ServletException{
         String path = getFolderUploadPath();
-        Part filePart = request.getPart("file");
+        Part filePart = request.getPart("productPhoto");
         String fileName = getFileName(filePart);
 
         OutputStream out = null;
