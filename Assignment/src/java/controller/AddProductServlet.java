@@ -57,47 +57,40 @@ public class AddProductServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        /* variable declaration*/
+        DAO dao = new DAO();
+        Product p = new Product();
+        OutputStream out = null;
+        InputStream filecontent = null;
+        
         /* get Product information */        
         String categoryID_raw = request.getParameter("categoryID");
         String brandID_raw = request.getParameter("brandID");
         String name = request.getParameter("name");
         String price_raw = request.getParameter("price");
+        String quantity_raw = request.getParameter("quantity");
+        Part filePart = request.getPart("productPhoto");
         String activate_raw = request.getParameter("activate");
         
         try {
             int categoryID = Integer.parseInt(categoryID_raw);
             int brandID = Integer.parseInt(brandID_raw);
             double price = Double.parseDouble(price_raw);
+            int quantity = Integer.parseInt(quantity_raw);
+            String fileName = getFileName(filePart);
             int activate = Integer.parseInt(activate_raw);
-            DAO dao = new DAO();
             
-            Product p = new Product();
             p.setBrandID(brandID);
             p.setProductName(name);
             p.setPrice(price);
+            p.setQuantity(quantity);
+            p.setImage(fileName);
             p.setStatus(activate);
             int productID = dao.addProduct(p, categoryID);
-            /* upload product image */
-            uploadFile(request, productID);
-            response.sendRedirect("main");
-        } catch(NumberFormatException e) {
-            System.out.println(e);
-        }
-    }
-    private void uploadFile(HttpServletRequest request,
-            int productID)
-            throws IOException, ServletException{
-        String path = getFolderUploadPath();
-        Part filePart = request.getPart("productPhoto");
-        String fileType = getFileType(filePart);
-
-        OutputStream out = null;
-        InputStream filecontent = null;
-
-        try {
-            File f = new File(path + File.separator + "product-" + productID + fileType);
-            System.out.println(path + File.separator + "product-" + productID + fileType);
+            System.out.println(p + "created");
+            String filePath = getFolderUploadPath() + File.separator +  fileName;
+            File f = new File(filePath);
+            System.out.println(filePath);
             out = new FileOutputStream(f);
             filecontent = filePart.getInputStream();
             int read = 0;
@@ -105,19 +98,28 @@ public class AddProductServlet extends HttpServlet {
             while ((read = filecontent.read(bytes)) != -1) {
                 out.write(bytes, 0, read);
             }
-            System.out.println("New file created at " + path);
+            System.out.println("New file created at " + filePath);
+
+            response.sendRedirect("main");
+            
+            out.close();
+            filecontent.close();
+        } catch(NumberFormatException nfe) {
+            System.out.println(nfe);
         } catch (FileNotFoundException fne) {
             System.out.println("<br/> ERROR: " + fne.getMessage());
-        } finally {
-            if (out != null) out.close();
-            if (filecontent != null) filecontent.close();
         }
     }
-    
-    private String getFileType(final Part part) {
-        String content = part.getHeader("content-disposition");
-        return content.substring(content.indexOf('.')).trim().replace("\"", "");
+    private String getFileName(final Part part) {
+        for (String content : part.getHeader("content-disposition").split(";")) {
+            if (content.trim().startsWith("filename")) {
+                return content.substring(
+                        content.indexOf('=') + 1).trim().replace("\"", "");
+            }
+        }
+        return null;
     }
+    
     public String getFolderUploadPath() {
       String path = getServletContext().getRealPath("/") + "images";
       File folderUpload = new File(path);
