@@ -227,23 +227,14 @@ public class DAO extends DBContext {
             System.out.println(e);
         }
     }
+    
     public void deleteProduct(int productID) {
-        String sql1 = "insert into Products (ProductName, BrandID, Price, Status) values (?, ?, ?, ?)";
-        String sql2 = "insert into CatePro (ProductID, CategoryID) values (?, ?)";
+        String sql = "delete from Products where productID=?";
+        
         try {
-            PreparedStatement st1 = connection.prepareStatement(sql1);
-            PreparedStatement st2 = connection.prepareStatement(sql2);
-            st1.setString(1, p.getProductName());
-            st1.setInt(2, p.getBrandID());
-            st1.setDouble(3, p.getPrice());
-            st1.setString(4, p.getStatus());
-            st1.executeUpdate();
-
-            int productID = getLastProduct().getProductID();
-            st2.setInt(1, productID);
-            st2.setInt(2, categoryID);
-            st2.executeUpdate();
-
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(2, productID);
+            st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
         }

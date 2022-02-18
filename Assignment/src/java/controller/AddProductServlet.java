@@ -89,7 +89,7 @@ public class AddProductServlet extends HttpServlet {
         String name = request.getParameter("name");
         String price_raw = request.getParameter("price");
         String activate = request.getParameter("activate");
-        uploadFile(request, response);
+        
         try {
             int categoryID = Integer.parseInt(categoryID_raw);
             int brandID = Integer.parseInt(brandID_raw);
@@ -101,13 +101,16 @@ public class AddProductServlet extends HttpServlet {
             p.setProductName(name);
             p.setPrice(price);
             p.setStatus(activate);
-            dao.addProduct(p, categoryID);
+            /* upload product image */
+            int productID = dao.addProduct(p, categoryID);
+            uploadFile(request, response, productID);
             response.sendRedirect("main");
         } catch(NumberFormatException e) {
             System.out.println(e);
         }
     }
-    private void uploadFile(HttpServletRequest request, HttpServletResponse response)
+    private void uploadFile(HttpServletRequest request, HttpServletResponse response,
+            int productID)
             throws IOException, ServletException{
         String path = getFolderUploadPath();
         Part filePart = request.getPart("file");
@@ -117,8 +120,8 @@ public class AddProductServlet extends HttpServlet {
         InputStream filecontent = null;
 
         try {
-            File f = new File(path + File.separator + fileName);
-            System.out.println(path + File.separator + fileName);
+            File f = new File(path + File.separator + "product-" + productID + ".jpg");
+            System.out.println(path + File.separator + "product-" + productID + ".jpg");
             if(f.exists()){
                 System.out.println("File " + fileName + " already exist at " + path);
             } else {
