@@ -43,7 +43,7 @@ public class DeleteProductServlet extends HttpServlet {
         try {
             int id = Integer.parseInt(id_raw);
             dao.deleteProduct(id);
-            request.getRequestDispatcher("product").forward(request, response);
+            response.sendRedirect("product");
         } catch(NumberFormatException e) {
             System.out.println(e);
         }
