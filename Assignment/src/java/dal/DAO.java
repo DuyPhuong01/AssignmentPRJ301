@@ -235,10 +235,10 @@ public class DAO extends DBContext {
         
         try {
             PreparedStatement st1 = connection.prepareStatement(sql1);
-            PreparedStatement st2 = connection.prepareStatement(sql2);
-            st1.setInt(2, productID);
-            st2.setInt(2, productID);
+            st1.setInt(1, productID);
             st1.executeUpdate();
+            PreparedStatement st2 = connection.prepareStatement(sql2);
+            st2.setInt(1, productID);
             st2.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);

@@ -19,6 +19,9 @@
             <div class="add-btn">
                 <a class="link-button" href="">Add to Cart</a>
             </div>
+            <div class="delete-btn">
+                <a href="deleteproduct?id=${product.productID}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+            </div>
         </div>
     </c:forEach>
 </div>
