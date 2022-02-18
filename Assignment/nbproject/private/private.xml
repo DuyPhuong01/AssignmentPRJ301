@@ -3,13 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Spring%202022/PRJ301/Netbeans%20Projects/Assignment/src/java/model/Product.java</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Spring%202022/PRJ301/Netbeans%20Projects/Assignment/src/java/dal/DBContext.java</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Spring%202022/PRJ301/Netbeans%20Projects/Assignment/src/java/dal/ProductDAO.java</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Spring%202022/PRJ301/Netbeans%20Projects/Assignment/web/index.jsp</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Spring%202022/PRJ301/Netbeans%20Projects/Assignment/web/sidebar.jsp</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Spring%202022/PRJ301/Netbeans%20Projects/Assignment/src/java/controller/MainServlet.java</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Spring%202022/PRJ301/Netbeans%20Projects/Assignment/src/java/dal/CategoryDAO.java</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Spring%202022/PRJ301/Git/Assignment/src/java/controller/DeleteProductServlet.java</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Spring%202022/PRJ301/Git/Assignment/web/productlist.jsp</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Spring%202022/PRJ301/Git/Assignment/src/java/dal/DAO.java</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Spring%202022/PRJ301/Git/Assignment/web/css/main.css</file>
         </group>
     </open-files>
 </project-private>
