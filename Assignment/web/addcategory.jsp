@@ -1,6 +1,5 @@
 <%-- 
-    Document   : addproduct
-    Created on : Jan 25, 2022, 8:35:13 PM
+    Document   : addcategory
     Author     : Duy Phuong
 --%>
 

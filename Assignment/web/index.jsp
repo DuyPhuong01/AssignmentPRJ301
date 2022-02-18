@@ -1,3 +1,8 @@
+<%-- 
+    Document   : index
+    Author     : Duy Phuong
+--%>
+
 <%@page import="java.util.List"%>
 <%@page import="model.Product"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

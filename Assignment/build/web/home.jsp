@@ -1,6 +1,5 @@
 <%-- 
     Document   : home
-    Created on : Feb 17, 2022, 4:30:51 AM
     Author     : Duy Phuong
 --%>
 
