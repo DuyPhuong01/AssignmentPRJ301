@@ -23,7 +23,7 @@
     <div class="option-container">
         <span>
             <label>
-                <input type="checkbox" name="theme" <c:if test="${sessionScope.theme == 1}">checked</c:if>>
+                <input type="checkbox" name="theme">
                 <span class="btn"></span>
                 <i class="fa fa-moon-o" aria-hidden="true"></i>
             </label>
