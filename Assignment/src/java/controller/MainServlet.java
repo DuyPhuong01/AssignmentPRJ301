@@ -44,7 +44,8 @@ public class MainServlet extends HttpServlet {
         HttpSession session = request.getSession();
         try {   
             System.out.println((User)session.getAttribute("userAccount"));
-        } catch(NullPointerException e) {
+        } catch(NullPointerException npe) {
+            System.out.println(npe);
             session.setAttribute("userAccount", null);
         }
         request.getRequestDispatcher("home.jsp").forward(request, response);

@@ -9,6 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.User;
 
 /**
  *
@@ -38,6 +40,7 @@ public class ProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         DAO dao = new DAO();
+        HttpSession session = request.getSession();
         request.setAttribute("categoryList", dao.getAll());
         request.setAttribute("brandList", dao.getAllBrand());
         String action = request.getParameter("action");
@@ -47,11 +50,17 @@ public class ProductServlet extends HttpServlet {
             if(categoryID_raw == null){
                 categoryID_raw = "0";
             }
+            try {   
+                System.out.println((User)session.getAttribute("userAccount"));
+            } catch(NullPointerException npe) {
+                System.out.println(npe);
+                session.setAttribute("userAccount", null);
+            }
             try{
                 int categoryID = Integer.parseInt(categoryID_raw);
                 request.setAttribute("productList", dao.getProductByCategory(categoryID));
                 request.getRequestDispatcher("index.jsp").forward(request, response);
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e){
                 System.out.println(e);
             }
         }

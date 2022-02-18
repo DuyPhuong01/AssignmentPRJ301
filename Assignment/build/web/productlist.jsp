@@ -17,9 +17,14 @@
             <div class="add-btn">
                 <a class="link-button" href="">Add to Cart</a>
             </div>
-            <div class="delete-btn">
-                <a href="deleteproduct?id=${product.productID}"><i class="fa fa-trash" aria-hidden="true"></i></a>
-            </div>
+            <c:if test="${sessionScope.userAccount!=null}">
+                <c:if test="${sessionScope.userAccount.role == 1}">
+                    <div class="delete-btn">
+                        <a href="deleteproduct?id=${product.productID}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                    </div>
+                </c:if>
+            </c:if> 
+            
         </div>
     </c:forEach>
 </div>
