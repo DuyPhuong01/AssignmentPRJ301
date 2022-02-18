@@ -2,6 +2,7 @@
 package controller;
 
 import dal.DAO;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 /**
  *
@@ -42,7 +44,12 @@ public class DeleteProductServlet extends HttpServlet {
         DAO dao = new DAO();
         try {
             int id = Integer.parseInt(id_raw);
+            String fileName = dao.getProductById(id).getImage();
             dao.deleteProduct(id);
+            File f = new File(getFolderUploadPath() + File.separator +  fileName);
+            if(f.exists()){
+                f.delete();
+            }
             response.sendRedirect("product");
         } catch(NumberFormatException e) {
             System.out.println(e);
@@ -54,7 +61,16 @@ public class DeleteProductServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
+    
+    public String getFolderUploadPath() {
+      String path = getServletContext().getRealPath("/") + "images";
+      File folderUpload = new File(path);
+      if (!folderUpload.exists()) {
+        folderUpload.mkdirs();
+      }
+      return path;
+    }
+    
     @Override
     public String getServletInfo() {
         return "Short description";

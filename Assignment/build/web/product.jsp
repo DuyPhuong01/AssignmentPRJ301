@@ -20,7 +20,7 @@
         <div class="row" style="justify-content: center">
             <div class="container col-9 row product">
                 <div class="col-6">
-                    <img src="images/product-${product.productID}.jpg">
+                    <img src="images/${product.image}">
                 </div>
                 <div class="col-6">
                     <p>${product.productName}</p>

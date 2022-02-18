@@ -22,9 +22,7 @@ import model.Product;
  *
  * @author Duy Phuong
  */
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2,
-    maxFileSize = 1024 * 1024 * 50,
-    maxRequestSize = 1024 * 1024 * 50)
+@MultipartConfig
 @WebServlet(name = "AddProductServlet", urlPatterns = {"/addproduct"})
 public class AddProductServlet extends HttpServlet {
 
@@ -57,6 +55,9 @@ public class AddProductServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        /* declaration */
+        DAO dao = new DAO();
+        int productID = 0;
         /* get Product information */        
         String categoryID_raw = request.getParameter("categoryID");
         String brandID_raw = request.getParameter("brandID");
@@ -76,29 +77,33 @@ public class AddProductServlet extends HttpServlet {
             
             /* add product to database*/
             Product p = new Product(name, brandID, price, quantity, fileName, activate);
-            DAO dao = new DAO();
-            int productID = dao.addProduct(p, categoryID);
-            System.out.println(p + "created");
+            System.out.println(p + " are creating");
+            productID = dao.addProduct(p, categoryID);
+            if(productID > 0) {
+                System.out.println(p + "created");
+
+                /* save product iamge */
+                String filePath = getFolderUploadPath() + File.separator +  fileName;
+                File f = new File(filePath);
+                OutputStream out = new FileOutputStream(f);
+                InputStream filecontent = filePart.getInputStream();
+                int read = 0;
+                byte[] bytes = new byte[1024];
+                while ((read = filecontent.read(bytes)) != -1) {
+                    out.write(bytes, 0, read);
+                }
+                System.out.println("New file created at " + filePath);
+                out.close();
             
-            String filePath = getFolderUploadPath() + File.separator +  fileName;
-            File f = new File(filePath);
-            OutputStream out = new FileOutputStream(f);
-            InputStream filecontent = filePart.getInputStream();
-            int read = 0;
-            byte[] bytes = new byte[1024];
-            while ((read = filecontent.read(bytes)) != -1) {
-                out.write(bytes, 0, read);
+                filecontent.close();
             }
-            System.out.println("New file created at " + filePath);
 
             response.sendRedirect("main");
-            
-            out.close();
-            filecontent.close();
         } catch(NumberFormatException nfe) {
             System.out.println(nfe);
         } catch (FileNotFoundException fne) {
             System.out.println("<br/> ERROR: " + fne.getMessage());
+            dao.deleteProduct(productID);
         }
     }
     private String getFileName(final Part part) {

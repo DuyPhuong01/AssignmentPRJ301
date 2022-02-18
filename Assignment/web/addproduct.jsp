@@ -37,7 +37,8 @@
                         <br/>
                     Name: <input type="text" name="name"><br/>
                     Price: <input type="number" name="price"><br/>
-                    Picture: <input type="file" name="productPhoto" id="productPhoto"><br/>
+                    Quantity: <input type="number" name="quantity"><br/>
+                    Picture: <input type="file" name="productPhoto"><br/>
                     Activate Status: 
                         <input type="radio" name="activate" value="1" checked>In Stock<br/>
                         <input type="radio" name="activate" value="0">Out Of Stock<br/>
