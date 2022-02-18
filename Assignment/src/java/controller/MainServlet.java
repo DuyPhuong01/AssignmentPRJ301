@@ -43,7 +43,7 @@ public class MainServlet extends HttpServlet {
         request.setAttribute("brandList", dao.getAllBrand());
         HttpSession session = request.getSession();
         try {   
-            System.out.println((User)session.getAttribute("userAccount"));
+            System.out.println("Account: " + (User)session.getAttribute("userAccount"));
         } catch(NullPointerException npe) {
             System.out.println(npe);
             session.setAttribute("userAccount", null);

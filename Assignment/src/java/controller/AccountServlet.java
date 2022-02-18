@@ -7,6 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.User;
 
 /**
  *
@@ -36,7 +38,9 @@ public class AccountServlet extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         if((action.equals("signout"))){
-            
+            HttpSession session = request.getSession();
+            session.setAttribute("userAccount", null);
+            response.sendRedirect("main");
         }
     }
 

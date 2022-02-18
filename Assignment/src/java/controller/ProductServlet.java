@@ -51,7 +51,7 @@ public class ProductServlet extends HttpServlet {
                 categoryID_raw = "0";
             }
             try {   
-                System.out.println((User)session.getAttribute("userAccount"));
+                System.out.println("Account: " + (User)session.getAttribute("userAccount"));
             } catch(NullPointerException npe) {
                 System.out.println(npe);
                 session.setAttribute("userAccount", null);

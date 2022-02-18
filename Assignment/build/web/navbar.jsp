@@ -23,13 +23,21 @@
     <div class="option-container">
         <span>
             <label>
-                <input type="checkbox" name="theme">
+                <input type="checkbox" name="theme" <c:if test="${sessionScope.theme == 1}">checked</c:if>>
                 <span class="btn"></span>
                 <i class="fa fa-moon-o" aria-hidden="true"></i>
             </label>
         </span>
         <c:if test="${sessionScope.userAccount==null}"><a class="link-btn" href="signin">Sign in</a></c:if>
-        <c:if test="${sessionScope.userAccount!=null}"><a href="account"><i class="fa fa-user" aria-hidden="true"></i></a></c:if> 
+        <c:if test="${sessionScope.userAccount!=null}">
+            <div class="account-navigation">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <ul>
+                    <li><a href="account?action=details">My Account</a></li>
+                    <li><a href="account?action=signout">Sign Out</a></li>
+                </ul>
+            </div>
+        </c:if> 
         <a class="link-btn notification" href="">My Cart
             <span class="badge">5</span>
         </a>

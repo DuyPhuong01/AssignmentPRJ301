@@ -1,3 +1,13 @@
+html {
+    --theme-color: #2264D1;
+    --theme-light-color: #9DC2FF;
+    --bg-color: #F8F8F8;
+    --bg-light-color: #fff;
+    --text-color: #000;
+    --theme-hover-color: #EBF2FF;
+    --font-color: #787885;
+}
+
 html[data-theme='dark'] {
     --theme-color: #3BD865;
     --theme-light-color: #134821;
@@ -6,16 +16,6 @@ html[data-theme='dark'] {
     --text-color: #fff;
     --theme-hover-color: #343a40;
     --font-color: #ccc;
-}
-
-html[data-theme='light'] {
-    --theme-color: #2264D1;
-    --theme-light-color: #9DC2FF;
-    --bg-color: #F8F8F8;
-    --bg-light-color: #fff;
-    --text-color: #000;
-    --theme-hover-color: #EBF2FF;
-    --font-color: #787885;
 }
 
 * {
@@ -146,7 +146,33 @@ a {
     text-decoration: none;
     color: var(--font-color);
 }
-
+.option-container {
+    display: flex;
+    align-items: center;
+}
+.option-container > *{
+    margin: 0 5px;
+}
+.account-navigation {
+    position: relative;
+}
+.account-navigation ul{
+    background: var(--bg-light-color);
+    display: none;
+    position: absolute;
+    z-index: 10;
+    padding: 20px;
+    top: 150%;
+    left: -80px;
+    width: 180px;
+    list-style-type: none;
+    border-radius: 8px;
+    box-shadow: 1px 1px 5px var(--theme-light-color);
+    
+}
+.account-navigation:hover ul {
+    display: block;
+}
 
 /* button */
 

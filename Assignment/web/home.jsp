@@ -5,7 +5,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html data-theme="light">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
@@ -16,4 +16,6 @@
         <jsp:include page="navbar.jsp"></jsp:include>
          
     </body>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/gallery.js"></script>
 </html>
