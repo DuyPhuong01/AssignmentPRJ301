@@ -115,13 +115,12 @@ public class AddProductServlet extends HttpServlet {
 
         OutputStream out = null;
         InputStream filecontent = null;
-        final PrintWriter writer = response.getWriter();
 
         try {
             File f = new File(path + File.separator + fileName);
             System.out.println(path + File.separator + fileName);
             if(f.exists()){
-                writer.println("File " + fileName + " already exist at " + path);
+                System.out.println("File " + fileName + " already exist at " + path);
             } else {
                 out = new FileOutputStream(f);
                 filecontent = filePart.getInputStream();
@@ -132,14 +131,13 @@ public class AddProductServlet extends HttpServlet {
                 while ((read = filecontent.read(bytes)) != -1) {
                     out.write(bytes, 0, read);
                 }
-                writer.println("New file " + fileName + " created at " + path);
+                System.out.println("New file " + fileName + " created at " + path);
             }
         } catch (FileNotFoundException fne) {
-            writer.println("<br/> ERROR: " + fne.getMessage());
+            System.out.println("<br/> ERROR: " + fne.getMessage());
         } finally {
             if (out != null) out.close();
             if (filecontent != null) filecontent.close();
-            if (writer != null) writer.close();
         }
     }
     

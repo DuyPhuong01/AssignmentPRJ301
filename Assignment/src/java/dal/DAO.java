@@ -134,6 +134,9 @@ public class DAO extends DBContext {
     /**
      * Product DAO
      */
+    public List<Product> getAllProduct(int productID) {
+        return getProductByCategory(0);
+    }
     public Product getProductById(int productID) {
         String sql = "select * from Products";
         try {
@@ -215,8 +218,29 @@ public class DAO extends DBContext {
             st1.setString(4, p.getStatus());
             st1.executeUpdate();
 
-            int id = getLastProduct().getProductID();
-            st2.setInt(1, id);
+            int productID = getLastProduct().getProductID();
+            st2.setInt(1, productID);
+            st2.setInt(2, categoryID);
+            st2.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    public void deleteProduct(int productID) {
+        String sql1 = "insert into Products (ProductName, BrandID, Price, Status) values (?, ?, ?, ?)";
+        String sql2 = "insert into CatePro (ProductID, CategoryID) values (?, ?)";
+        try {
+            PreparedStatement st1 = connection.prepareStatement(sql1);
+            PreparedStatement st2 = connection.prepareStatement(sql2);
+            st1.setString(1, p.getProductName());
+            st1.setInt(2, p.getBrandID());
+            st1.setDouble(3, p.getPrice());
+            st1.setString(4, p.getStatus());
+            st1.executeUpdate();
+
+            int productID = getLastProduct().getProductID();
+            st2.setInt(1, productID);
             st2.setInt(2, categoryID);
             st2.executeUpdate();
 
