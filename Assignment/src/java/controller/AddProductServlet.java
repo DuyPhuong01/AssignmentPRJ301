@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,9 @@ import model.Product;
  *
  * @author Duy Phuong
  */
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2,
+    maxFileSize = 1024 * 1024 * 50,
+    maxRequestSize = 1024 * 1024 * 50)
 @WebServlet(name = "AddProductServlet", urlPatterns = {"/addproduct"})
 public class AddProductServlet extends HttpServlet {
 
@@ -83,6 +87,7 @@ public class AddProductServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         /* get Product information */        
         String categoryID_raw = request.getParameter("categoryID");
         String brandID_raw = request.getParameter("brandID");
