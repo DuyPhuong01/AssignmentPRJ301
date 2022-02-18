@@ -57,12 +57,6 @@ public class AddProductServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        /* variable declaration*/
-        DAO dao = new DAO();
-        Product p = new Product();
-        OutputStream out = null;
-        InputStream filecontent = null;
-        
         /* get Product information */        
         String categoryID_raw = request.getParameter("categoryID");
         String brandID_raw = request.getParameter("brandID");
@@ -80,21 +74,18 @@ public class AddProductServlet extends HttpServlet {
             String fileName = getFileName(filePart);
             int activate = Integer.parseInt(activate_raw);
             
-            p.setBrandID(brandID);
-            p.setProductName(name);
-            p.setPrice(price);
-            p.setQuantity(quantity);
-            p.setImage(fileName);
-            p.setStatus(activate);
+            /* add product to database*/
+            Product p = new Product(name, brandID, price, quantity, fileName, activate);
+            DAO dao = new DAO();
             int productID = dao.addProduct(p, categoryID);
             System.out.println(p + "created");
+            
             String filePath = getFolderUploadPath() + File.separator +  fileName;
             File f = new File(filePath);
-            System.out.println(filePath);
-            out = new FileOutputStream(f);
-            filecontent = filePart.getInputStream();
+            OutputStream out = new FileOutputStream(f);
+            InputStream filecontent = filePart.getInputStream();
             int read = 0;
-            final byte[] bytes = new byte[1024];
+            byte[] bytes = new byte[1024];
             while ((read = filecontent.read(bytes)) != -1) {
                 out.write(bytes, 0, read);
             }
