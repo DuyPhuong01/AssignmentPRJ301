@@ -44,17 +44,24 @@ public class ProductServlet extends HttpServlet {
         request.setAttribute("categoryList", dao.getAll());
         request.setAttribute("brandList", dao.getAllBrand());
         String action = request.getParameter("action");
+        try {
+            if((String)session.getAttribute("theme")==null) session.setAttribute("theme", "light");
+            System.out.println("Theme: " + (String)session.getAttribute("theme"));
+        } catch(NullPointerException npe) {
+            System.out.println(npe);
+            session.setAttribute("theme", "light");
+        }
+        try {   
+            System.out.println("Account: " + (User)session.getAttribute("userAccount"));
+        } catch(NullPointerException npe) {
+            System.out.println(npe);
+            session.setAttribute("userAccount", null);
+        }
         
         if(action == null){
             String categoryID_raw = request.getParameter("categoryID");
             if(categoryID_raw == null){
                 categoryID_raw = "0";
-            }
-            try {   
-                System.out.println("Account: " + (User)session.getAttribute("userAccount"));
-            } catch(NullPointerException npe) {
-                System.out.println(npe);
-                session.setAttribute("userAccount", null);
             }
             try{
                 int categoryID = Integer.parseInt(categoryID_raw);

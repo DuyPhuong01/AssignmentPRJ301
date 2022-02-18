@@ -1,4 +1,4 @@
-html {
+html[data-theme='light'] {
     --theme-color: #2264D1;
     --theme-light-color: #9DC2FF;
     --bg-color: #F8F8F8;
