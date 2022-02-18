@@ -12,6 +12,10 @@ import model.Color;
 import model.Product;
 import model.User;
 
+/**
+ *
+ * @author Duy Phuong
+ */
 public class DAO extends DBContext {
     
     /**

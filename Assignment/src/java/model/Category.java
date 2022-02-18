@@ -1,6 +1,10 @@
 
 package model;
 
+/**
+ *
+ * @author Duy Phuong
+ */
 public class Category {
     private int categoryID;
     private String categoryName, description;
