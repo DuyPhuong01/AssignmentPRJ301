@@ -46,10 +46,11 @@ public class AddCategoryServlet extends HttpServlet {
             throws ServletException, IOException {
         String name = request.getParameter("name");
         String describe = request.getParameter("describe");
-        String activate = request.getParameter("activate");
+        String activate_raw = request.getParameter("activate");
         try {
+            boolean activate = Integer.parseInt(activate_raw)==1;
             DAO dao = new DAO();
-            Category c = new Category(1, name, describe, true);
+            Category c = new Category(1, name, describe, activate);
             dao.addCategory(c);
             response.sendRedirect("main");
         } catch(NumberFormatException e) {

@@ -178,15 +178,15 @@ a {
     position: relative;
 }
 .account-navigation ul{
+    position: absolute;
     background: var(--bg-light-color);
     display: none;
-    position: absolute;
     z-index: 10;
     padding: 20px;
-    top: 150%;
+    top: 100%;
     left: -80px;
     width: 180px;
-    list-style-type: none;
+    list-style: none;
     border-radius: 8px;
     box-shadow: 1px 1px 5px var(--theme-light-color);
     
@@ -200,11 +200,9 @@ label i {
     cursor: pointer;
     color: var(--font-color)
 }
-
 label input[type="checkbox"] {
     -webkit-appearance: none;
 }
-
 .link-btn {
     background-color: transparent; 
     border: 1px solid var(--theme-light-color);
@@ -213,16 +211,13 @@ label input[type="checkbox"] {
     text-decoration: none;
     color: var(--theme-color);
 }
-
 .link-btn:hover {
     box-shadow: -1px 2px 5px var(--theme-light-color);
     transition: 200ms;
 }
-
 .notification {
     position: relative;
 }
-
 .badge {
     position: absolute;
     right: -10px;
@@ -237,14 +232,12 @@ label input[type="checkbox"] {
     justify-content: center;
     align-items: center;
 }
-
 .content {
     margin: 15px;
 }
 
 
 /* ////////////  sidebar  //////////// */
-
 .option-list {
     margin: 0 2%;
     border-radius: 8px;
@@ -253,24 +246,20 @@ label input[type="checkbox"] {
 
 
 /* ////////////  header  //////////// */
-
 .heading {
     margin-bottom: 20px;
 }
 
 
 /* select button */
-
 .option-btn {
     z-index: 1000;
     position: absolute;
 }
-
 .select-btn {
     position: relative;
     margin-bottom: 20px;
 }
-
 .select-btn ul {
     list-style: none;
     background-color: var(--bg-light-color);
@@ -278,7 +267,6 @@ label input[type="checkbox"] {
     border: 2px solid var(--theme-light-color);
     border-radius: 8px;
 }
-
 .select-btn ul li.option {
     z-index: 1;
     padding: 5px;
@@ -286,15 +274,12 @@ label input[type="checkbox"] {
     display: none;
     border-radius: 8px;
 }
-
 .select-btn ul li:first-child {
     display: block;
 }
-
 .select-btn ul li {
     cursor: pointer;
 }
-
 .select-btn>span {
     position: absolute;
     color: var(--theme-color);
@@ -307,35 +292,29 @@ label input[type="checkbox"] {
 
 
 /* searchbar */
-
 .search-form {
     display: flex;
     align-items: center;
     justify-content: right;
 }
-
 .search-input {
     border: none;
     background-color: transparent;
     height: 47px;
     border-bottom: 1px solid var(--theme-light-color);
 }
-
 .search-icon {
     height: min-content;
 }
-
 .search-icon>i {
     color: var(--font-color);
 }
-
 .search-input:focus {
     outline: none;
 }
 
 
 /* ////////////  Product  //////////// */
-
 .container {
     background-color: var(--bg-light-color);
     padding: 20px;

@@ -19,9 +19,7 @@
             </div>
             <c:if test="${sessionScope.userAccount!=null}">
                 <c:if test="${sessionScope.userAccount.role == 1}">
-
-                        <i onclick="deleteProduct('${product.productID}')" class="fa fa-trash delete-btn" aria-hidden="true"></i>
-
+                    <i onclick="deleteProduct('${product.productID}')" class="fa fa-trash delete-btn" aria-hidden="true"></i>
                 </c:if>
             </c:if> 
         </div>

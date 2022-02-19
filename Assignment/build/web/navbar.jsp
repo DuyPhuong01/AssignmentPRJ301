@@ -16,8 +16,11 @@
         <ul>
             <li><a href="product">All</a></li>
             <c:forEach var="category" items="${requestScope.categoryList}">
-            <li><a href="product?categoryID=${category.categoryID}">${category.categoryName}</a></li>
-        </c:forEach>
+                <li><a href="product?categoryID=${category.categoryID}">${category.categoryName}</a></li>
+            </c:forEach>
+            <c:if test="${sessionScope.userAccount.role == 1}">
+                <li><a href="addcategory"><i class="fa fa-plus" aria-hidden="true"></a></li></i>
+            </c:if>
         </ul>
     </nav>
     <div class="option-container">
@@ -32,7 +35,7 @@
         <c:if test="${sessionScope.userAccount!=null}">
             <div class="account-navigation">
                 <i class="fa fa-user" aria-hidden="true"></i>
-                <ul>
+                <ul class="dropdown-menu">
                     <li><a href="account?action=details">My Account</a></li>
                     <li><a href="account?action=signout">Sign Out</a></li>
                 </ul>
