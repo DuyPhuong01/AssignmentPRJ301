@@ -36,7 +36,7 @@
                 </div>
                 <div class="search-container">
                     <form class="search-form">
-                        <input type="text" class="search-input" placeholder="Search">
+                        <input type="text" class="search-input" placeholder="Search" id="search" autocomplete="off">
                         <div class="search-icon"><i class="fa fa-search" aria-hidden="true"></i></div>
                     </form>
                 </div>
@@ -46,5 +46,6 @@
     </div>
     <script src="js/jquery.min.js"></script>
     <script src="js/gallery.js"></script>
+    <script src="js/live-search.js"></script>
 </body>
 </html>

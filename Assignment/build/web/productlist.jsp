@@ -6,7 +6,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<div class="product-list row">
+<div id="product-list-1" class="product-list row">
     <c:forEach var="product" items="${requestScope.productList}">
         <div class="product col-3">
             <a href="product?action=details&productID=${product.productID}"><img src="images/${product.image}" alt=""></a>
