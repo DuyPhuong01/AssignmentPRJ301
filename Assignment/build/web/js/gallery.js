@@ -4,13 +4,21 @@ $('.select-btn ul li.option').click(function() {
     console.log($(a).is(":visible"));
 });
 
+let theme = sessionStorage.theme;
+if(theme==='dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('theme-checkbox').setAttribute('checked', 'true');
+} else {
+    document.documentElement.setAttribute('data-theme', 'light');
+}
+
 let checkbox = document.querySelector('input[name=theme]');
 checkbox.addEventListener('change', function() {
     if (this.checked) {
         document.documentElement.setAttribute('data-theme', 'dark');
-        sessionStorage.theme = "dark";
+        sessionStorage.setItem('theme', 'dark');
     } else {
         document.documentElement.setAttribute('data-theme', 'light');
-        sessionStorage.theme = "light";
+        sessionStorage.setItem('theme', 'light');
     }
 });

@@ -23,7 +23,7 @@
     <div class="option-container">
         <span>
             <label>
-                <input type="checkbox" name="theme">
+                <input id="theme-checkbox" type="checkbox" name="theme">
                 <span class="btn"></span>
                 <i class="fa fa-moon-o" aria-hidden="true"></i>
             </label>

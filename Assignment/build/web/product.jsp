@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
-<html data-theme="light">
+<html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Product</title>
@@ -17,7 +17,7 @@
     <body>
         <jsp:include page="navbar.jsp"></jsp:include>
         <c:set var="product" value="${requestScope.product}"></c:set>
-        <div class="row" style="justify-content: center">
+        <div class="content row" style="justify-content: center">
             <div class="container col-9 row product">
                 <div class="col-6">
                     <img src="images/${product.image}">

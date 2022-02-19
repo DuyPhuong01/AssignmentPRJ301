@@ -95,7 +95,10 @@ body {
 
 
 /* logo */
-
+.logo img[data-theme='dark'] {
+    -webkit-filter: invert(1);
+    filter: invert(1);
+}
 .logo>a {
     height: 35px;
     display: flex;
