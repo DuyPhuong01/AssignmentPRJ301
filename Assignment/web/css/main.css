@@ -357,4 +357,5 @@ label input[type="checkbox"] {
     height: 20px;
     top: -10px;
     right: -10px;
+    cursor: pointer;
 }

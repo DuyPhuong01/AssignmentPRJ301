@@ -62,7 +62,7 @@ public class DeleteProductServlet extends HttpServlet {
     }
     
     public String getFolderUploadPath() {
-      String path = getServletContext().getRealPath("/") + "images";
+      String path = getServletContext().getRealPath("/").replace("\\build", "") + "images";
       File folderUpload = new File(path);
       if (!folderUpload.exists()) {
         folderUpload.mkdirs();

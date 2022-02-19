@@ -12,7 +12,7 @@
             <a href="product?action=details&productID=${product.productID}"><img src="images/${product.image}" alt=""></a>
             <p class="product-name">${product.productName}</p>
             <div>
-                <p><b class="price">${product.price}</b></p>
+                <p><b class="price">$${product.price}</b></p>
             </div>
             <div class="add-btn">
                 <a class="link-button" href="">Add to Cart</a>
@@ -20,11 +20,10 @@
             <c:if test="${sessionScope.userAccount!=null}">
                 <c:if test="${sessionScope.userAccount.role == 1}">
                     <div class="delete-btn">
-                        <a href="deleteproduct?id=${product.productID}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                        <i onclick="deleteProduct('${product.productID}')" class="fa fa-trash delete-btn" aria-hidden="true"></i>
                     </div>
                 </c:if>
             </c:if> 
-            
         </div>
     </c:forEach>
 </div>
