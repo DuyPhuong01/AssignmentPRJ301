@@ -138,7 +138,7 @@ public class DAO extends DBContext {
     /**
      * Product DAO
      */
-    public List<Product> getAllProduct(int productID) {
+    public List<Product> getAllProduct() {
         return getProductByCategory(0);
     }
     public Product getProductById(int productID) {

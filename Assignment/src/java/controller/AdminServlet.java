@@ -5,6 +5,7 @@ import dal.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +16,8 @@ import model.User;
  *
  * @author Duy Phuong
  */
-public class MainServlet extends HttpServlet {
+@WebServlet(name = "Admin", urlPatterns = {"/admin"})
+public class AdminServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -24,10 +26,10 @@ public class MainServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet MainServlet</title>");            
+            out.println("<title>Servlet Admin</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet MainServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Admin at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -37,27 +39,34 @@ public class MainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DAO dao = new DAO();
-        request.setAttribute("categoryList", dao.getAll());
-        request.setAttribute("brandList", dao.getAllBrand());
+        String action = request.getParameter("action");
         HttpSession session = request.getSession();
-        try {   
-            System.out.println("Account: " + (User)session.getAttribute("userAccount"));
-        } catch(NullPointerException npe) {
-            System.out.println(npe);
-            session.setAttribute("userAccount", null);
+        User u = (User)session.getAttribute("userAccount");
+        if(u!=null && u.getRole()==1) {
+            if(action == null || action.equals("product")) {
+                DAO dao = new DAO();
+                request.setAttribute("productList", dao.getAllProduct());
+                request.setAttribute("page", "product-manager");
+            }
+            else if(action.equals("category")){
+                DAO dao = new DAO();
+                request.setAttribute("categoryList", dao.getAll());
+                request.setAttribute("page", "category-manager");
+            }
+            request.getRequestDispatcher("admin.jsp").forward(request, response);
+        } else {    
+            PrintWriter out = response.getWriter();
+            out.println("access denied");
         }
-        request.getRequestDispatcher("home.jsp").forward(request, response);
     }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
     @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

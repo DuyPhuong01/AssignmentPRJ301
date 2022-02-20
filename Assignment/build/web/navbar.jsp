@@ -19,7 +19,7 @@
                 <li><a href="product?categoryID=${category.categoryID}">${category.categoryName}</a></li>
             </c:forEach>
             <c:if test="${sessionScope.userAccount.role == 1}">
-                <li><a href="addcategory"><i class="fa fa-plus" aria-hidden="true"></a></li></i>
+                <li><a href="addcategory"><i class="fa fa-plus" aria-hidden="true"></i></a></li>
             </c:if>
         </ul>
     </nav>
@@ -36,6 +36,10 @@
             <div class="account-navigation">
                 <i class="fa fa-user" aria-hidden="true"></i>
                 <ul class="dropdown-menu">
+                    <c:if test="${sessionScope.userAccount.role == 1}">
+                        <li><a href="admin">Admin</a></li>
+                        <hr style="margin: 5px 0;">
+                    </c:if>
                     <li><a href="account?action=details">My Account</a></li>
                     <li><a href="account?action=signout">Sign Out</a></li>
                 </ul>
