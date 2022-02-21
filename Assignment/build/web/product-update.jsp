@@ -12,12 +12,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Add Product</title>
+        <title>Update Product</title>
         <link rel="stylesheet" href="css/main.css">
+        <script src="js/jquery.min.js"></script>
+        <script src="js/gallery.js"></script>
     </head>
     <body>
         <c:set var="product" value="${requestScope.product}"></c:set>
-        <div class="row" style="justify-content: center">
+        <div class="center row" style="justify-content: center">
             <div class="container col-6">
                 <form action="update" method="post" enctype="multipart/form-data">
                     <h3 style="text-transform: uppercase">Update Product</h3>
@@ -39,7 +41,7 @@
                     Name: <input type="text" name="name" value="${product.productName}"><br/>
                     Price: <input type="number" name="price" value="${product.price}"><br/>
                     Quantity: <input type="number" name="quantity" value="${product.quantity}"><br/>
-                    Picture: <img src="images/${product.image}" alt="">
+                    Picture: <img style="width: 100px" src="images/${product.image}" alt=""><br/>
                     Activate Status: 
                         <input type="radio" name="activate" value="1" checked>In Stock<br/>
                         <input type="radio" name="activate" value="0">Out Of Stock<br/>

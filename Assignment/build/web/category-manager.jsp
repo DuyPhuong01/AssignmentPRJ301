@@ -7,6 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <h1>Category manager</h1>
+<a href="addcategory">Add Category
 <table>
     <tr>
         <td>ID</td>

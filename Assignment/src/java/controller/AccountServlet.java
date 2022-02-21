@@ -1,6 +1,7 @@
 
 package controller;
 
+import dal.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -41,6 +42,9 @@ public class AccountServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("userAccount", null);
             response.sendRedirect("main");
+        } else if((action.equals("details"))){
+            request.setAttribute("page", "account-details");
+            request.getRequestDispatcher("account.jsp").forward(request, response);
         }
     }
 

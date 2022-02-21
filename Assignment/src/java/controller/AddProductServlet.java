@@ -49,7 +49,7 @@ public class AddProductServlet extends HttpServlet {
         DAO dao = new DAO();
         request.setAttribute("categoryList", dao.getAllCategory());
         request.setAttribute("brandList", dao.getAllBrand());
-        request.getRequestDispatcher("addproduct.jsp").forward(request, response);
+        request.getRequestDispatcher("product-add.jsp").forward(request, response);
     }
 
     @Override

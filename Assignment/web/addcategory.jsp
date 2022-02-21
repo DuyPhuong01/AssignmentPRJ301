@@ -11,10 +11,12 @@
         <title>Add Category</title>
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <link rel="stylesheet" href="css/main.css">
+        <script src="js/jquery.min.js"></script>
+        <script src="js/gallery.js"></script>
     </head>
     <body>
-        <div class="content row" style="justify-content: center">
-            <form class="col-6" action="addcategory" method="post">
+        <div class="center row" style="justify-content: center">
+            <form class="container col-6" action="addcategory" method="post">
                 <table>
                     <tr>
                         <td>

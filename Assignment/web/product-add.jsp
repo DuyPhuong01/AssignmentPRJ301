@@ -14,9 +14,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Add Product</title>
         <link rel="stylesheet" href="css/main.css">
+        <script src="js/jquery.min.js"></script>
+        <script src="js/gallery.js"></script>
     </head>
     <body>
-        <div class="row" style="justify-content: center">
+        <div class="center row" style="justify-content: center">
             <div class="container col-6">
                 <form action="addproduct" method="post" enctype="multipart/form-data">
                     <h3 style="text-transform: uppercase">Add Product</h3>    

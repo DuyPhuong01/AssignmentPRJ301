@@ -37,7 +37,7 @@ public class SignInServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("login/signin.jsp").forward(request, response);
+        request.getRequestDispatcher("signin.jsp").forward(request, response);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class SignInServlet extends HttpServlet {
             response.sendRedirect("main");
         } else {
             request.setAttribute("error", "Invalid username or password");
-            request.getRequestDispatcher("login/signin.jsp").forward(request, response);
+            request.getRequestDispatcher("signin.jsp").forward(request, response);
         }
     }
 
