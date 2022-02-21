@@ -45,7 +45,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <input type="submit" value="Add Category">
+                            <input type="submit" value="Create Category">
                         </td>
                     </tr>
                 </table>

@@ -6,7 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+
 <c:set var="user" value="${sessionScope.userAccount}"></c:set>
 Username: ${user.username}<br/>
 Password: ${user.password}<br/>

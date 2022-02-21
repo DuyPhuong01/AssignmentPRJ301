@@ -24,6 +24,7 @@
                     Enter Password:<br/>
                     <input type="password" name="password" required><br/>
                     <div class="row">
+                        <a href="main">Home</a>
                         <a href="signup">Create an Account</a>
                         <input class="link-btn" type="submit" name="password">
                     </div>

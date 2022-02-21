@@ -8,7 +8,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -23,24 +22,8 @@ import model.Product;
  * @author Duy Phuong
  */
 @MultipartConfig
-@WebServlet(name = "AddProductServlet", urlPatterns = {"/addproduct"})
-public class AddProductServlet extends HttpServlet {
-
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AddProductServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AddProductServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
+@WebServlet(name = "AddProductServlet", urlPatterns = {"/createproduct"})
+public class Product_Create_Servlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     @Override
@@ -49,7 +32,7 @@ public class AddProductServlet extends HttpServlet {
         DAO dao = new DAO();
         request.setAttribute("categoryList", dao.getAllCategory());
         request.setAttribute("brandList", dao.getAllBrand());
-        request.getRequestDispatcher("product-add.jsp").forward(request, response);
+        request.getRequestDispatcher("product-create.jsp").forward(request, response);
     }
 
     @Override

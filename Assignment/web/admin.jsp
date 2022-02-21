@@ -27,6 +27,13 @@
                     <a href="admin?action=category">Categories</a><br/>
                     <a href="admin?action=brand">Brands</a><br/>
                     <a href="admin?action=user">Users</a><br/>
+                    <span>
+                        <label>
+                            <input id="theme-checkbox" type="checkbox" name="theme">
+                            <span class="btn"></span>
+                            <i class="fa fa-moon-o" aria-hidden="true"></i>
+                        </label>
+                    </span>
                 </div>
                 <div class="col-10">
                     <jsp:include page="${requestScope.page}.jsp"></jsp:include>
@@ -36,4 +43,12 @@
         </div>
     </body>
     <script src="js/live-search.js"></script>
+    <script>
+        function deleteProduct(id){
+            if(confirm("Are you sure to delete Product with id = "+id+"?")){
+                window.location="deleteproduct?id="+id;
+            }
+        }
+    </script>
+    
 </html>

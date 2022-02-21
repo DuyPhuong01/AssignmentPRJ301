@@ -9,7 +9,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <link rel="stylesheet" href="css/main.css">
+        <script src="js/jquery.min.js"></script>
+        <script src="js/gallery.js"></script>
     </head>
     <body>
         <div class="row center">
@@ -26,12 +29,12 @@
                             <input type="text" name="lastname" required><br/>
                         </div>
                     </div>
-                    Enter Username:<br/>
+                    Username:<br/>
                     <input type="text" name="username" required><br/>
-                    Enter Password:<br/>
-                    <input type="password" name="password" required><br/>
+                    Password: <input type="password" name="password" required><br/>
+                    Confirm Password: <input type="password" name="confirm-password" required><br/>
                     <div class="row">
-                        <a href="account?action=signup">Create an Account</a>
+                        <a href="main">Home</a>
                         <input class="link-btn" type="submit" name="password">
                     </div>
                     

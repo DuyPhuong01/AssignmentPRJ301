@@ -57,6 +57,15 @@ public class UpdateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String target = request.getParameter("target");
+        DAO dao = new DAO();
+        if (target.equals("product")) {
+            String categoryID_raw = request.getParameter("categoryID");
+            String brandID_raw = request.getParameter("brandID");
+            String name = request.getParameter("name");
+            String price_raw = request.getParameter("price");
+            String quantity_raw = request.getParameter("quantity");
+            String activate_raw = request.getParameter("activate");
+        }
     }
 
     @Override

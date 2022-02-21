@@ -18,13 +18,13 @@
     <body>
         
         <div class="row center">
-            <div class="container col-10">
+            <div class="container col-8">
             <a href="main">Home</a>
         <div class="row">
                 <div class="admin-menu col-2">
                     <h1>My Account</h1>
                     <a href="account?action=details">Information</a><br/>
-                    <a href="admin?action=setting">Setting</a><br/>
+                    <a href="account?action=setting">Setting</a><br/>
                 </div>
                 <div class="col-10">
                     <jsp:include page="${requestScope.page}.jsp"></jsp:include>

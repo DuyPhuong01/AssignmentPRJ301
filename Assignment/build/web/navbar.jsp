@@ -18,9 +18,6 @@
             <c:forEach var="category" items="${requestScope.categoryList}">
                 <li><a href="product?categoryID=${category.categoryID}">${category.categoryName}</a></li>
             </c:forEach>
-            <c:if test="${sessionScope.userAccount.role == 1}">
-                <li><a href="addcategory"><i class="fa fa-plus" aria-hidden="true"></i></a></li>
-            </c:if>
         </ul>
     </nav>
     <div class="option-container">
@@ -31,7 +28,10 @@
                 <i class="fa fa-moon-o" aria-hidden="true"></i>
             </label>
         </span>
-        <c:if test="${sessionScope.userAccount==null}"><a class="link-btn" href="signin">Sign in</a></c:if>
+        <c:if test="${sessionScope.userAccount==null}">
+            <a class="link-btn" href="signin">Sign In</a>
+            <a class="link-btn" href="signup">Sign Up</a>
+        </c:if>
         <c:if test="${sessionScope.userAccount!=null}">
             <div class="account-navigation">
                 <i class="fa fa-user" aria-hidden="true"></i>
@@ -44,9 +44,9 @@
                     <li><a href="account?action=signout">Sign Out</a></li>
                 </ul>
             </div>
+            <a class="link-btn notification" href="">My Cart
+                <span class="badge">5</span>
+            </a>
         </c:if> 
-        <a class="link-btn notification" href="">My Cart
-            <span class="badge">5</span>
-        </a>
     </div>
 </div>

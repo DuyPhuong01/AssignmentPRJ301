@@ -45,6 +45,9 @@ public class AccountServlet extends HttpServlet {
         } else if((action.equals("details"))){
             request.setAttribute("page", "account-details");
             request.getRequestDispatcher("account.jsp").forward(request, response);
+        } else if((action.equals("setting"))){
+            request.setAttribute("page", "account-setting");
+            request.getRequestDispatcher("account.jsp").forward(request, response);
         }
     }
 

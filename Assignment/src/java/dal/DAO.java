@@ -258,10 +258,10 @@ public class DAO extends DBContext {
         }
     }
     
-    public void updateProduct(int productID, Product p) {
+    public void updateProduct(Product p, int categoryID) {
         String sql1 = "update Products set ProductName=?, BrandID=?, Price=?, "
                 + "Quantity=?, ProductImage=?, Status=? where productID=?";
-        
+        String sql2 = "update CatePro set CategoryID=? where ProductID=?";
         try {
             PreparedStatement st1 = connection.prepareStatement(sql1);
             st1.setString(1, p.getProductName());
@@ -270,8 +270,13 @@ public class DAO extends DBContext {
             st1.setInt(4, p.getQuantity());
             st1.setString(5, p.getImage());
             st1.setInt(6, p.getStatus());
-            st1.setInt(7, productID);
+            st1.setInt(7, p.getProductID());
             st1.executeUpdate();
+            
+            PreparedStatement st2 = connection.prepareStatement(sql2);
+            st2.setInt(1, categoryID);
+            st2.setInt(2, p.getProductID());
+            st2.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
         }

@@ -21,7 +21,7 @@
         <c:set var="product" value="${requestScope.product}"></c:set>
         <div class="center row" style="justify-content: center">
             <div class="container col-6">
-                <form action="update" method="post" enctype="multipart/form-data">
+                <form action="updateproduct" method="post" enctype="multipart/form-data">
                     <h3 style="text-transform: uppercase">Update Product</h3>
                     <input type="text" name="target" value="product" hidden>
                     Category: 
@@ -34,18 +34,19 @@
                     <select name="brandID">
                         <c:if test="${requestScope.brandList == '[]'}"><option name="brand">Empty</option></c:if>
                         <c:forEach items="${requestScope.brandList}" var="b">
-                            <option value="${b.brandID}">${b.brandName}</option>
+                            <option <c:if test="${b.brandID == product.brandID}">selected</c:if> value="${b.brandID}">${b.brandName}</option>
                         </c:forEach>
                     </select>
                     <br/>
-                    Name: <input type="text" name="name" value="${product.productName}"><br/>
+                    <input type="text" name="productID" value="${product.productID}"><br/>
+                        Name: <input type="text" name="name" value="${product.productName}"><br/>
                     Price: <input type="number" name="price" value="${product.price}"><br/>
                     Quantity: <input type="number" name="quantity" value="${product.quantity}"><br/>
                     Picture: <img style="width: 100px" src="images/${product.image}" alt=""><br/>
                     Activate Status: 
                         <input type="radio" name="activate" value="1" checked>In Stock<br/>
                         <input type="radio" name="activate" value="0">Out Of Stock<br/>
-                    <input type="submit" value="Add Product">
+                    <input type="submit" value="Update Product">
                 </form>
             </div>
         </div>

@@ -20,7 +20,7 @@
     <body>
         <div class="center row" style="justify-content: center">
             <div class="container col-6">
-                <form action="addproduct" method="post" enctype="multipart/form-data">
+                <form action="createproduct" method="post" enctype="multipart/form-data">
                     <h3 style="text-transform: uppercase">Add Product</h3>    
                     Category: 
                     <select name="categoryID">

@@ -26,14 +26,18 @@ public class Product {
         this.image = image;
         this.status = status;
     }
-    
-    public Product(int productID, String productName, int brandID, double price, int status) {
+
+    public Product(int productID, String productName, int brandID, double price, int quantity, String image, int status) {
         this.productID = productID;
         this.productName = productName;
         this.brandID = brandID;
         this.price = price;
+        this.quantity = quantity;
+        this.image = image;
         this.status = status;
-    } 
+    }
+    
+    
 
     public int getProductID() {
         return productID;
