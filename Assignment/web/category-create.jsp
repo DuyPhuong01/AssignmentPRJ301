@@ -16,7 +16,7 @@
     </head>
     <body>
         <div class="center row" style="justify-content: center">
-            <form class="container col-6" action="addcategory" method="post">
+            <form class="container col-6" action="createcategory" method="post">
                 <table>
                     <tr>
                         <td>

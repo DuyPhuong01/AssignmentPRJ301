@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Duy Phuong
  */
 @WebServlet(name = "DeleteProductServlet", urlPatterns = {"/deleteproduct"})
-public class DeleteProductServlet extends HttpServlet {
+public class Product_Delete_Servlet extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

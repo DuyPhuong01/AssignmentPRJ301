@@ -15,16 +15,17 @@
         <script src="js/gallery.js"></script>
     </head>
     <body>
-        <c:set var="category" value="${requestScope.category}">
+        <c:set var="category" value="${requestScope.category}"></c:set>
         <div class="center row" style="justify-content: center">
-            <form class="container col-6" action="addcategory" method="post">
+            <form class="container col-6" action="updatecategory" method="post">
+                <input type="text" name="categoryID" value="${category.categoryID}" hidden><br/>
                 <table>
                     <tr>
                         <td>
                             Name:
                         </td>
                         <td>
-                            <input type="text" name="name"><br/>
+                            <input type="text" name="name" value="${category.categoryName}"><br/>
                         </td>
                     </tr>
                     <tr>
@@ -32,7 +33,7 @@
                             Describe:
                         </td>
                         <td>
-                            <input type="text" name="describe"><br/>
+                            <input type="text" name="describe" value="${category.description}"><br/>
                         </td>
                     </tr>
                     <tr>
@@ -40,8 +41,8 @@
                             Activate:
                         </td>
                         <td>
-                            <input type="radio" name="activate" value="1">Yes
-                            <input type="radio" name="activate" value="0">No
+                            <input type="radio" name="activate" value="1" <c:if test="${category.status ==1}">checked</c:if>>Yes
+                            <input type="radio" name="activate" value="0" <c:if test="${category.status ==0}">checked</c:if>>No
                         </td>
                     </tr>
                     <tr>

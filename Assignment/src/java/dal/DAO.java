@@ -21,6 +21,24 @@ public class DAO extends DBContext {
     /**
      * Category DAO
      */
+    public Category getCategoryById(int categoryID) {
+        String sql = "select * from Categories where CategoryID=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, categoryID);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()){
+                Category c = new Category(rs.getInt("CategoryID"), 
+                    rs.getString("CategoryName"), rs.getString("Description"),
+                    (rs.getInt("Status")));
+                return c;
+            }
+        } catch(SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
     public List<Category> getAllCategory() {
         List<Category> list = new ArrayList<>();
         String sql = "select * from Categories";
@@ -46,6 +64,20 @@ public class DAO extends DBContext {
             st.setString(1, c.getCategoryName());
             st.setString(2, c.getDescription());
             st.setInt(3, c.getStatus());
+            st.executeUpdate();
+        } catch(SQLException e) {
+            System.out.println(e);
+        }
+    }
+    
+    public void updateCategory(Category c) {
+        String sql = "update Categories set CategoryName=?, Description=?, Status=? where CategoryID=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, c.getCategoryName());
+            st.setString(2, c.getDescription());
+            st.setInt(3, c.getStatus());
+            st.setInt(4, c.getCategoryID());
             st.executeUpdate();
         } catch(SQLException e) {
             System.out.println(e);
