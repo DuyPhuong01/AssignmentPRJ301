@@ -279,6 +279,29 @@ public class DAO extends DBContext {
     /**
      * User DAO
      */
+    public List<User> getAllUser() {
+        List<User> list = new ArrayList<>();
+        String sql = "select * from Users";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                User u = new User();
+                u.setUsername(rs.getString("Username"));
+                u.setPassword(rs.getString("Password"));
+                u.setRole(rs.getInt("Role"));
+                u.setFullname(rs.getString("FullName"));
+                u.setCity(rs.getString("City"));
+                u.setCountry(rs.getString("Country"));
+                u.setAddress(rs.getString("Address"));
+                u.setPhone(rs.getString("Phone"));
+                list.add(u);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
      public User signInCheck(String username, String password) {
         String sql = "select * from Users where Username = ? and Password = ?";
         try {

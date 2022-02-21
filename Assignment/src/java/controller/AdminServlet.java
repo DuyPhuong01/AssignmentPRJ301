@@ -43,15 +43,31 @@ public class AdminServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User u = (User)session.getAttribute("userAccount");
         if(u!=null && u.getRole()==1) {
-            if(action == null || action.equals("product")) {
-                DAO dao = new DAO();
+            DAO dao = new DAO();
+            if(action == null) {
                 request.setAttribute("productList", dao.getAllProduct());
                 request.setAttribute("page", "product-manager");
+                request.getRequestDispatcher("admin/admin.jsp").forward(request, response);
             }
-            else if(action.equals("category")){
-                DAO dao = new DAO();
-                request.setAttribute("categoryList", dao.getAllCategory());
-                request.setAttribute("page", "category-manager");
+            else switch (action) {
+                case "product":
+                        request.setAttribute("productList", dao.getAllProduct());
+                        request.setAttribute("page", "product-manager");
+                        break;
+                case "category":
+                        request.setAttribute("categoryList", dao.getAllCategory());
+                        request.setAttribute("page", "category-manager");
+                        break;
+                case "brand":
+                        request.setAttribute("brandList", dao.getAllBrand());
+                        request.setAttribute("page", "brand-manager");
+                        break;
+                case "user":
+                        request.setAttribute("userList", dao.getAllUser());
+                        request.setAttribute("page", "user-manager");
+                        break;
+                default:
+                    break;
             }
             request.getRequestDispatcher("admin/admin.jsp").forward(request, response);
         } else {    

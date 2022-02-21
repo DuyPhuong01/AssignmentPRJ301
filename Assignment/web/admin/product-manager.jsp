@@ -1,7 +1,5 @@
 <%-- 
     Document   : product-manager
-    Created on : Feb 20, 2022, 4:11:47 AM
-    Author     : Duy Phuong
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -27,7 +25,7 @@
             <td>${product.status}</td>
             <td>
                 <i onclick="deleteProduct('${product.productID}')" class="fa fa-trash" aria-hidden="true"></i>&nbsp;
-                <a href="update"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                <a href="update?target=product&id=${product.productID}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
             </td>
         </tr>
     </c:forEach>
