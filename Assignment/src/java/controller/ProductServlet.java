@@ -41,7 +41,7 @@ public class ProductServlet extends HttpServlet {
             throws ServletException, IOException {
         DAO dao = new DAO();
         HttpSession session = request.getSession();
-        request.setAttribute("categoryList", dao.getAll());
+        request.setAttribute("categoryList", dao.getAllCategory());
         request.setAttribute("brandList", dao.getAllBrand());
         String action = request.getParameter("action");
         try {   

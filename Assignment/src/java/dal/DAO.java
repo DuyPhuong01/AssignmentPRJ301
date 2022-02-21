@@ -21,7 +21,7 @@ public class DAO extends DBContext {
     /**
      * Category DAO
      */
-    public List<Category> getAll() {
+    public List<Category> getAllCategory() {
         List<Category> list = new ArrayList<>();
         String sql = "select * from Categories";
         try {
@@ -257,6 +257,24 @@ public class DAO extends DBContext {
         }
     }
     
+    public void updateProduct(int productID, Product p) {
+        String sql1 = "update Products set ProductName=?, BrandID=?, Price=?, "
+                + "Quantity=?, ProductImage=?, Status=? where productID=?";
+        
+        try {
+            PreparedStatement st1 = connection.prepareStatement(sql1);
+            st1.setString(1, p.getProductName());
+            st1.setInt(2, p.getBrandID());
+            st1.setDouble(3, p.getPrice());
+            st1.setInt(4, p.getQuantity());
+            st1.setString(5, p.getImage());
+            st1.setInt(6, p.getStatus());
+            st1.setInt(7, productID);
+            st1.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
     
     /**
      * User DAO

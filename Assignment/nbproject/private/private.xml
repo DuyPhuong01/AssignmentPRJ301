@@ -4,14 +4,12 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Duy%20Phuong/Desktop/Spring%202022/PRJ301/Git/Assignment/src/java/controller/MainServlet.java</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Spring%202022/PRJ301/Git/Assignment/src/java/controller/AccountServlet.java</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Spring%202022/PRJ301/Git/Assignment/src/java/controller/ProductServlet.java</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Spring%202022/PRJ301/Git/Assignment/web/admin.jsp</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Spring%202022/PRJ301/Git/Assignment/web/category-manager.jsp</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Spring%202022/PRJ301/Git/Assignment/web/product-manager.jsp</file>
             <file>file:/C:/Users/Duy%20Phuong/Desktop/Spring%202022/PRJ301/Git/Assignment/web/navbar.jsp</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Spring%202022/PRJ301/Git/Assignment/web/index.jsp</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Spring%202022/PRJ301/Git/Assignment/web/home.jsp</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Spring%202022/PRJ301/Git/Assignment/web/product.jsp</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Spring%202022/PRJ301/Git/Assignment/web/js/gallery.js</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Spring%202022/PRJ301/Git/Assignment/web/css/main.css</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Spring%202022/PRJ301/Git/Assignment/web/productlist.jsp</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Spring%202022/PRJ301/Git/Assignment/src/java/controller/AdminServlet.java</file>
         </group>
     </open-files>
 </project-private>

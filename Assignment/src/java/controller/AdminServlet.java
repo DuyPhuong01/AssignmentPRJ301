@@ -50,10 +50,10 @@ public class AdminServlet extends HttpServlet {
             }
             else if(action.equals("category")){
                 DAO dao = new DAO();
-                request.setAttribute("categoryList", dao.getAll());
+                request.setAttribute("categoryList", dao.getAllCategory());
                 request.setAttribute("page", "category-manager");
             }
-            request.getRequestDispatcher("admin.jsp").forward(request, response);
+            request.getRequestDispatcher("admin/admin.jsp").forward(request, response);
         } else {    
             PrintWriter out = response.getWriter();
             out.println("access denied");

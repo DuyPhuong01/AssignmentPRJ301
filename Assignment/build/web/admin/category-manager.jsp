@@ -6,7 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<h1>product manager</h1>
+<h1>Category manager</h1>
 <table>
     <tr>
         <td>ID</td>

@@ -47,7 +47,7 @@ public class AddProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         DAO dao = new DAO();
-        request.setAttribute("categoryList", dao.getAll());
+        request.setAttribute("categoryList", dao.getAllCategory());
         request.setAttribute("brandList", dao.getAllBrand());
         request.getRequestDispatcher("addproduct.jsp").forward(request, response);
     }

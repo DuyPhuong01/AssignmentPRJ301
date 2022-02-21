@@ -38,7 +38,7 @@ public class MainServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         DAO dao = new DAO();
-        request.setAttribute("categoryList", dao.getAll());
+        request.setAttribute("categoryList", dao.getAllCategory());
         request.setAttribute("brandList", dao.getAllBrand());
         HttpSession session = request.getSession();
         try {   
