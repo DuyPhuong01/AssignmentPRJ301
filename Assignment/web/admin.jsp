@@ -43,12 +43,4 @@
         </div>
     </body>
     <script src="js/live-search.js"></script>
-    <script>
-        function deleteProduct(id){
-            if(confirm("Are you sure to delete Product with id = "+id+"?")){
-                window.location="deleteproduct?id="+id;
-            }
-        }
-    </script>
-    
 </html>

@@ -16,8 +16,8 @@
         <div class="row center">
             <div class="col-3 container">
                 <h1 class="text-center">Sign In!</h1>
-                <c:set var="error" value="${requestScope.error}"></c:set>
-                <h3 style="color: red">${error}</h3>
+                <h3 style="color: red">${requestScope.error}</h3>
+                <h3 style="color: green">${requestScope.alert}</h3>
                 <form class="container" action="signin" method="post">
                     Enter Username:<br/>
                     <input type="text" name="username" required><br/>

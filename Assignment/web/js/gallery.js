@@ -22,4 +22,3 @@ checkbox.addEventListener('change', function() {
         sessionStorage.setItem('theme', 'light');
     }
 });
-

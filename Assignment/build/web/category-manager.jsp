@@ -23,9 +23,15 @@
             <td>${category.description}</td>
             <td><i style="color: ${category.status==0 ? "red" : "green"}" class="fa fa-circle" aria-hidden="true"></i></td>
             <td>
-                <i onclick="deleteProduct('${product.productID}')" class="fa fa-trash" aria-hidden="true"></i>&nbsp;
+                <i onclick="deleteCategory('${category.categoryID}')" class="fa fa-trash" aria-hidden="true"></i>&nbsp;
                 <a href="updatecategory?id=${category.categoryID}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
             </td>
         </tr>
     </c:forEach>
 </table>
+
+<script>
+    function deleteCategory(id){
+        if(confirm('Are you sure to delete category with id = ' + id + "?")) window.location = "deletecategory?id="+id;
+    }
+</script>

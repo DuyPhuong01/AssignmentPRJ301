@@ -31,3 +31,9 @@
         </tr>
     </c:forEach>
 </table>
+
+<script>
+    function deleteProduct(id){
+        if(confirm("Are you sure to delete Product with id = "+id+"?")) window.location="deleteproduct?id="+id;
+    }
+</script>

@@ -7,6 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <h1>user manager</h1>
+<a href="signup"> Add an account</a>
 <table>
     <tr>
         <td>Username</td>
@@ -30,9 +31,15 @@
             <td>${user.address}</td>
             <td>${user.phone}</td>
             <td>
-                <i onclick="deleteProduct('${user.username}')" class="fa fa-trash" aria-hidden="true"></i>&nbsp;
+                <i onclick="deleteAccount('${user.username}')" class="fa fa-trash" aria-hidden="true"></i>&nbsp;
                 <a href="update?target=user&id=${user.username}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
             </td>
         </tr>
     </c:forEach>
 </table>
+
+<script>
+    function deleteAccount(username){
+        if(confirm('Are you sure to delete Account with username = ' + username + "?")) window.location = "deleteaccount?username="+username;
+    }
+</script>

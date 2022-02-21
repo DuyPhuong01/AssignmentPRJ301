@@ -83,6 +83,21 @@ public class DAO extends DBContext {
             System.out.println(e);
         }
     }
+    public void deleteCategory(int categoryID) {
+        String sql1 = "delete from CatePro where categoryID=?";
+        String sql2 = "delete from Categories where categoryID=?";
+        try {
+            PreparedStatement st1 = connection.prepareStatement(sql1);
+            st1.setInt(1, categoryID);
+            st1.executeUpdate();
+            
+            PreparedStatement st2 = connection.prepareStatement(sql2);
+            st2.setInt(1, categoryID);
+            st2.executeUpdate();
+        } catch(SQLException e) {
+            System.out.println(e);
+        }
+    }
     
     
     /**
@@ -340,7 +355,7 @@ public class DAO extends DBContext {
         }
         return list;
     }
-     public User signInCheck(String username, String password) {
+    public User signInCheck(String username, String password) {
         String sql = "select * from Users where Username = ? and Password = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -363,5 +378,50 @@ public class DAO extends DBContext {
             System.out.println(e);
         }
         return null;
+    }
+    public boolean checkUsername(String username) {
+        String sql = "select * from Users where Username = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+    public boolean createUser (User u) {
+        String sql = "insert into Users values(?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, u.getUsername());
+            st.setString(2, u.getPassword());
+            st.setInt(3, u.getRole());
+            st.setString(4, u.getFullname());
+            st.setString(5, u.getCity());
+            st.setString(6, u.getCountry());
+            st.setString(7, u.getAddress());
+            st.setString(8, u.getPhone());
+            st.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+    public boolean deleteUser (String username) {
+        String sql = "delete Users where Username=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
     }
 }

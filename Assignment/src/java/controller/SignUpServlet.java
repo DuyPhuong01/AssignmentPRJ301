@@ -1,6 +1,7 @@
 
 package controller;
 
+import dal.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -8,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.User;
 
 /**
  *
@@ -43,7 +45,28 @@ public class SignUpServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String firstname = request.getParameter("firstname");
+        String lastname = request.getParameter("lastname");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String city = request.getParameter("city");
+        String country = request.getParameter("country");
+        String address = request.getParameter("address");
+        String phone = request.getParameter("phone");
+        DAO dao = new DAO();
+        if(dao.checkUsername(username)) {
+            request.setAttribute("alert", "username already exist");
+            request.getRequestDispatcher("signup.jsp").forward(request, response);
+        }
+        else {
+            User u = new User(username, password, 0, firstname + " " + lastname, 
+                    city, country, address, phone);
+            dao.createUser(u);
+            request.setAttribute("alert", "Create account successful! Please Sign In");
+            request.getRequestDispatcher("signin.jsp").forward(request, response);
+        }
+        
+        
     }
 
     @Override
