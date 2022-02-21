@@ -20,7 +20,7 @@
             <td>${category.categoryID}</td>
             <td>${category.categoryName}</td>
             <td>${category.description}</td>
-            <td>${category.activate}</td>
+            <td><i style="color: ${category.status==0 ? "red" : "green"}" class="fa fa-circle" aria-hidden="true"></i></td>
             <td>
                 <i onclick="deleteProduct('${product.productID}')" class="fa fa-trash" aria-hidden="true"></i>&nbsp;
                 <a href="update"><i class="fa fa-pencil" aria-hidden="true"></i></a>

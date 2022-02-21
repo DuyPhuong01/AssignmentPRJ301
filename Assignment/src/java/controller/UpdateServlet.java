@@ -2,7 +2,6 @@
 package controller;
 
 import dal.DAO;
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -43,13 +42,12 @@ public class UpdateServlet extends HttpServlet {
         DAO dao = new DAO();
         try {
             int id = Integer.parseInt(id_raw);
-            String fileName = dao.getProductById(id).getImage();
-            dao.deleteProduct(id);
-            File f = new File(getFolderUploadPath() + File.separator +  fileName);
-            if(f.exists()){
-                f.delete();
+            if (target.equals("product")) {
+                request.setAttribute("product", dao.getProductById(id));
+                request.setAttribute("categoryList", dao.getAllCategory());
+                request.setAttribute("brandList", dao.getAllBrand());
+                request.getRequestDispatcher("product-update.jsp").forward(request, response);
             }
-            response.sendRedirect("product");
         } catch(NumberFormatException e) {
             System.out.println(e);
         }
@@ -58,7 +56,7 @@ public class UpdateServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String target = request.getParameter("target");
     }
 
     @Override

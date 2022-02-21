@@ -30,7 +30,7 @@ public class DAO extends DBContext {
             while(rs.next()){
                 Category c = new Category(rs.getInt("CategoryID"), 
                     rs.getString("CategoryName"), rs.getString("Description"),
-                    (rs.getInt("Active")) == 1);
+                    (rs.getInt("Status")));
                 list.add(c);
             }
         } catch(SQLException e) {
@@ -40,11 +40,12 @@ public class DAO extends DBContext {
     }
     
     public void addCategory(Category c) {
-        String sql = "insert into Categories (CategoryName, Description) values (?,?)";
+        String sql = "insert into Categories (CategoryName, Description, Status) values (?, ?, ?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, c.getCategoryName());
             st.setString(2, c.getDescription());
+            st.setInt(3, c.getStatus());
             st.executeUpdate();
         } catch(SQLException e) {
             System.out.println(e);

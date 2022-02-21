@@ -49,7 +49,8 @@ public class AdminServlet extends HttpServlet {
                 request.setAttribute("page", "product-manager");
                 request.getRequestDispatcher("admin/admin.jsp").forward(request, response);
             }
-            else switch (action) {
+            else {
+                switch (action) {
                 case "product":
                         request.setAttribute("productList", dao.getAllProduct());
                         request.setAttribute("page", "product-manager");
@@ -69,7 +70,8 @@ public class AdminServlet extends HttpServlet {
                 default:
                     break;
             }
-            request.getRequestDispatcher("admin/admin.jsp").forward(request, response);
+            request.getRequestDispatcher("admin.jsp").forward(request, response);
+            }
         } else {    
             PrintWriter out = response.getWriter();
             out.println("access denied");

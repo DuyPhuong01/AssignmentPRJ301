@@ -48,7 +48,7 @@ public class AddCategoryServlet extends HttpServlet {
         String describe = request.getParameter("describe");
         String activate_raw = request.getParameter("activate");
         try {
-            boolean activate = Integer.parseInt(activate_raw)==1;
+            int activate = Integer.parseInt(activate_raw);
             DAO dao = new DAO();
             Category c = new Category(1, name, describe, activate);
             dao.addCategory(c);

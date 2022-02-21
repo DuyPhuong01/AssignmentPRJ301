@@ -8,16 +8,16 @@ package model;
 public class Category {
     private int categoryID;
     private String categoryName, description;
-    private boolean activate;
+    private int status;
 
     public Category() {
     }
 
-    public Category(int categoryID, String categoryName, String description, boolean activate) {
+    public Category(int categoryID, String categoryName, String description, int status) {
         this.categoryID = categoryID;
         this.categoryName = categoryName;
         this.description = description;
-        this.activate = activate;
+        this.status = status;
     }
 
     public int getCategoryID() {
@@ -44,12 +44,12 @@ public class Category {
         this.description = description;
     }
 
-    public boolean isActivate() {
-        return activate;
+    public int getStatus() {
+        return status;
     }
 
-    public void setActivate(boolean activate) {
-        this.activate = activate;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
    
