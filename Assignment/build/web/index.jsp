@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="css/main.css">
     <script src="js/jquery.min.js"></script>
     <script src="js/gallery.js"></script>
+    <link rel="stylesheet" href="libraries/nouislider/nouislider.css">
+    
 </head>
 
 <body>
