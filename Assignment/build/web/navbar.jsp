@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div class="navbar">
     <div class="logo">
-        <a href="main">
+        <a href="home">
             <img class="store-logo" src="images/logo.png" alt="logo">
             <p class="store-name">R'Shoes</p>
         </a>

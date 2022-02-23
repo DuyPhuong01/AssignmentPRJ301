@@ -5,6 +5,7 @@ import dal.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +16,8 @@ import model.User;
  *
  * @author Duy Phuong
  */
-public class MainServlet extends HttpServlet {
+@WebServlet(name = "Home_Servlet", urlPatterns = {"/home"})
+public class Home_Servlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

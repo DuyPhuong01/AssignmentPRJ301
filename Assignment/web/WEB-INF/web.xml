@@ -5,10 +5,6 @@
         <servlet-class>controller.MenServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>MainServlet</servlet-name>
-        <servlet-class>controller.MainServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AccountServlet</servlet-name>
         <servlet-class>controller.AccountServlet</servlet-class>
     </servlet>
@@ -19,10 +15,6 @@
     <servlet-mapping>
         <servlet-name>MenServlet</servlet-name>
         <url-pattern>/men</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>MainServlet</servlet-name>
-        <url-pattern>/main</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>CheckServlet</servlet-name>
