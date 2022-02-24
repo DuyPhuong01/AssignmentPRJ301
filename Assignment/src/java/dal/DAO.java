@@ -189,6 +189,49 @@ public class DAO extends DBContext {
     public List<Product> getAllProduct() {
         return getProductByCategory(0);
     }
+    public List<Product> getProducts(int categoryID, int[] brandID, int priceMin, int priceMax) {
+        List<Product> list = new ArrayList<>();
+        String sql = "select * from Products";
+        try {
+            if (categoryID != 0) {
+                sql += " p inner join CatePro cp on p.ProductID = cp.ProductID"
+                        + " inner join Categories c on cp.CategoryID = c.CategoryID"
+                        + " where c.CategoryID="+categoryID+ " and ";
+            } else {
+                sql += " where ";
+            }
+            for(int i=0; i<brandID.length; i++) {
+                if(i==0) sql += "(BrandID=?";
+                else sql += " or BrandID=?";
+                if(i==brandID.length-1) sql += ") and";
+                System.out.println("test1");
+            }
+            sql += " Price>? and Price<?";
+                System.out.println(sql);
+            PreparedStatement st = connection.prepareStatement(sql);
+            for(int i=0; i<brandID.length; i++) {
+                System.out.println("test2");
+                st.setInt(1+i, brandID[i]);
+            }
+            st.setInt(1 + brandID.length, priceMin);
+            st.setInt(2 + brandID.length, priceMax);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Product p = new Product();
+                p.setProductID(rs.getInt("ProductID"));
+                p.setProductName(rs.getString("ProductName"));
+                p.setBrandID(rs.getInt("BrandID"));
+                p.setPrice(rs.getDouble("Price"));
+                p.setQuantity(rs.getInt("Quantity"));
+                p.setImage(rs.getString("ProductImage"));
+                p.setStatus(rs.getInt("Status"));
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
     public Product getProductById(int productID) {
         String sql = "select * from Products";
         try {
@@ -242,6 +285,30 @@ public class DAO extends DBContext {
         return list;
     }
 
+    public List<Product> getSearch(String input) {
+        List<Product> list = new ArrayList<>();
+        String sql = "select * from Products where ProductName like ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, "%" + input + "%");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Product p = new Product();
+                p.setProductID(rs.getInt("ProductID"));
+                p.setProductName(rs.getString("ProductName"));
+                p.setBrandID(rs.getInt("BrandID"));
+                p.setPrice(rs.getDouble("Price"));
+                p.setQuantity(rs.getInt("Quantity"));
+                p.setImage(rs.getString("ProductImage"));
+                p.setStatus(rs.getInt("Status"));
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    
     public Product getLastProduct() {
         String sql = "select top(1)* from Products order by ProductID desc";
         try {

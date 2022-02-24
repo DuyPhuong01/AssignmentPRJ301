@@ -17,8 +17,12 @@
     <link rel="stylesheet" href="css/main.css">
     <script src="js/jquery.min.js"></script>
     <script src="js/gallery.js"></script>
-    <link rel="stylesheet" href="libraries/nouislider/nouislider.css">
-    
+    <link rel="stylesheet" href="libraries/nouislider.css">
+    <style>
+        #input-with-keypress-0, #input-with-keypress-1 {
+            width: 40%;
+        }
+    </style>
 </head>
 
 <body>
@@ -39,8 +43,8 @@
                     </div>
                 </div>
                 <div class="search-container">
-                    <form class="search-form">
-                        <input type="text" class="search-input" placeholder="Search" id="search" autocomplete="off">
+                    <form class="search-form" action="search">
+                        <input type="text" class="search-input" name="string" value="${requestScope.string}" placeholder="Search" id="search" autocomplete="off">
                         <div class="search-icon"><i class="fa fa-search" aria-hidden="true"></i></div>
                     </form>
                 </div>
@@ -48,6 +52,5 @@
         <jsp:include page="stall.jsp"></jsp:include>
         </div>
     </div>
-    <script src="js/live-search.js"></script>
 </body>
 </html>

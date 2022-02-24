@@ -53,12 +53,26 @@ public class ProductServlet extends HttpServlet {
         
         if(action == null){
             String categoryID_raw = request.getParameter("categoryID");
-            if(categoryID_raw == null){
-                categoryID_raw = "0";
-            }
+            String min_raw = request.getParameter("min");
+            String max_raw = request.getParameter("max");
+            if(categoryID_raw == null) categoryID_raw = "0";
+            if(min_raw == null) min_raw = "0";
+            if(max_raw == null) max_raw = "200";
+            min_raw = min_raw.replace(".00", "");
+            max_raw = max_raw.replace(".00", "");
+            String[] brandID_raw = request.getParameterValues("brand");
+            if(brandID_raw == null) brandID_raw = new String[0];
+            int[] brandID = new int[brandID_raw.length];
+            
             try{
                 int categoryID = Integer.parseInt(categoryID_raw);
-                request.setAttribute("productList", dao.getProductByCategory(categoryID));
+                int min = Integer.parseInt(min_raw);
+                int max = Integer.parseInt(max_raw);
+                if(brandID_raw.length !=0)
+                for(int i=0; i<brandID_raw.length; i++) {
+                    brandID[i] = Integer.parseInt(brandID_raw[i]);
+                }
+                request.setAttribute("productList", dao.getProducts(categoryID, brandID, min, max));
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             } catch (NumberFormatException e){
                 System.out.println(e);

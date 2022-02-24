@@ -9,7 +9,7 @@
 <div class="option-list col-2">
     <c:set var="min" value="10"></c:set>
     <c:set var="max" value="100"></c:set>
-    <form>
+    <form action="product">
         <ul><span>Brands</span>
             <c:if test="${requestScope.brandList == '[]'}"><li name="brand">Empty</li></c:if>
             <c:forEach items="${requestScope.brandList}" var="b">
@@ -18,28 +18,30 @@
         </ul>
         <div id="slider"></div>
         <div class="display">
-            <input type="number" id="input-with-keypress-0" value="20">
-            <input type="number" id="input-with-keypress-1" value="80">
+            <input type="number" id="input-with-keypress-0" name="min" value="20">
+            <input type="number" id="input-with-keypress-1" name="max" value="80">
         </div>
-        </form>
+        <input type="submit" value="Filter">
+    </form>
 </div>
-            <script src="libraries/nouislider/nouislider.js"></script>
-    <script>
-        var stepsSlider = document.getElementById('slider');
-        var input0 = document.getElementById('input-with-keypress-0');
-        var input1 = document.getElementById('input-with-keypress-1');
-        var inputs = [input0, input1];
+<script src="libraries/nouislider.js"></script>
+<script>
+    var stepsSlider = document.getElementById('slider');
+    var input0 = document.getElementById('input-with-keypress-0');
+    var input1 = document.getElementById('input-with-keypress-1');
+    var inputs = [input0, input1];
 
-        noUiSlider.create(stepsSlider, {
-            start: [0, 200],
-            connect: true,
-            range: {
-                'min': [0],
-                'max': 200
-            }
-        });
+    noUiSlider.create(stepsSlider, {
+        start: [0, 200],
+        connect: true,
+        step: 1,
+        range: {
+            'min': [0],
+            'max': 200
+        }
+    });
 
-        stepsSlider.noUiSlider.on('update', function (values, handle) {
-            inputs[handle].value = values[handle];
-        });
-    </script>
+    stepsSlider.noUiSlider.on('update', function (values, handle) {
+        inputs[handle].setAttribute('value', parseInt(values[handle], 10));
+    });
+</script>
