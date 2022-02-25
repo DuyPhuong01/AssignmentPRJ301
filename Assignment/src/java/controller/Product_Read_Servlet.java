@@ -17,7 +17,7 @@ import model.User;
  * @author Duy Phuong
  */
 @WebServlet(name = "ProductServlet", urlPatterns = {"/product"})
-public class ProductServlet extends HttpServlet {
+public class Product_Read_Servlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -53,13 +53,11 @@ public class ProductServlet extends HttpServlet {
         
         if(action == null){
             String categoryID_raw = request.getParameter("categoryID");
-            String min_raw = request.getParameter("min");
-            String max_raw = request.getParameter("max");
             if(categoryID_raw == null) categoryID_raw = "0";
+            String min_raw = request.getParameter("min");
             if(min_raw == null) min_raw = "0";
+            String max_raw = request.getParameter("max");
             if(max_raw == null) max_raw = "200";
-            min_raw = min_raw.replace(".00", "");
-            max_raw = max_raw.replace(".00", "");
             String[] brandID_raw = request.getParameterValues("brand");
             if(brandID_raw == null) brandID_raw = new String[0];
             int[] brandID = new int[brandID_raw.length];
