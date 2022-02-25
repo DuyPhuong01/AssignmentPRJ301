@@ -18,11 +18,6 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/gallery.js"></script>
     <link rel="stylesheet" href="libraries/nouislider.css">
-    <style>
-        #input-with-keypress-0, #input-with-keypress-1 {
-            width: 40%;
-        }
-    </style>
 </head>
 
 <body>

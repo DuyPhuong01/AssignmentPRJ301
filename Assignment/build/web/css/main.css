@@ -1,3 +1,12 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 24px;
+    font-family: "Roboto", "Arial", sans-serif;
+    color: var(--text-color);
+    transition: .2s;
+}
+
 html[data-theme='light'] {
     --theme-color: #2264D1;
     --theme-light-color: #9DC2FF;
@@ -21,31 +30,23 @@ html {
     scroll-behavior: smooth;
 }
 
- ::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     --webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
     background-color: #F5F5F5;
 }
 
- ::-webkit-scrollbar {
+::-webkit-scrollbar {
     width: 10px;
 }
 
- ::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     border-radius: 5px;
     --webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
     background: var(--font-color);
 }
 ::-webkit-scrollbar-thumb:hover {
     background: var(--text-color);
-}
-* {
-    margin: 0;
-    box-sizing: border-box;
-    font-size: 24px;
-    font-family: "Roboto", "Arial", sans-serif;
-    color: var(--text-color);
-    transition: .2s;
 }
 
 body {
@@ -243,7 +244,29 @@ label input[type="checkbox"] {
     border-radius: 8px;
     background-color: var(--bg-light-color);
 }
+#input-with-keypress-0, #input-with-keypress-1 {
+    width: 100%;
+}
+.display-slider {
+    display: flex;
+    justify-content: space-between;
+}
+.display-slider > div {
+    width: 40%;
+}
 
+.filter-button {
+    width: 100%;
+    border: 1px solid var(--theme-color);
+    color: var(--theme-color);
+    background: transparent;
+    cursor: pointer;
+    margin: 10px 0;
+    border-radius: 2px;
+}
+.filter-button:hover {
+    background: var(--theme-hover-color);
+}
 
 /* ////////////  header  //////////// */
 .heading {

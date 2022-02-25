@@ -9,19 +9,21 @@
 <div class="option-list col-2">
     <c:set var="min" value="10"></c:set>
     <c:set var="max" value="100"></c:set>
-    <form action="product">
+    <form action="product" onkeydown="return event.key != 'Enter';">
         <ul><span>Brands</span>
             <c:if test="${requestScope.brandList == '[]'}"><li name="brand">Empty</li></c:if>
             <c:forEach items="${requestScope.brandList}" var="b">
                 <li><input type="checkbox" name="brand" value="${b.brandID}">${b.brandName}</li>
             </c:forEach>
         </ul>
+        Price:
         <div id="slider"></div>
-        <div class="display">
-            <input type="number" id="input-with-keypress-0" name="min">
-            <input type="number" id="input-with-keypress-1" name="max">
+        <div class="display-slider">
+            <div><input type="number" id="input-with-keypress-0" name="min"></div>
+            <span>-</span>
+            <div><input type="number" id="input-with-keypress-1" name="max"></div>
         </div>
-        <input type="submit" value="Filter">
+        <input class="filter-button" type="submit" value="Filter">
     </form>
 </div>
 <script src="libraries/nouislider.js"></script>
@@ -43,6 +45,7 @@
 
     stepsSlider.noUiSlider.on('update', function (values, handle) {
         inputs[handle].setAttribute('value', parseInt(values[handle], 10));
+        inputs[handle].value=parseInt(values[handle], 10);
     });
 
     inputs.forEach(function (input, handle) {
@@ -102,6 +105,6 @@
 
                     break;
             }
+        });
     });
-});
 </script>
