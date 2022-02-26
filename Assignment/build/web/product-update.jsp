@@ -14,8 +14,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Update Product</title>
         <link rel="stylesheet" href="css/main.css">
-        <script src="js/jquery.min.js"></script>
-        <script src="js/gallery.js"></script>
+        <script src="js/bootstrap/jquery.min.js"></script>
+        <script src="js/set-theme.js"></script>
     </head>
     <body>
         <c:set var="product" value="${requestScope.product}"></c:set>

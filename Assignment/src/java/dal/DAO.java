@@ -311,7 +311,7 @@ public class DAO extends DBContext {
     }
     
     public Product getLastProduct() {
-        String sql = "select top(1)* from Products order by ProductID desc";
+        String sql = "select * from Products order by ProductID desc";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();

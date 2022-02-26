@@ -11,6 +11,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Sign In</title>
         <link rel="stylesheet" href="css/main.css">
+        <script src="js/bootstrap/jquery.min.js"></script>
+        <script src="js/set-theme.js"></script>
     </head>
     <body>
         <div class="row center">
@@ -33,6 +35,4 @@
             </div>
         </div>
     </body>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/gallery.js"></script>
 </html>

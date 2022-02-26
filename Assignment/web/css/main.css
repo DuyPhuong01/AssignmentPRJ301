@@ -5,8 +5,8 @@
     font-family: "Roboto", "Arial", sans-serif;
     color: var(--text-color);
     transition: .2s;
+    background-color: transparent;
 }
-
 html[data-theme='light'] {
     --theme-color: #2264D1;
     --theme-light-color: #9DC2FF;
@@ -25,9 +25,6 @@ html[data-theme='dark'] {
     --text-color: #fff;
     --theme-hover-color: #343a40;
     --font-color: #ccc;
-}
-html {
-    scroll-behavior: smooth;
 }
 
 ::-webkit-scrollbar-track {
@@ -48,17 +45,24 @@ html {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--text-color);
 }
-
+/* Tag Customize */ 
+html {
+    scroll-behavior: smooth;
+}
 body {
     background: var(--bg-color);
 }
+input {
+    border: 1px solid var(--theme-color);
+    padding-left: 10px;
+}
+ul{
+    list-style: none;
+    padding: 0;
+}
+
 .text-center {
     text-align: center;
-}
-.input {
-    border: 1px solid var(--theme-light-color);
-    background-color: transparent;
-    height: 47px;
 }
 .right {
     float: right;
@@ -207,6 +211,7 @@ label i {
 }
 label input[type="checkbox"] {
     -webkit-appearance: none;
+    border: none;
 }
 .link-btn {
     background-color: transparent; 

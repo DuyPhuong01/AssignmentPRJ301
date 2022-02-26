@@ -13,13 +13,13 @@
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/admin.css">
         <script src="js/jquery.min.js"></script>
-        <script src="js/gallery.js"></script>
+        <script src="js/set-theme.js"></script>
     </head>
     <body>
         
         <div class="row center">
             <div class="container col-10">
-            <a href="main">Home</a>
+            <a href="home">Home</a>
         <div class="row">
                 <div class="admin-menu col-2">
                     <h1>Admin Mode</h1>

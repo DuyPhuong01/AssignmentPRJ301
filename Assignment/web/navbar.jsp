@@ -49,3 +49,4 @@
         </c:if> 
     </div>
 </div>
+<script src="js/dark-theme.js"></script>
