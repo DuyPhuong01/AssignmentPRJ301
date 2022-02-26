@@ -55,7 +55,11 @@ body {
 .text-center {
     text-align: center;
 }
-
+.input {
+    border: 1px solid var(--theme-light-color);
+    background-color: transparent;
+    height: 47px;
+}
 .right {
     float: right;
 }
