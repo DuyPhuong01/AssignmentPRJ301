@@ -21,9 +21,9 @@
 </head>
 
 <body>
-    <jsp:include page="navbar.jsp"></jsp:include>
+    <c:import url="navbaar.jsp"></c:import>
     <div class="content row">
-        <jsp:include page="sidebar.jsp"></jsp:include>
+        <c:import url="sidebar.jsp"></c:import>
         <div class="container col-9">
             <div class="heading">
                 <div class="option-btn">
@@ -44,7 +44,7 @@
                     </form>
                 </div>
             </div>
-        <jsp:include page="stall.jsp"></jsp:include>
+        <c:import url="stall.jsp"></c:import>
         </div>
     </div>
 </body>

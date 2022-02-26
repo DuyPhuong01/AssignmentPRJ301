@@ -9,6 +9,7 @@ import java.util.List;
 import model.Brand;
 import model.Category;
 import model.Color;
+import model.Item;
 import model.Product;
 import model.User;
 
@@ -461,18 +462,25 @@ public class DAO extends DBContext {
         return false;
     }
     public boolean createUser (User u) {
-        String sql = "insert into Users values(?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql1 = "insert into Users values(?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql2 = "insert into Orders (Username, Status) values(?, ?)";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, u.getUsername());
-            st.setString(2, u.getPassword());
-            st.setInt(3, u.getRole());
-            st.setString(4, u.getFullname());
-            st.setString(5, u.getCity());
-            st.setString(6, u.getCountry());
-            st.setString(7, u.getAddress());
-            st.setString(8, u.getPhone());
-            st.executeUpdate();
+            PreparedStatement st1 = connection.prepareStatement(sql1);
+            st1.setString(1, u.getUsername());
+            st1.setString(2, u.getPassword());
+            st1.setInt(3, u.getRole());
+            st1.setString(4, u.getFullname());
+            st1.setString(5, u.getCity());
+            st1.setString(6, u.getCountry());
+            st1.setString(7, u.getAddress());
+            st1.setString(8, u.getPhone());
+            st1.executeUpdate();
+            
+            PreparedStatement st2 = connection.prepareStatement(sql2);
+            st2.setString(1, u.getUsername());
+            st2.setInt(2, 1);
+            st2.executeUpdate();
+            
             return true;
         } catch (SQLException e) {
             System.out.println(e);
@@ -480,15 +488,54 @@ public class DAO extends DBContext {
         return false;
     }
     public boolean deleteUser (String username) {
-        String sql = "delete Users where Username=?";
+        String sql1 = "delete Orders where Username=?";
+        String sql2 = "delete Users where Username=?";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, username);
-            st.executeUpdate();
+            PreparedStatement st1 = connection.prepareStatement(sql1);
+            st1.setString(1, username);
+            st1.executeUpdate();
+            PreparedStatement st2 = connection.prepareStatement(sql2);
+            st2.setString(1, username);
+            st2.executeUpdate();
             return true;
         } catch (SQLException e) {
             System.out.println(e);
         }
         return false;
+    }
+    
+    
+    /**
+     * Item DAO
+     */
+    public Item getItems(String username) {
+        List<Item> list = new ArrayList();
+        String sql = "select i.OrderID, i.Quantity, p.* from Items i "
+                + "inner join Orders o "
+                + "on i.OrderID = o.OrderID "
+                + "inner join Products p"
+                + "on i.ProductID = p.ProductID"
+                + "where o.Username=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                Product p = new Product();
+                p.setProductID(rs.getInt("ProductID"));
+                p.setProductName(rs.getString("ProductName"));
+                p.setBrandID(rs.getInt("BrandID"));
+                p.setPrice(rs.getDouble("Price"));
+                p.setQuantity(rs.getInt("Quantity"));
+                p.setImage(rs.getString("ProductImage"));
+                p.setStatus(rs.getInt("Status"));
+                
+                Item i = new Item(p, rs.getInt("Quantity"));
+                return i;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
     }
 }
