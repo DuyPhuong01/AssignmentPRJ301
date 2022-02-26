@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Brand;
+import model.Cart;
 import model.Category;
 import model.Color;
 import model.Item;
@@ -504,23 +505,23 @@ public class DAO extends DBContext {
         return false;
     }
     
-    
     /**
-     * Item DAO
+     * Cart DAO
      */
-    public Item getItems(String username) {
+    public Cart getCartByUsername(String username) {
         List<Item> list = new ArrayList();
         String sql = "select i.OrderID, i.Quantity, p.* from Items i "
                 + "inner join Orders o "
                 + "on i.OrderID = o.OrderID "
                 + "inner join Products p"
                 + "on i.ProductID = p.ProductID"
-                + "where o.Username=?";
+                + "where o.Username=? and o.Status=";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
+            st.setInt(2, 1);
             ResultSet rs = st.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 Product p = new Product();
                 p.setProductID(rs.getInt("ProductID"));
                 p.setProductName(rs.getString("ProductName"));
@@ -531,11 +532,11 @@ public class DAO extends DBContext {
                 p.setStatus(rs.getInt("Status"));
                 
                 Item i = new Item(p, rs.getInt("Quantity"));
-                return i;
+                list.add(i);
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
-        return null;
+        return (new Cart(list, true));
     }
 }

@@ -123,18 +123,19 @@ ul{
 
 /* ////////////  Navbar  //////////// */
 /* logo */
-.logo img[data-theme='dark'] {
+.logo img.negative-logo {
     -webkit-filter: invert(1);
     filter: invert(1);
 }
 .logo>a {
-    height: 35px;
+    height: 28px;
     display: flex;
     text-decoration: none;
 }
 
 .logo .store-name {
     margin: auto 0;
+    margin-left: 10px;
     color: var(--text-color);
 }
 

@@ -8,7 +8,7 @@
 <div class="navbar">
     <div class="logo">
         <a href="home">
-            <img class="store-logo" src="images/logo.png" alt="logo">
+            <img id="store-logo" src="images/logo.png" alt="logo">
             <p class="store-name">R'Shoes</p>
         </a>
     </div>
