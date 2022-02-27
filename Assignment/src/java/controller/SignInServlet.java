@@ -4,6 +4,7 @@ package controller;
 import dal.DAO;
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import model.User;
  *
  * @author Duy Phuong
  */
+@WebServlet(name = "SignInServlet", urlPatterns = {"/signin"})
 public class SignInServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
