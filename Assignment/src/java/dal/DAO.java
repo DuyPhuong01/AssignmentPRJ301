@@ -448,6 +448,29 @@ public class DAO extends DBContext {
         }
         return null;
     }
+    public User getUser(String username) {
+        String sql = "select * from Users where Username = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                User u = new User();
+                u.setUsername(rs.getString("Username"));
+                u.setPassword(rs.getString("Password"));
+                u.setRole(rs.getInt("Role"));
+                u.setFullname(rs.getString("Fullname"));
+                u.setCity(rs.getString("City"));
+                u.setCountry(rs.getString("Country"));
+                u.setAddress(rs.getString("Address"));
+                u.setPhone(rs.getString("Phone"));
+                return u;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
     public boolean checkUsername(String username) {
         String sql = "select * from Users where Username = ?";
         try {
@@ -508,14 +531,29 @@ public class DAO extends DBContext {
     /**
      * Cart DAO
      */
+    public int getOrderID(String username) {
+        String sql = "select * from Orders where Username=? and Status=1";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("OrderID");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        
+        return 0;
+    }
     public Cart getCartByUsername(String username) {
         List<Item> list = new ArrayList();
-        String sql = "select i.OrderID, i.Quantity, p.* from Items i "
+        String sql = "select i.OrderID, i.Quantity, p.*, o.OrderID from Items i "
                 + "inner join Orders o "
                 + "on i.OrderID = o.OrderID "
-                + "inner join Products p"
-                + "on i.ProductID = p.ProductID"
-                + "where o.Username=? and o.Status=";
+                + "inner join Products p "
+                + "on i.ProductID = p.ProductID "
+                + "where o.Username=? and o.Status=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
@@ -531,12 +569,26 @@ public class DAO extends DBContext {
                 p.setImage(rs.getString("ProductImage"));
                 p.setStatus(rs.getInt("Status"));
                 
-                Item i = new Item(p, rs.getInt("Quantity"));
+                Item i = new Item(p, rs.getInt("Quantity"), rs.getInt("OrderID"));
                 list.add(i);
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
         return (new Cart(list, true));
+    }
+    public boolean addItemToCart(Item item, String username) {
+        String sql = "insert into Items values (?, ?, ?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, item.getOrderID());
+            st.setInt(2, item.getProduct().getProductID());
+            st.setInt(3, 1);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
     }
 }

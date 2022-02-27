@@ -15,7 +15,7 @@
                 <p><b class="price">$${product.price}</b></p>
             </div>
             <div class="add-btn">
-                <a class="link-button" href="">Add to Cart</a>
+                <a class="link-button" href="addtocart?productID=${product.productID}">Add to Cart</a>
             </div>
         </div>
     </c:forEach>

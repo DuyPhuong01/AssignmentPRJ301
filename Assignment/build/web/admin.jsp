@@ -19,26 +19,26 @@
         
         <div class="row center">
             <div class="container col-10">
-            <a href="home">Home</a>
-        <div class="row">
-                <div class="admin-menu col-2">
-                    <h1>Admin Mode</h1>
-                    <a href="admin?action=product">Products</a><br/>
-                    <a href="admin?action=category">Categories</a><br/>
-                    <a href="admin?action=brand">Brands</a><br/>
-                    <a href="admin?action=user">Users</a><br/>
-                    <span>
-                        <label>
-                            <input id="theme-checkbox" type="checkbox" name="theme">
-                            <span class="btn"></span>
-                            <i class="fa fa-moon-o" aria-hidden="true"></i>
-                        </label>
-                    </span>
+                <a href="home">Home</a>
+                <div class="row">
+                    <div class="admin-menu col-2">
+                        <h1>Admin Mode</h1>
+                        <a href="admin?action=product">Products</a><br/>
+                        <a href="admin?action=category">Categories</a><br/>
+                        <a href="admin?action=brand">Brands</a><br/>
+                        <a href="admin?action=user">Users</a><br/>
+                        <span>
+                            <label>
+                                <input id="theme-checkbox" type="checkbox" name="theme">
+                                <span class="btn"></span>
+                                <i class="fa fa-moon-o" aria-hidden="true"></i>
+                            </label>
+                        </span>
+                    </div>
+                    <div class="col-10">
+                        <jsp:include page="${requestScope.page}.jsp"></jsp:include>
+                    </div>
                 </div>
-                <div class="col-10">
-                    <jsp:include page="${requestScope.page}.jsp"></jsp:include>
-                </div>
-        </div>
             </div>
         </div>
     </body>

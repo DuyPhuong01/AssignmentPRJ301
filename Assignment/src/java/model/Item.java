@@ -7,13 +7,15 @@ package model;
  */
 public class Item {
     private Product product;
+    private int orderID;
     private int quantity;
 
     public Item() {
     }
 
-    public Item(Product product, int quantity) {
+    public Item(Product product, int orderID, int quantity) {
         this.product = product;
+        this.orderID = orderID;
         this.quantity = quantity;
     }
 
@@ -31,6 +33,14 @@ public class Item {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public int getOrderID() {
+        return orderID;
+    }
+
+    public void setOrderID(int orderID) {
+        this.orderID = orderID;
     }
 
     @Override

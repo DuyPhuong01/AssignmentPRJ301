@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,13 +43,6 @@ public class Home_Servlet extends HttpServlet {
         DAO dao = new DAO();
         request.setAttribute("categoryList", dao.getAllCategory());
         request.setAttribute("brandList", dao.getAllBrand());
-        HttpSession session = request.getSession();
-        try {   
-            System.out.println("Account: " + (User)session.getAttribute("userAccount"));
-        } catch(NullPointerException npe) {
-            System.out.println(npe);
-            session.setAttribute("userAccount", null);
-        }
         request.getRequestDispatcher("home.jsp").forward(request, response);
     }
 

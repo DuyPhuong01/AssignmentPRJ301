@@ -27,15 +27,15 @@
                 <i class="fa fa-moon-o" aria-hidden="true"></i>
             </label>
         </span>
-        <c:if test="${sessionScope.userAccount==null}">
+        <c:if test="${cookie.userAccount.getValue()==null || cookie.userAccount.getValue()==''}">
             <a class="link-btn" href="signin">Sign In</a>
             <a class="link-btn" href="signup">Sign Up</a>
         </c:if>
-        <c:if test="${sessionScope.userAccount!=null}">
+        <c:if test="${cookie.userAccount.getValue()!=null && cookie.userAccount.getValue()!=''}">
             <div class="account-navigation">
                 <i class="fa fa-user" aria-hidden="true"></i>
                 <ul class="dropdown-menu">
-                    <c:if test="${sessionScope.userAccount.role == 1}">
+                    <c:if test="${cookie.userRole.getValue() == '1'}">
                         <li><a href="admin">Admin</a></li>
                         <hr style="margin: 5px 0;">
                     </c:if>
@@ -43,7 +43,7 @@
                     <li><a href="account?action=signout">Sign Out</a></li>
                 </ul>
             </div>
-            <a class="link-btn notification" href="">My Cart
+            <a class="link-btn notification" href="mycart">My Cart
                 <span class="badge">5</span>
             </a>
         </c:if> 

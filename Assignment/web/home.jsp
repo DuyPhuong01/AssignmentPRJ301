@@ -17,7 +17,6 @@
     </head>
     <body>
         <jsp:include page="navbar.jsp"></jsp:include>
-         
     </body>
     <script src="js/dark-theme.js"></script>
 </html>

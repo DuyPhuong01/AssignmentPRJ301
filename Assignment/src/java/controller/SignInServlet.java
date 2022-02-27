@@ -3,12 +3,11 @@ package controller;
 
 import dal.DAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import model.User;
 
 /**
@@ -16,22 +15,6 @@ import model.User;
  * @author Duy Phuong
  */
 public class SignInServlet extends HttpServlet {
-
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet SignInServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet SignInServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     @Override
@@ -48,8 +31,12 @@ public class SignInServlet extends HttpServlet {
         String password = request.getParameter("password");
         User u = dao.signInCheck(username, password);
         if(u != null) {
-            HttpSession session = request.getSession();
-            session.setAttribute("userAccount", u);
+            Cookie cookie1 = new Cookie("userAccount", username);
+            Cookie cookie2 = new Cookie("userRole", ""+u.getRole());
+            cookie1.setMaxAge(24*60*60);
+            cookie2.setMaxAge(24*60*60);
+            response.addCookie(cookie1);
+            response.addCookie(cookie2);
             response.sendRedirect("home");
         } else {
             request.setAttribute("error", "Invalid username or password");
