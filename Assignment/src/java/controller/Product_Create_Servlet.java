@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.concurrent.TimeUnit;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -76,16 +77,16 @@ public class Product_Create_Servlet extends HttpServlet {
                     out.write(bytes, 0, read);
                 }
                 System.out.println("New file created at " + filePath);
-                out.close();
-            
+                
                 filecontent.close();
+                out.close();
             }
-
-            response.sendRedirect("main");
-        } catch(NumberFormatException nfe) {
+            TimeUnit.SECONDS.sleep(2);
+            response.sendRedirect("createproduct");
+        } catch(NumberFormatException | InterruptedException nfe) {
             System.out.println(nfe);
         } catch (FileNotFoundException fne) {
-            System.out.println("<br/> ERROR: " + fne.getMessage());
+            System.out.println(fne.getMessage());
             dao.deleteProduct(productID);
         }
     }

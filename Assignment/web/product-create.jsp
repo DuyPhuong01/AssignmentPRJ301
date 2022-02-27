@@ -13,39 +13,43 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Add Product</title>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <link rel="stylesheet" href="css/main.css">
         <script src="js/jquery.min.js"></script>
-        <script src="js/gallery.js"></script>
+        <script src="js/set-theme.js"></script>
     </head>
     <body>
         <div class="center row" style="justify-content: center">
-            <div class="container col-6">
-                <form action="createproduct" method="post" enctype="multipart/form-data">
-                    <h3 style="text-transform: uppercase">Add Product</h3>    
-                    Category: 
-                    <select name="categoryID">
-                        <c:if test="${requestScope.categoryList == '[]'}"><option name="category">Empty</option></c:if>
-                        <c:forEach items="${requestScope.categoryList}" var="c">
-                            <option value="${c.categoryID}">${c.categoryName}</option>
-                        </c:forEach>
-                    </select>
-                    Brand: 
-                    <select name="brandID">
-                        <c:if test="${requestScope.brandList == '[]'}"><option name="brand">Empty</option></c:if>
-                        <c:forEach items="${requestScope.brandList}" var="b">
-                            <option value="${b.brandID}">${b.brandName}</option>
-                        </c:forEach>
-                    </select>
-                        <br/>
-                    Name: <input type="text" name="name"><br/>
-                    Price: <input type="number" name="price"><br/>
-                    Quantity: <input type="number" name="quantity"><br/>
-                    Picture: <input type="file" name="productPhoto"><br/>
-                    Activate Status: 
-                        <input type="radio" name="activate" value="1" checked>In Stock<br/>
-                        <input type="radio" name="activate" value="0">Out Of Stock<br/>
-                    <input type="submit" value="Add Product">
-                </form>
+            <div class="col-6">
+                <a href="home">Home</a>
+                <div class="container">
+                    <form action="createproduct" method="post" enctype="multipart/form-data">
+                        <h3 style="text-transform: uppercase">Add Product</h3>    
+                        Category: 
+                        <select name="categoryID">
+                            <c:if test="${requestScope.categoryList == '[]'}"><option name="category">Empty</option></c:if>
+                            <c:forEach items="${requestScope.categoryList}" var="c">
+                                <option value="${c.categoryID}">${c.categoryName}</option>
+                            </c:forEach>
+                        </select>
+                        Brand: 
+                        <select name="brandID">
+                            <c:if test="${requestScope.brandList == '[]'}"><option name="brand">Empty</option></c:if>
+                            <c:forEach items="${requestScope.brandList}" var="b">
+                                <option value="${b.brandID}">${b.brandName}</option>
+                            </c:forEach>
+                        </select>
+                            <br/>
+                        Name: <input type="text" name="name"><br/>
+                        Price: <input type="number" name="price"><br/>
+                        Quantity: <input type="number" name="quantity"><br/>
+                        Picture: <input type="file" name="productPhoto"><br/>
+                        Activate Status: 
+                            <input type="radio" name="activate" value="1" checked>In Stock<br/>
+                            <input type="radio" name="activate" value="0">Out Of Stock<br/>
+                        <input type="submit" value="Add Product">
+                    </form>
+                </div>
             </div>
         </div>
     </body>

@@ -19,7 +19,7 @@
         
         <div class="row center">
             <div class="container col-8">
-            <a href="main">Home</a>
+            <a href="home">Home</a>
         <div class="row">
                 <div class="admin-menu col-2">
                     <h1>My Account</h1>

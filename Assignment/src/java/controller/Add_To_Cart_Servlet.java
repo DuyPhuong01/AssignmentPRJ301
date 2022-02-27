@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,16 +45,20 @@ public class Add_To_Cart_Servlet extends HttpServlet {
             throws ServletException, IOException {
         String id_raw = request.getParameter("productID");
         DAO dao = new DAO();
+        Cookie[] cookies = request.getCookies();
+        Cookie user_cookie = null;
+        if (cookies != null)
+            for (Cookie cookie : cookies) {
+                if(cookie.getName().equals("userAccount")) user_cookie = cookie;
+            }
+        if(user_cookie==null){
+            response.sendRedirect("signin");
+            return;
+        }
         try {
             int productID = Integer.parseInt(id_raw);
-            HttpSession session = request.getSession();
-            User user = (User)session.getAttribute("userAccount");
-            if(user==null){
-                response.sendRedirect("signin");
-                return;
-            }
-            Item item = new Item(dao.getProductById(productID), 1, dao.getOrderID(user.getUsername()));
-            dao.addItemToCart(item, user.getUsername());
+            Item item = new Item(dao.getProductById(productID), 1, dao.getOrderID(user_cookie.getValue()));
+            dao.addItemToCart(item, user_cookie.getValue());
             response.sendRedirect("mycart");
         } catch(NumberFormatException nfe) {
             System.out.println(nfe);

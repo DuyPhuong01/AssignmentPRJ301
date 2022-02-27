@@ -9,8 +9,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.User;
 
 /**
  *
@@ -51,6 +49,14 @@ public class AccountServlet extends HttpServlet {
                 }
             response.sendRedirect("home");
         } else if((action.equals("details"))){
+            Cookie user_cookie = null;
+            Cookie[] cookies = request.getCookies();
+            if (cookies != null)
+                for (Cookie cookie : cookies) {
+                    if(cookie.getName().equals("userAccount")) user_cookie = cookie;
+                }
+            DAO dao = new DAO();
+            request.setAttribute("user", dao.getUser(user_cookie.getValue()));
             request.setAttribute("page", "account-details");
             request.getRequestDispatcher("account.jsp").forward(request, response);
         } else if((action.equals("setting"))){

@@ -3,6 +3,7 @@
     Author     : Duy Phuong
 --%>
 
+<%@page import="dal.DAO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div class="navbar">
@@ -43,8 +44,17 @@
                     <li><a href="account?action=signout">Sign Out</a></li>
                 </ul>
             </div>
+            <%
+                DAO dao = new DAO();
+                Cookie[] cookies = request.getCookies();
+                Cookie user_cookie = null;
+                if (cookies != null)
+                    for (Cookie cookie : cookies) {
+                        if(cookie.getName().equals("userAccount")) user_cookie = cookie;
+                    }
+            %>
             <a class="link-btn notification" href="mycart">My Cart
-                <span class="badge">5</span>
+                <span class="badge"><%= dao.getCartByUsername(user_cookie.getValue()).getList().size() %></span>
             </a>
         </c:if> 
     </div>

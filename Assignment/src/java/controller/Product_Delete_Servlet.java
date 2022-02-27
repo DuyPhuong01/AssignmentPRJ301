@@ -49,7 +49,7 @@ public class Product_Delete_Servlet extends HttpServlet {
             if(f.exists()){
                 f.delete();
             }
-            response.sendRedirect("product");
+            response.sendRedirect("admin");
         } catch(NumberFormatException e) {
             System.out.println(e);
         }
