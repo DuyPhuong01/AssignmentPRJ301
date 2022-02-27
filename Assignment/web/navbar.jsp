@@ -22,12 +22,10 @@
         </ul>
     </nav>
     <div class="option-container">
-        <span>
-            <label>
-                <input id="theme-checkbox" type="checkbox" name="theme">
-                <i class="fa fa-moon-o" aria-hidden="true"></i>
-            </label>
-        </span>
+        <label>
+            <input id="theme-checkbox" type="checkbox" name="theme">
+            <i class="fa fa-moon-o" aria-hidden="true"></i>
+        </label>
         <c:if test="${cookie.userAccount.getValue()==null || cookie.userAccount.getValue()==''}">
             <a class="link-btn" href="signin">Sign In</a>
             <a class="link-btn" href="signup">Sign Up</a>
@@ -59,4 +57,14 @@
         </c:if> 
     </div>
 </div>
+<div class="header"></div>
 <script src="js/dark-theme.js"></script>
+<script>
+        var fixmeTop = $('.navbar').offset().top;
+        $(window).scroll(function() {
+            var currentScroll = $(window).scrollTop();
+            if (currentScroll >= fixmeTop) {
+                $('.navbar').style = "box-shadow: 1px 1px 5px var(--theme-light-color)";
+            } else $('.navbar').style = "box-shadow: none";
+        });
+</script>

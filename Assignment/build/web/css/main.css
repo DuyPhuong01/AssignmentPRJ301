@@ -123,7 +123,7 @@ ul{
 
 /* ////////////  Navbar  //////////// */
 /* logo */
-.logo img.negative-logo {
+html[data-theme='dark'] #store-logo {
     -webkit-filter: invert(1);
     filter: invert(1);
 }
@@ -144,11 +144,20 @@ ul{
 .navbar {
     display: flex;
     align-items: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
     height: 55px;
+    z-index: 100;
     justify-content: space-between;
     padding: 0 20px;
-    margin-bottom: 30px;
     background-color: var(--bg-light-color);
+}
+.header {
+    margin-bottom: 30px;
+    height: 55px;
 }
 
 nav ul {
