@@ -20,13 +20,11 @@
         <div class="row center">
             <div class="col-10">
                 <a href="home">Home</a>
-                <span>
-                    <label>
-                        <input id="theme-checkbox" type="checkbox" name="theme">
-                        <span class="btn"></span>
-                        <i class="fa fa-moon-o" aria-hidden="true"></i>
-                    </label>
-                </span>
+                <label>
+                    <input id="theme-checkbox" type="checkbox" name="theme">
+                    <span class="btn"></span>
+                    <i class="fa fa-moon-o" aria-hidden="true"></i>
+                </label>
                 <div class="container row">
                     <div class="admin-menu col-2">
                         <h1>Admin Mode</h1>

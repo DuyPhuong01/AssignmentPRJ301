@@ -14,10 +14,6 @@
         <td>Password</td>
         <td>Role</td>
         <td>FullName</td>
-        <td>City</td>
-        <td>Country</td>
-        <td>Address</td>
-        <td>Phone</td>
         <td>Action</td>
     </tr>
     <c:forEach var="user" items="${requestScope.userList}">
@@ -26,20 +22,23 @@
             <td>${user.password}</td>
             <td><c:if test="${user.role==1}">Admin</c:if><c:if test="${user.role==0}">Customer</c:if></td>
             <td>${user.fullname}</td>
-            <td>${user.city}</td>
-            <td>${user.country}</td>
-            <td>${user.address}</td>
-            <td>${user.phone}</td>
             <td>
                 <i onclick="deleteAccount('${user.username}')" class="fa fa-trash" aria-hidden="true"></i>&nbsp;
                 <a href="update?target=user&id=${user.username}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                <i onclick="showInformation('${user}')" class="fa fa-info-circle" aria-hidden="true"></i>
+                <i onclick="setAdmin('${user.username}')" class="fa fa-cog" aria-hidden="true"></i>
             </td>
         </tr>
     </c:forEach>
 </table>
-
 <script>
-    function deleteAccount(username){
+    function deleteAccount(username) {
         if(confirm('Are you sure to delete Account with username = ' + username + "?")) window.location = "deleteaccount?username="+username;
+    }
+    function setAdmin(username) {
+        if(confirm('Are you sure to set Account with username = ' + username + " to be an Admin?")) window.location = "setadmin?username="+username;
+    }
+    function showInformation(username) {
+        
     }
 </script>

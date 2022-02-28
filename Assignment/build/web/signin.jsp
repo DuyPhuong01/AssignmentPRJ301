@@ -16,22 +16,24 @@
     </head>
     <body>
         <div class="row center">
-            <div class="col-3 container">
-                <h1 class="text-center">Sign In!</h1>
-                <h3 style="color: red">${requestScope.error}</h3>
-                <h3 style="color: green">${requestScope.alert}</h3>
-                <form class="container" action="signin" method="post">
-                    Enter Username:<br/>
-                    <input type="text" name="username" required><br/>
-                    Enter Password:<br/>
-                    <input type="password" name="password" required><br/>
-                    <div class="row">
-                        <a href="main">Home</a>
-                        <a href="signup">Create an Account</a>
-                        <input class="link-btn" type="submit" name="password">
-                    </div>
-                    
-                </form>
+            <div class="col-3">
+                <a href="home">Home</a>
+                <div class="container">
+                    <h1 class="text-center">Sign In!</h1>
+                    <h3 style="color: red">${requestScope.error}</h3>
+                    <h3 style="color: green">${requestScope.alert}</h3>
+                    <form class="container" action="signin" method="post">
+                        Enter Username:<br/>
+                        <input type="text" name="username" required><br/>
+                        Enter Password:<br/>
+                        <input type="password" name="password" required><br/>
+                        <div class="row">
+                            <a href="signup">Create an Account</a>
+                            <input class="link-btn" type="submit" name="password">
+                        </div>
+
+                    </form>
+                </div>
             </div>
         </div>
     </body>

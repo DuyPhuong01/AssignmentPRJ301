@@ -15,6 +15,21 @@
         <link rel="stylesheet" href="css/admin.css">
         <script src="js/jquery.min.js"></script>
         <script src="js/set-theme.js"></script>
+        <style>
+            .item img {
+                width:100px;
+            }
+            td{
+                text-align: center;
+            }
+            tr:hover {
+                border-radius: 8px;
+                box-shadow: 0.5px 0.5px 5px gray;
+            }
+            tr:first-child {
+                box-shadow: none;
+            }
+        </style>
     </head>
     <body>
         <c:import url="navbar.jsp"></c:import>
@@ -22,13 +37,24 @@
             <div class="col-10">
                 <a href="home">Home</a><br/>
                 <div class="container">
-                    <c:forEach var="item" items="${requestScope.list}">
-                        <div>
-                            ${item.getProduct().productID}
-                            ${item.getProduct().productName}
-                            ${item.getProduct().price}
-                        </div>
-                    </c:forEach>
+                    <table>
+                        <tr>
+                            <th>ProductID</th>
+                            <th>Product Name</th>
+                            <th>Product Image</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                        </tr>
+                        <c:forEach var="item" items="${requestScope.list}">
+                            <tr class="item">
+                                <td>${item.getProduct().productID}</td>
+                                <td>${item.getProduct().productName}</td>
+                                <td><img src="images/${item.getProduct().image}"></td>
+                                <td>${item.getProduct().price}</td>
+                                <td>${item.quantity}</td>
+                            </tr>
+                        </c:forEach>
+                    </table>
                 </div>
             </div>
         </div>

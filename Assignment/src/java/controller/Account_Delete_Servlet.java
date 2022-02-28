@@ -42,7 +42,7 @@ public class Account_Delete_Servlet extends HttpServlet {
         DAO dao = new DAO();
         dao.deleteUser(username);
         System.out.println("Account with username=" + username + "was deleted.");
-        response.sendRedirect("main");
+        response.sendRedirect("admin?action=user");
     }
 
     @Override

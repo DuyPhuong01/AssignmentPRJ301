@@ -9,11 +9,16 @@
 <div class="option-list col-2">
     <c:set var="min" value="10"></c:set>
     <c:set var="max" value="100"></c:set>
-    <form action="product" onkeydown="return event.key != 'Enter';">
+    <form action="product">
         <ul><span>Brands</span>
             <c:if test="${requestScope.brandList == '[]'}"><li name="brand">Empty</li></c:if>
             <c:forEach items="${requestScope.brandList}" var="b">
-                <li><input type="checkbox" name="brand" value="${b.brandID}">${b.brandName}</li>
+            <li>
+                <label>
+                    <input type="checkbox" name="brand" value="${b.brandID}">
+                    <img width="20px" src="images/${b.brandLogo}"><span>${b.brandName}</span>
+                </label>
+            </li>
             </c:forEach>
         </ul>
         Price:
@@ -53,56 +58,26 @@
             stepsSlider.noUiSlider.setHandle(handle, this.value);
         });
         input.addEventListener('keydown', function (e) {
-
             var values = stepsSlider.noUiSlider.get();
             var value = Number(values[handle]);
-
-            // [[handle0_down, handle0_up], [handle1_down, handle1_up]]
             var steps = stepsSlider.noUiSlider.steps();
-
-            // [down, up]
             var step = steps[handle];
-
             var position;
-
-            // 13 is enter,
-            // 38 is key up,
-            // 40 is key down.
             switch (e.which) {
-
                 case 13:
                     stepsSlider.noUiSlider.setHandle(handle, this.value);
                     break;
 
                 case 38:
-
-                    // Get step to go increase slider value (up)
                     position = step[1];
-
-                    // false = no step is set
-                    if (position === false) {
-                        position = 1;
-                    }
-
-                    // null = edge of slider
-                    if (position !== null) {
-                        stepsSlider.noUiSlider.setHandle(handle, value + position);
-                    }
-
+                    if (position === false) position = 1;
+                    if (position !== null) stepsSlider.noUiSlider.setHandle(handle, value + position);
                     break;
 
                 case 40:
-
                     position = step[0];
-
-                    if (position === false) {
-                        position = 1;
-                    }
-
-                    if (position !== null) {
-                        stepsSlider.noUiSlider.setHandle(handle, value - position);
-                    }
-
+                    if (position === false) position = 1;
+                    if (position !== null) stepsSlider.noUiSlider.setHandle(handle, value - position);
                     break;
             }
         });
