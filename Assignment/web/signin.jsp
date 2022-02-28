@@ -29,7 +29,7 @@
                         <input type="password" name="password" required><br/>
                         <div class="row">
                             <a href="signup">Create an Account</a>
-                            <input class="link-btn" type="submit" name="password">
+                            <input class="link-btn" type="submit">
                         </div>
 
                     </form>
