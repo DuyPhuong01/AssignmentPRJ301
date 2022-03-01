@@ -26,8 +26,8 @@
             <div class="container col-9">
                 <div class="heading">
                     <div class="option-btn">
-                        <div class="select-btn">
-                            <ul style="width:200px;">
+                        <div id="select-btn">
+                            <ul>
                                 <li values="0" class="option">Default</li>
                                 <li values="1" class="option">ByName</li>
                                 <li values="2" class="option">Price</li>
@@ -47,6 +47,6 @@
             </div>
         </div>
         <script src="js/dark-theme.js"></script>
-        <script src="js/list-select.js"></script>
+        <script src="js/ul-option.js"></script>
     </body>
 </html>

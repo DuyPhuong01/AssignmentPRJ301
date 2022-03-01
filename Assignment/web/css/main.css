@@ -304,41 +304,43 @@ label input[type="checkbox"] {
 
 
 /* select button */
+
 .option-btn {
     z-index: 100;
+    position: relative;
+}
+
+#select-btn {
     position: absolute;
 }
-.select-btn {
-    position: relative;
-    margin-bottom: 20px;
-}
-.select-btn ul {
+
+#select-btn ul {
+    width: 200px;
     list-style: none;
     background-color: var(--bg-light-color);
     padding: 5px 0 0 0;
     border: 2px solid var(--theme-light-color);
     border-radius: 8px;
+    overflow: hidden;
+    height: 52px;
 }
-.select-btn ul li.option {
+
+#select-btn ul li {
+    height: 52px;
     z-index: 1;
     padding: 5px;
     padding-left: 50px;
-    display: none;
     border-radius: 8px;
-}
-.select-btn ul li:first-child {
-    display: block;
-}
-.select-btn ul li {
     cursor: pointer;
 }
-.select-btn>span {
+
+#select-btn>span {
     position: absolute;
     color: var(--theme-color);
     font-size: 16px;
     top: -10px;
     left: 10px;
-    background-color: var(--bg-light-color);
+    background-color:  var(--bg-light-color);
     padding: 0 5px;
 }
 
