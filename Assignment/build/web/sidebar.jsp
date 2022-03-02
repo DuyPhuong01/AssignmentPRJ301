@@ -3,23 +3,37 @@
     Author     : Duy Phuong
 --%>
 
+<%@page import="model.Brand"%>
+<%@page import="java.util.List"%>
+<%@page import="dal.DAO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <div class="option-list col-2">
     <c:set var="min" value="10"></c:set>
     <c:set var="max" value="100"></c:set>
-    <form action="product">
-        <ul><span>Brands</span>
-            <c:if test="${requestScope.brandList == '[]'}"><li name="brand">Empty</li></c:if>
-            <c:forEach items="${requestScope.brandList}" var="b">
-            <li>
-                <label>
-                    <input type="checkbox" name="brand" value="${b.brandID}">
-                    <img width="20px" src="images/${b.brandLogo}"><span>${b.brandName}</span>
-                </label>
-            </li>
-            </c:forEach>
+        <form action="product">
+            <ul><span>Brands</span>
+            <%
+                DAO dao = new DAO();
+                List<Brand> brandList = dao.getAllBrand();
+                if (brandList.size() == 0) {
+            %>
+                    <li name="brand">Empty</li>
+            <%
+                } else {
+                    for(Brand b: brandList){
+            %>
+                        <li>
+                            <label>
+                                <input type="checkbox" name="brand" value="<%= b.getBrandID() %>">
+                                <img width="20px" src="images/<%= b.getBrandLogo() %>"><span><%= b.getBrandName() %></span>
+                            </label>
+                        </li>
+            <%
+                    }
+                }
+            %>
         </ul>
         Price:
         <div id="slider"></div>
@@ -39,20 +53,18 @@
     var inputs = [input0, input1];
 
     noUiSlider.create(stepsSlider, {
-        start: [0, 2000000],
+        start: [0, 200],
         connect: true,
         step: 10000,
         range: {
             'min': 0,
-            'max': 2000000
+            'max': 200
         }
     });
 
     stepsSlider.noUiSlider.on('update', function (values, handle) {
-//        inputs[handle].setAttribute('value', parseInt(values[handle], 10));
-//        inputs[handle].value=parseInt(values[handle], 10);
-        inputs[handle].setAttribute('value', (""+values[handle]).replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-        inputs[handle].value=(""+values[handle]).replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        inputs[handle].setAttribute('value', parseInt(values[handle], 10));
+        inputs[handle].value=parseInt(values[handle], 10);
     });
 
     inputs.forEach(function (input, handle) {
@@ -72,14 +84,18 @@
 
                 case 38:
                     position = step[1];
-                    if (position === false) position = 1;
-                    if (position !== null) stepsSlider.noUiSlider.setHandle(handle, value + position);
+                    if (position === false)
+                        position = 1;
+                    if (position !== null)
+                        stepsSlider.noUiSlider.setHandle(handle, value + position);
                     break;
 
                 case 40:
                     position = step[0];
-                    if (position === false) position = 1;
-                    if (position !== null) stepsSlider.noUiSlider.setHandle(handle, value - position);
+                    if (position === false)
+                        position = 1;
+                    if (position !== null)
+                        stepsSlider.noUiSlider.setHandle(handle, value - position);
                     break;
             }
         });

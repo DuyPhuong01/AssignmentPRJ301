@@ -40,16 +40,7 @@ public class Product_Read_Servlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         DAO dao = new DAO();
-        HttpSession session = request.getSession();
-        request.setAttribute("categoryList", dao.getAllCategory());
-        request.setAttribute("brandList", dao.getAllBrand());
         String action = request.getParameter("action");
-        try {   
-            System.out.println("Account: " + (User)session.getAttribute("userAccount"));
-        } catch(NullPointerException npe) {
-            System.out.println(npe);
-            session.setAttribute("userAccount", null);
-        }
         
         if(action == null){
             String categoryID_raw = request.getParameter("categoryID");

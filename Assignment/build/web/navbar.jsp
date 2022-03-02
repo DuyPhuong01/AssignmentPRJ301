@@ -3,6 +3,8 @@
     Author     : Duy Phuong
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="model.Category"%>
 <%@page import="dal.DAO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -16,9 +18,15 @@
     <nav>
         <ul>
             <li><a href="product">All</a></li>
-            <c:forEach var="category" items="${requestScope.categoryList}">
-                <li><a href="product?categoryID=${category.categoryID}">${category.categoryName}</a></li>
-            </c:forEach>
+            <%
+                DAO dao = new DAO();
+                List<Category> categoryList = dao.getAllCategory();
+                for (Category category : categoryList) {
+            %>
+                    <li><a href="product?categoryID=<%= category.getCategoryID() %>"><%= category.getCategoryName() %></a></li>
+            <%
+                }
+            %>
         </ul>
     </nav>
     <div class="option-container">
@@ -43,7 +51,6 @@
                 </ul>
             </div>
             <%
-                DAO dao = new DAO();
                 Cookie[] cookies = request.getCookies();
                 Cookie user_cookie = null;
                 if (cookies != null)

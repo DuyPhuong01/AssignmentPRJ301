@@ -38,8 +38,6 @@ public class Home_Servlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         DAO dao = new DAO();
-        request.setAttribute("categoryList", dao.getAllCategory());
-        request.setAttribute("brandList", dao.getAllBrand());
         request.getRequestDispatcher("home.jsp").forward(request, response);
     }
 
