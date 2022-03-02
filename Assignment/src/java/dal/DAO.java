@@ -98,6 +98,7 @@ public class DAO extends DBContext {
             st2.setInt(1, categoryID);
             st2.executeUpdate();
             connection.commit();
+            connection.setAutoCommit(true);
         } catch (SQLException e) {
             try {
                 if (connection != null) {
@@ -367,6 +368,7 @@ public class DAO extends DBContext {
             st2.setInt(2, categoryID);
             st2.executeUpdate();
             connection.commit();
+            connection.setAutoCommit(true);
             return productID;
         } catch (SQLException e) {
             try {
@@ -383,16 +385,32 @@ public class DAO extends DBContext {
     public void deleteProduct(int productID) {
         String sql1 = "delete from CatePro where productID=?";
         String sql2 = "delete from Products where productID=?";
+        String sql3 = "delete from Items where productID=?";
 
         try {
+            connection.setAutoCommit(false);
             PreparedStatement st1 = connection.prepareStatement(sql1);
             st1.setInt(1, productID);
             st1.executeUpdate();
+            
             PreparedStatement st2 = connection.prepareStatement(sql2);
             st2.setInt(1, productID);
             st2.executeUpdate();
+            
+            PreparedStatement st3 = connection.prepareStatement(sql3);
+            st3.setInt(1, productID);
+            st3.executeUpdate();
+            
+            connection.commit();
+            connection.setAutoCommit(true);
         } catch (SQLException e) {
-            System.out.println(e);
+            try {
+                if (connection != null) {
+                    connection.rollback();
+                }
+            } catch (SQLException sqle3) {
+                System.out.println(sqle3);
+            }
         }
     }
 
@@ -417,6 +435,7 @@ public class DAO extends DBContext {
             st2.setInt(2, p.getProductID());
             st2.executeUpdate();
             connection.commit();
+            connection.setAutoCommit(true);
         } catch (SQLException e) {
             try {
                 if (connection != null) {
@@ -541,6 +560,7 @@ public class DAO extends DBContext {
             st2.executeUpdate();
 
             connection.commit();
+            connection.setAutoCommit(true);
             return true;
         } catch (SQLException e) {
             try {
@@ -562,11 +582,12 @@ public class DAO extends DBContext {
             PreparedStatement st1 = connection.prepareStatement(sql1);
             st1.setString(1, username);
             st1.executeUpdate();
-            
+
             PreparedStatement st2 = connection.prepareStatement(sql2);
             st2.setString(1, username);
             st2.executeUpdate();
             connection.commit();
+            connection.setAutoCommit(true);
             return true;
         } catch (SQLException sqle) {
             try {
