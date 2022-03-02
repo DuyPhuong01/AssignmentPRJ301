@@ -24,9 +24,9 @@
         Price:
         <div id="slider"></div>
         <div class="display-slider">
-            <div><input type="number" id="input-with-keypress-0" name="min"></div>
+            <div><input type="text" id="input-with-keypress-0" name="min"></div>
             <span>-</span>
-            <div><input type="number" id="input-with-keypress-1" name="max"></div>
+            <div><input type="text" id="input-with-keypress-1" name="max"></div>
         </div>
         <input class="filter-button" type="submit" value="Filter">
     </form>
@@ -39,18 +39,20 @@
     var inputs = [input0, input1];
 
     noUiSlider.create(stepsSlider, {
-        start: [0, 200],
+        start: [0, 2000000],
         connect: true,
-        step: 1,
+        step: 10000,
         range: {
             'min': 0,
-            'max': 200
+            'max': 2000000
         }
     });
 
     stepsSlider.noUiSlider.on('update', function (values, handle) {
-        inputs[handle].setAttribute('value', parseInt(values[handle], 10));
-        inputs[handle].value=parseInt(values[handle], 10);
+//        inputs[handle].setAttribute('value', parseInt(values[handle], 10));
+//        inputs[handle].value=parseInt(values[handle], 10);
+        inputs[handle].setAttribute('value', (""+values[handle]).replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        inputs[handle].value=(""+values[handle]).replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     });
 
     inputs.forEach(function (input, handle) {

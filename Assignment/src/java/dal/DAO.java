@@ -1,4 +1,3 @@
-
 package dal;
 
 import java.sql.PreparedStatement;
@@ -19,7 +18,7 @@ import model.User;
  * @author Duy Phuong
  */
 public class DAO extends DBContext {
-    
+
     /**
      * Category DAO
      */
@@ -29,36 +28,36 @@ public class DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, categoryID);
             ResultSet rs = st.executeQuery();
-            if (rs.next()){
-                Category c = new Category(rs.getInt("CategoryID"), 
-                    rs.getString("CategoryName"), rs.getString("Description"),
-                    (rs.getInt("Status")));
+            if (rs.next()) {
+                Category c = new Category(rs.getInt("CategoryID"),
+                        rs.getString("CategoryName"), rs.getString("Description"),
+                        (rs.getInt("Status")));
                 return c;
             }
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return null;
     }
-    
+
     public List<Category> getAllCategory() {
         List<Category> list = new ArrayList<>();
         String sql = "select * from Categories";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);            
+            PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-            while(rs.next()){
-                Category c = new Category(rs.getInt("CategoryID"), 
-                    rs.getString("CategoryName"), rs.getString("Description"),
-                    (rs.getInt("Status")));
+            while (rs.next()) {
+                Category c = new Category(rs.getInt("CategoryID"),
+                        rs.getString("CategoryName"), rs.getString("Description"),
+                        (rs.getInt("Status")));
                 list.add(c);
             }
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return list;
     }
-    
+
     public void addCategory(Category c) {
         String sql = "insert into Categories (CategoryName, Description, Status) values (?, ?, ?)";
         try {
@@ -67,11 +66,11 @@ public class DAO extends DBContext {
             st.setString(2, c.getDescription());
             st.setInt(3, c.getStatus());
             st.executeUpdate();
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
-    
+
     public void updateCategory(Category c) {
         String sql = "update Categories set CategoryName=?, Description=?, Status=? where CategoryID=?";
         try {
@@ -81,27 +80,35 @@ public class DAO extends DBContext {
             st.setInt(3, c.getStatus());
             st.setInt(4, c.getCategoryID());
             st.executeUpdate();
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
+
     public void deleteCategory(int categoryID) {
         String sql1 = "delete from CatePro where categoryID=?";
         String sql2 = "delete from Categories where categoryID=?";
         try {
+            connection.setAutoCommit(false);
             PreparedStatement st1 = connection.prepareStatement(sql1);
             st1.setInt(1, categoryID);
             st1.executeUpdate();
-            
+
             PreparedStatement st2 = connection.prepareStatement(sql2);
             st2.setInt(1, categoryID);
             st2.executeUpdate();
-        } catch(SQLException e) {
-            System.out.println(e);
+            connection.commit();
+        } catch (SQLException e) {
+            try {
+                if (connection != null) {
+                    connection.rollback();
+                }
+            } catch (SQLException sqle3) {
+                System.out.println(sqle3);
+            }
         }
     }
-    
-    
+
     /**
      * Brand DAO
      */
@@ -109,32 +116,31 @@ public class DAO extends DBContext {
         List<Brand> list = new ArrayList<>();
         String sql = "select * from Brands";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);            
+            PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-            while(rs.next()){
-                Brand b = new Brand(rs.getInt("BrandID"), 
+            while (rs.next()) {
+                Brand b = new Brand(rs.getInt("BrandID"),
                         rs.getString("BrandName"),
                         rs.getString("BrandLogo"));
                 list.add(b);
             }
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return list;
     }
-    
+
     public void addBrand(Brand b) {
         String sql = "insert into Brands (BrandName) values (?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, b.getBrandName());
             st.executeUpdate();
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
-    
-    
+
     /**
      * Color DAO
      */
@@ -155,6 +161,7 @@ public class DAO extends DBContext {
         }
         return list;
     }
+
     public Color getColorById(String colorID) {
         String sql = "select * from Colors where ColorID = ";
         try {
@@ -172,7 +179,7 @@ public class DAO extends DBContext {
         }
         return null;
     }
-    
+
     public void addColor(String colorID, String colorName) {
         String sql = "insert into Colors (ColorID, ColorName) values (?, ?)";
         try {
@@ -184,13 +191,14 @@ public class DAO extends DBContext {
             System.out.println(e);
         }
     }
-    
+
     /**
      * Product DAO
      */
     public List<Product> getAllProduct() {
         return getProductByCategory(0);
     }
+
     public List<Product> getProducts(int categoryID, int[] brandID, int priceMin, int priceMax) {
         List<Product> list = new ArrayList<>();
         String sql = "select * from Products";
@@ -198,22 +206,27 @@ public class DAO extends DBContext {
             if (categoryID != 0) {
                 sql += " p inner join CatePro cp on p.ProductID = cp.ProductID"
                         + " inner join Categories c on cp.CategoryID = c.CategoryID"
-                        + " where c.CategoryID="+categoryID+ " and ";
+                        + " where c.CategoryID=" + categoryID + " and ";
             } else {
                 sql += " where ";
             }
-            for(int i=0; i<brandID.length; i++) {
-                if(i==0) sql += "(BrandID=?";
-                else sql += " or BrandID=?";
-                if(i==brandID.length-1) sql += ") and";
+            for (int i = 0; i < brandID.length; i++) {
+                if (i == 0) {
+                    sql += "(BrandID=?";
+                } else {
+                    sql += " or BrandID=?";
+                }
+                if (i == brandID.length - 1) {
+                    sql += ") and";
+                }
                 System.out.println("test1");
             }
             sql += " Price>? and Price<?";
-                System.out.println(sql);
+            System.out.println(sql);
             PreparedStatement st = connection.prepareStatement(sql);
-            for(int i=0; i<brandID.length; i++) {
+            for (int i = 0; i < brandID.length; i++) {
                 System.out.println("test2");
-                st.setInt(1+i, brandID[i]);
+                st.setInt(1 + i, brandID[i]);
             }
             st.setInt(1 + brandID.length, priceMin);
             st.setInt(2 + brandID.length, priceMax);
@@ -234,6 +247,7 @@ public class DAO extends DBContext {
         }
         return list;
     }
+
     public Product getProductById(int productID) {
         String sql = "select * from Products";
         try {
@@ -258,7 +272,7 @@ public class DAO extends DBContext {
         }
         return null;
     }
-    
+
     public List<Product> getProductByCategory(int categoryID) {
         List<Product> list = new ArrayList<>();
         String sql = "select * from Products";
@@ -310,7 +324,7 @@ public class DAO extends DBContext {
         }
         return list;
     }
-    
+
     public Product getLastProduct() {
         String sql = "select * from Products order by ProductID desc";
         try {
@@ -337,6 +351,7 @@ public class DAO extends DBContext {
         String sql1 = "insert into Products (ProductName, BrandID, Price, Quantity, ProductImage, Status) values (?, ?, ?, ?, ?, ?)";
         String sql2 = "insert into CatePro (ProductID, CategoryID) values (?, ?)";
         try {
+            connection.setAutoCommit(false);
             PreparedStatement st1 = connection.prepareStatement(sql1);
             st1.setString(1, p.getProductName());
             st1.setInt(2, p.getBrandID());
@@ -351,17 +366,24 @@ public class DAO extends DBContext {
             st2.setInt(1, productID);
             st2.setInt(2, categoryID);
             st2.executeUpdate();
+            connection.commit();
             return productID;
         } catch (SQLException e) {
-            System.out.println(e);
+            try {
+                if (connection != null) {
+                    connection.rollback();
+                }
+            } catch (SQLException sqle3) {
+                System.out.println(sqle3);
+            }
         }
         return -1;
     }
-    
+
     public void deleteProduct(int productID) {
         String sql1 = "delete from CatePro where productID=?";
         String sql2 = "delete from Products where productID=?";
-        
+
         try {
             PreparedStatement st1 = connection.prepareStatement(sql1);
             st1.setInt(1, productID);
@@ -373,12 +395,13 @@ public class DAO extends DBContext {
             System.out.println(e);
         }
     }
-    
+
     public void updateProduct(Product p, int categoryID) {
         String sql1 = "update Products set ProductName=?, BrandID=?, Price=?, "
                 + "Quantity=?, ProductImage=?, Status=? where productID=?";
         String sql2 = "update CatePro set CategoryID=? where ProductID=?";
         try {
+            connection.setAutoCommit(false);
             PreparedStatement st1 = connection.prepareStatement(sql1);
             st1.setString(1, p.getProductName());
             st1.setInt(2, p.getBrandID());
@@ -388,16 +411,23 @@ public class DAO extends DBContext {
             st1.setInt(6, p.getStatus());
             st1.setInt(7, p.getProductID());
             st1.executeUpdate();
-            
+
             PreparedStatement st2 = connection.prepareStatement(sql2);
             st2.setInt(1, categoryID);
             st2.setInt(2, p.getProductID());
             st2.executeUpdate();
+            connection.commit();
         } catch (SQLException e) {
-            System.out.println(e);
+            try {
+                if (connection != null) {
+                    connection.rollback();
+                }
+            } catch (SQLException sqle3) {
+                System.out.println(sqle3);
+            }
         }
     }
-    
+
     /**
      * User DAO
      */
@@ -424,6 +454,7 @@ public class DAO extends DBContext {
         }
         return list;
     }
+
     public User signInCheck(String username, String password) {
         String sql = "select * from Users where Username = ? and Password = ?";
         try {
@@ -448,6 +479,7 @@ public class DAO extends DBContext {
         }
         return null;
     }
+
     public User getUser(String username) {
         String sql = "select * from Users where Username = ?";
         try {
@@ -471,6 +503,7 @@ public class DAO extends DBContext {
         }
         return null;
     }
+
     public boolean checkUsername(String username) {
         String sql = "select * from Users where Username = ?";
         try {
@@ -485,10 +518,12 @@ public class DAO extends DBContext {
         }
         return false;
     }
-    public boolean createUser (User u) {
+
+    public boolean createUser(User u) {
         String sql1 = "insert into Users values(?, ?, ?, ?, ?, ?, ?, ?)";
         String sql2 = "insert into Orders (Username, Status) values(?, ?)";
         try {
+            connection.setAutoCommit(false);
             PreparedStatement st1 = connection.prepareStatement(sql1);
             st1.setString(1, u.getUsername());
             st1.setString(2, u.getPassword());
@@ -499,35 +534,52 @@ public class DAO extends DBContext {
             st1.setString(7, u.getAddress());
             st1.setString(8, u.getPhone());
             st1.executeUpdate();
-            
+
             PreparedStatement st2 = connection.prepareStatement(sql2);
             st2.setString(1, u.getUsername());
             st2.setInt(2, 1);
             st2.executeUpdate();
-            
+
+            connection.commit();
             return true;
         } catch (SQLException e) {
-            System.out.println(e);
+            try {
+                if (connection != null) {
+                    connection.rollback();
+                }
+            } catch (SQLException sqle3) {
+                System.out.println(sqle3);
+            }
         }
         return false;
     }
-    public boolean deleteUser (String username) {
+
+    public boolean deleteUser(String username) {
         String sql1 = "delete Orders where Username=?";
         String sql2 = "delete Users where Username=?";
         try {
+            connection.setAutoCommit(false);
             PreparedStatement st1 = connection.prepareStatement(sql1);
             st1.setString(1, username);
             st1.executeUpdate();
+            
             PreparedStatement st2 = connection.prepareStatement(sql2);
             st2.setString(1, username);
             st2.executeUpdate();
+            connection.commit();
             return true;
-        } catch (SQLException e) {
-            System.out.println(e);
+        } catch (SQLException sqle) {
+            try {
+                if (connection != null) {
+                    connection.rollback();
+                }
+            } catch (SQLException sqle3) {
+                System.out.println(sqle3);
+            }
         }
         return false;
     }
-    
+
     /**
      * Cart DAO
      */
@@ -543,9 +595,10 @@ public class DAO extends DBContext {
         } catch (SQLException e) {
             System.out.println(e);
         }
-        
+
         return 0;
     }
+
     public Cart getCartByUsername(String username) {
         List<Item> list = new ArrayList();
         String sql = "select i.OrderID, i.Quantity, p.*, o.OrderID from Items i "
@@ -568,7 +621,7 @@ public class DAO extends DBContext {
                 p.setQuantity(rs.getInt("Quantity"));
                 p.setImage(rs.getString("ProductImage"));
                 p.setStatus(rs.getInt("Status"));
-                
+
                 Item i = new Item(p, rs.getInt("Quantity"), rs.getInt("OrderID"));
                 list.add(i);
             }
@@ -577,6 +630,7 @@ public class DAO extends DBContext {
         }
         return (new Cart(list, true));
     }
+
     public boolean addItemToCart(Item item, String username) {
         String sql = "insert into Items values (?, ?, ?)";
         try {
@@ -591,4 +645,5 @@ public class DAO extends DBContext {
         }
         return false;
     }
+
 }

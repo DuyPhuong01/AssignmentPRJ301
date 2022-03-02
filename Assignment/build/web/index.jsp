@@ -46,7 +46,6 @@
             <c:import url="stall.jsp"></c:import>
             </div>
         </div>
-        <script src="js/dark-theme.js"></script>
         <script src="js/ul-option.js"></script>
     </body>
 </html>
