@@ -25,7 +25,7 @@ function changeURL(atb, vals, url) {
     if (url.includes('?')) {
         var para = path[1].split('&');
         for (var i = 0; i < para.length; i++) {
-            if (para[i].split('=')[0] != atb) {
+            if (para[i].split('=')[0] != atb && para[i].split('=')[0] != 'page') {
                 if (!(vals.length == 0 && i == 0)) result += '&';
                 result += para[i];
             }

@@ -4,11 +4,14 @@ package controller;
 import dal.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Product;
 
 /**
  *
@@ -16,7 +19,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ProductServlet", urlPatterns = {"/product"})
 public class Product_Read_Servlet extends HttpServlet {
-
+    final int p_per_page = 30;
+            
+            
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -61,6 +66,9 @@ public class Product_Read_Servlet extends HttpServlet {
             if(brandID_raw == null) brandID_raw = new String[0];
             int[] brandID = new int[brandID_raw.length];
             
+            String page_number_raw = request.getParameter("page");
+            if(page_number_raw==null) page_number_raw="1";
+            
             /* search key*/
             String searchkey = request.getParameter("searchkey");
             if(searchkey==null) searchkey="";
@@ -69,16 +77,31 @@ public class Product_Read_Servlet extends HttpServlet {
                 int categoryID = Integer.parseInt(categoryID_raw);
                 int min = Integer.parseInt(min_raw);
                 int max = Integer.parseInt(max_raw);
-                String brandID_infor="";
+                
                 for(int i=0; i<brandID_raw.length; i++) {
                     brandID[i] = Integer.parseInt(brandID_raw[i]);
-                    brandID_infor += brandID_raw[i] + "|";
                 }
-                System.out.println(brandID_infor);
+                
                 request.setAttribute("searchkey", searchkey);
                 request.setAttribute("min", min);
                 request.setAttribute("max", max);
-                request.setAttribute("productList", dao.getProducts(categoryID, brandID, min, max, orderby, searchkey));
+                List<Product> p_list = dao.getProducts(categoryID, brandID, min, max, orderby, searchkey);
+                
+                List<Product> productList = new ArrayList<>();
+                int number_of_page = p_list.size()%p_per_page==0 ? p_list.size()/p_per_page : p_list.size()/p_per_page+1;
+                int page_number = Integer.parseInt(page_number_raw);
+                
+                System.out.println("p_list.size(): "+ p_list.size());
+                System.out.println("p_per_page: "+ p_per_page);
+                System.out.println("number_of_page: "+ number_of_page);
+                int start = (page_number-1)*p_per_page;
+                int end = page_number*p_per_page<p_list.size() ? page_number*p_per_page : p_list.size();
+                for(int i=start; i<end; i++){
+                    productList.add(p_list.get(i));
+                };
+                
+                request.setAttribute("number_of_page", number_of_page);
+                request.setAttribute("productList", productList);
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             } catch (NumberFormatException e){
                 System.out.println(e);

@@ -19,9 +19,25 @@
             </div>
         </div>
     </c:forEach>
-    <div class="btn-group me-2" role="group" aria-label="Second group">
-            <button type="button" class="btn btn-secondary">5</button>
-            <button type="button" class="btn btn-secondary">6</button>
-            <button type="button" class="btn btn-secondary">7</button>
+    <div class="btn-group">
+        <% 
+            int number_of_page = (Integer)request.getAttribute("number_of_page");
+            try{
+//                int number_of_page = Integer.parseInt(number_of_page_raw);
+                for(int i=1; i<=number_of_page; i++){
+        %>
+            <button type="button" class="" onclick="movePage(<%= i %>)"><%= i %></button>
+        <%
+                }
+            } catch(NumberFormatException nfe){
+                System.out.println(nfe);
+            }
+        %>
     </div>
+    <script>
+        function movePage(page_number) {
+            var page = [page_number];
+            window.location = changeURL('page', page, window.location.href);
+        }
+    </script>
 </div>

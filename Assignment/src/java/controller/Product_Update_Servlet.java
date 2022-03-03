@@ -68,33 +68,36 @@ public class Product_Update_Servlet extends HttpServlet {
             int quantity = Integer.parseInt(quantity_raw);
             String fileName = getFileName(filePart);
             int activate = Integer.parseInt(activate_raw);
-            
-            
             String deleteFileName = dao.getProductById(productID).getImage();
-            File df = new File(getFolderUploadPath() + File.separator +  deleteFileName);
-            if(df.exists()){
-                df.delete();
+            
+            if(fileName.equals("")){
+                fileName = deleteFileName;
+            } else {
+                /* save old product iamge */
+                File df = new File(getFolderUploadPath() + File.separator +  deleteFileName);
+                if(df.exists()){
+                    df.delete();
+                }
+
+                /* save product iamge */
+                String filePath = getFolderUploadPath() + File.separator +  fileName;
+                File f = new File(filePath);
+                OutputStream out = new FileOutputStream(f);
+                InputStream filecontent = filePart.getInputStream();
+                int read = 0;
+                byte[] bytes = new byte[1024];
+                while ((read = filecontent.read(bytes)) != -1) {
+                    out.write(bytes, 0, read);
+                }
+                System.out.println("New file created at " + filePath);
+
+                filecontent.close();
+                out.close();
             }
             
-            /* update product to database*/
-            Product p = new Product(productID, name, brandID, price, quantity, fileName, activate);
-            System.out.println(p + " are updating");
-            dao.updateProduct(p, categoryID);
-
-            /* save product iamge */
-            String filePath = getFolderUploadPath() + File.separator +  fileName;
-            File f = new File(filePath);
-            OutputStream out = new FileOutputStream(f);
-            InputStream filecontent = filePart.getInputStream();
-            int read = 0;
-            byte[] bytes = new byte[1024];
-            while ((read = filecontent.read(bytes)) != -1) {
-                out.write(bytes, 0, read);
-            }
-            System.out.println("New file created at " + filePath);
-
-            filecontent.close();
-            out.close();
+                /* update product to database*/
+                Product p = new Product(productID, name, brandID, price, quantity, fileName, activate);
+                dao.updateProduct(p, categoryID);
             
             
             
@@ -104,7 +107,7 @@ public class Product_Update_Servlet extends HttpServlet {
             System.out.println(nfe);
         }
     }
-    private String getFileName(final Part part) {
+    private String getFileName(Part part) {
         for (String content : part.getHeader("content-disposition").split(";")) {
             if (content.trim().startsWith("filename")) {
                 return content.substring(
