@@ -200,7 +200,7 @@ public class DAO extends DBContext {
         return getProductByCategory(0);
     }
 
-    public List<Product> getProducts(int categoryID, int[] brandID, int priceMin, int priceMax) {
+    public List<Product> getProducts(int categoryID, int[] brandID, int priceMin, int priceMax, String orderby) {
         List<Product> list = new ArrayList<>();
         String sql = "select * from Products";
         try {
@@ -222,11 +222,9 @@ public class DAO extends DBContext {
                 }
                 System.out.println("test1");
             }
-            sql += " Price>? and Price<?";
-            System.out.println(sql);
+            sql += " Price>? and Price<? order by " + orderby;
             PreparedStatement st = connection.prepareStatement(sql);
             for (int i = 0; i < brandID.length; i++) {
-                System.out.println("test2");
                 st.setInt(1 + i, brandID[i]);
             }
             st.setInt(1 + brandID.length, priceMin);

@@ -9,43 +9,84 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>R'Store Page</title>
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="libraries/nouislider.css">
-        <script src="js/bootstrap/jquery.min.js"></script>
-        <script src="js/set-theme.js"></script>
-    </head>
 
-    <body>
-        <c:import url="navbar.jsp"></c:import>
-        <div class="content row">
-            <c:import url="sidebar.jsp"></c:import>
-            <div class="container col-9">
-                <div class="heading">
-                    <div class="option-btn">
-                        <div id="select-btn">
-                            <ul>
-                                <li values="0" class="option">Default</li>
-                                <li values="1" class="option">ByName</li>
-                                <li values="2" class="option">Price</li>
-                                <li values="3" class="option">Newest</li>
-                            </ul>
-                            <span>Sort By</span>
-                        </div>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>R'Store Page</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="libraries/nouislider.css">
+    <script src="js/bootstrap/jquery.min.js"></script>
+    <script src="js/set-theme.js"></script>
+</head>
+
+<body>
+    <c:import url="navbar.jsp"></c:import>
+    <div class="content row">
+        <c:import url="sidebar.jsp"></c:import>
+        <div class="container col-9">
+            <div class="heading">
+                <div id="sorting" class="select-btn">
+                    <div class="selected">
+                        <p></p>
                     </div>
-                    <div class="search-container">
-                        <form class="search-form" action="search">
-                            <input type="text" class="search-input" name="string" value="${requestScope.string}" placeholder="Search" id="search" autocomplete="off">
-                            <div class="search-icon"><i class="fa fa-search" aria-hidden="true"></i></div>
-                        </form>
+                    <div class="select-box">
+                        <span></span>
+                        <span class="select-name"><p>Sort By</p></span>
+                        <span></span>
                     </div>
+                    <ul class="select-list">
+                        <li value="default" class="option">Default</li>
+                        <li value="name" class="option">ByName</li>
+                        <li value="price" class="option">Price</li>
+                    </ul>
                 </div>
-            <c:import url="stall.jsp"></c:import>
+                <div class="search-container">
+                    <form class="search-form" action="search">
+                        <input type="text" class="search-input" name="searchkey" value="${requestScope.string}" placeholder="Search" id="search" autocomplete="off">
+
+                        <div class="search-icon"><i class="fa fa-search" aria-hidden="true"></i></div>
+                    </form>
+                </div>
             </div>
+            <c:import url="stall.jsp"></c:import>
         </div>
-        <script src="js/ul-option.js"></script>
-    </body>
+    </div>
+    <script src="js/ul-option.js"></script>
+    <script>
+        var order = document.querySelectorAll('#sorting li');
+        var url = window.location.href;
+
+        order.forEach((o) => {
+            o.addEventListener('click', function() {
+                var order_value = 'orderby=' + o.getAttribute('value');
+                console.log(order_value);
+                if (url.includes('orderby')) {
+                    window.location = url.replace('orderby=${requestScope.orderby}', order_value);
+                } else if (url.includes('?')) {$
+                    window.location += '&' + order_value;
+                } else {
+                    window.location += '?' + order_value;
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).on("keydown", ':input[name="searchkey"]', function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                search();
+            }
+        });
+        function search(){
+            var searchkey = [];
+            searchkey.push(document.querySelector('input[name="searchkey"]').value);
+            console.log('check');
+            url = window.location.href;
+            url = changeURL('searchkey', searchkey, url);
+            window.location = url;
+        }
+    </script>
+</body>
+
 </html>

@@ -42,9 +42,11 @@
             <span>-</span>
             <div><input type="text" id="input-with-keypress-1" name="max"></div>
         </div>
-        <input class="filter-button" type="submit" value="Filter">
+        <button type="submit" disabled style="display: none" aria-hidden="true"></button>
+        <input class="filter-button" type="button" onclick="submitFilter()" value="Filter">
     </form>
 </div>
+<script src="js/changeurl.js"></script>
 <script src="libraries/nouislider.js"></script>
 <script>
     var stepsSlider = document.getElementById('slider');
@@ -53,9 +55,9 @@
     var inputs = [input0, input1];
 
     noUiSlider.create(stepsSlider, {
-        start: [0, 200],
+        start: [20, 200],
         connect: true,
-        step: 10000,
+        step: 1,
         range: {
             'min': 0,
             'max': 200
