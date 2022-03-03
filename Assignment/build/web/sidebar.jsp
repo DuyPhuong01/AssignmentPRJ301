@@ -27,7 +27,7 @@
                         <li>
                             <label>
                                 <input type="checkbox" name="brand" value="<%= b.getBrandID() %>">
-                                <img width="20px" src="images/<%= b.getBrandLogo() %>"><span><%= b.getBrandName() %></span>
+                                <img class="flexible-img" width="20px" src="images/<%= b.getBrandLogo() %>"><span><%= b.getBrandName() %></span>
                             </label>
                         </li>
             <%
@@ -35,6 +35,16 @@
                 }
             %>
         </ul>
+        <script>
+            var url = window.location.href;
+            var brands = document.querySelectorAll('input[name="brand"]');
+            brands.forEach((b) => {
+                if(url.includes('brand='+b.value))
+                    b.setAttribute('checked', true);
+            })
+            
+        </script>
+        <hr>
         Price:
         <div id="slider"></div>
         <div class="display-slider">
@@ -55,12 +65,12 @@
     var inputs = [input0, input1];
 
     noUiSlider.create(stepsSlider, {
-        start: [20, 200],
+        start: [${requestScope.min}, ${requestScope.max}],
         connect: true,
         step: 1,
         range: {
             'min': 0,
-            'max': 200
+            'max': 300
         }
     });
 

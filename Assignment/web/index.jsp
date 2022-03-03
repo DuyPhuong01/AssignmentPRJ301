@@ -28,7 +28,7 @@
             <div class="heading">
                 <div id="sorting" class="select-btn">
                     <div class="selected">
-                        <p></p>
+                        <p>${requestScope.orderby}</p>
                     </div>
                     <div class="select-box">
                         <span></span>
@@ -43,8 +43,7 @@
                 </div>
                 <div class="search-container">
                     <form class="search-form" action="search">
-                        <input type="text" class="search-input" name="searchkey" value="${requestScope.string}" placeholder="Search" id="search" autocomplete="off">
-
+                        <input type="text" id="search" class="search-input" name="searchkey" value="${requestScope.searchkey}" placeholder="Search" autocomplete="off">
                         <div class="search-icon"><i class="fa fa-search" aria-hidden="true"></i></div>
                     </form>
                 </div>
@@ -55,19 +54,20 @@
     <script src="js/ul-option.js"></script>
     <script>
         var order = document.querySelectorAll('#sorting li');
-        var url = window.location.href;
 
         order.forEach((o) => {
             o.addEventListener('click', function() {
-                var order_value = 'orderby=' + o.getAttribute('value');
-                console.log(order_value);
-                if (url.includes('orderby')) {
-                    window.location = url.replace('orderby=${requestScope.orderby}', order_value);
-                } else if (url.includes('?')) {$
-                    window.location += '&' + order_value;
-                } else {
-                    window.location += '?' + order_value;
-                }
+//                var order_value = 'orderby=' + o.getAttribute('value');
+//                console.log(order_value);
+//                if (url.includes('orderby')) {
+//                    window.location = url.replace('orderby=${requestScope.orderby}', order_value);
+//                } else if (url.includes('?')) {$
+//                    window.location += '&' + order_value;
+//                } else {
+//                    window.location += '?' + order_value;
+//                }
+                var val = [o.getAttribute('value')];
+                window.location = changeURL('orderby', val, window.location.href);
             });
         });
     </script>
@@ -81,7 +81,6 @@
         function search(){
             var searchkey = [];
             searchkey.push(document.querySelector('input[name="searchkey"]').value);
-            console.log('check');
             url = window.location.href;
             url = changeURL('searchkey', searchkey, url);
             window.location = url;

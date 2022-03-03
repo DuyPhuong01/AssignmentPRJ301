@@ -6,13 +6,19 @@
 package controller;
 
 import dal.DAO;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.concurrent.TimeUnit;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import model.Product;
 
 /**
@@ -51,6 +57,7 @@ public class Product_Update_Servlet extends HttpServlet {
         String name = request.getParameter("name");
         String price_raw = request.getParameter("price");
         String quantity_raw = request.getParameter("quantity");
+        Part filePart = request.getPart("productPhoto");
         String activate_raw = request.getParameter("activate");
         
         try {
@@ -59,18 +66,61 @@ public class Product_Update_Servlet extends HttpServlet {
             int brandID = Integer.parseInt(brandID_raw);
             double price = Double.parseDouble(price_raw);
             int quantity = Integer.parseInt(quantity_raw);
+            String fileName = getFileName(filePart);
             int activate = Integer.parseInt(activate_raw);
             
+            
+            String deleteFileName = dao.getProductById(productID).getImage();
+            File df = new File(getFolderUploadPath() + File.separator +  deleteFileName);
+            if(df.exists()){
+                df.delete();
+            }
+            
             /* update product to database*/
-            Product p = new Product(productID, name, brandID, price, quantity, "", activate);
+            Product p = new Product(productID, name, brandID, price, quantity, fileName, activate);
             System.out.println(p + " are updating");
             dao.updateProduct(p, categoryID);
+
+            /* save product iamge */
+            String filePath = getFolderUploadPath() + File.separator +  fileName;
+            File f = new File(filePath);
+            OutputStream out = new FileOutputStream(f);
+            InputStream filecontent = filePart.getInputStream();
+            int read = 0;
+            byte[] bytes = new byte[1024];
+            while ((read = filecontent.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+            System.out.println("New file created at " + filePath);
+
+            filecontent.close();
+            out.close();
+            
+            
+            
+            TimeUnit.SECONDS.sleep(2);
             response.sendRedirect("admin");
-        } catch(NumberFormatException nfe) {
+        } catch(NumberFormatException | InterruptedException nfe) {
             System.out.println(nfe);
         }
     }
-
+    private String getFileName(final Part part) {
+        for (String content : part.getHeader("content-disposition").split(";")) {
+            if (content.trim().startsWith("filename")) {
+                return content.substring(
+                        content.indexOf('=') + 1).trim().replace("\"", "");
+            }
+        }
+        return null;
+    }
+    public String getFolderUploadPath() {
+        String path = getServletContext().getRealPath("/").replace("\\build", "") + "images";
+        File folderUpload = new File(path);
+        if (!folderUpload.exists()) {
+          folderUpload.mkdirs();
+        }
+        return path;
+    }
     @Override
     public String getServletInfo() {
         return "Short description";

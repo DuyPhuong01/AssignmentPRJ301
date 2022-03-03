@@ -48,9 +48,10 @@ public class Product_Read_Servlet extends HttpServlet {
             if(min_raw == null) min_raw = "0";
             
             String max_raw = request.getParameter("max");
-            if(max_raw == null) max_raw = "200";
+            if(max_raw == null) max_raw = "300";
             
             String orderby = request.getParameter("orderby");
+            request.setAttribute("orderby", orderby);
             request.setAttribute("orderby", orderby==null ? "default" : orderby);
             if(orderby==null || orderby.equals("default")) orderby = "ProductId";
             else if(orderby.equals("name"))orderby = "ProductName";
@@ -68,11 +69,16 @@ public class Product_Read_Servlet extends HttpServlet {
                 int categoryID = Integer.parseInt(categoryID_raw);
                 int min = Integer.parseInt(min_raw);
                 int max = Integer.parseInt(max_raw);
-                if(brandID_raw.length !=0)
+                String brandID_infor="";
                 for(int i=0; i<brandID_raw.length; i++) {
                     brandID[i] = Integer.parseInt(brandID_raw[i]);
+                    brandID_infor += brandID_raw[i] + "|";
                 }
-                request.setAttribute("productList", dao.getProducts(categoryID, brandID, min, max, orderby));
+                System.out.println(brandID_infor);
+                request.setAttribute("searchkey", searchkey);
+                request.setAttribute("min", min);
+                request.setAttribute("max", max);
+                request.setAttribute("productList", dao.getProducts(categoryID, brandID, min, max, orderby, searchkey));
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             } catch (NumberFormatException e){
                 System.out.println(e);

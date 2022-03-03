@@ -19,4 +19,9 @@
             </div>
         </div>
     </c:forEach>
+    <div class="btn-group me-2" role="group" aria-label="Second group">
+            <button type="button" class="btn btn-secondary">5</button>
+            <button type="button" class="btn btn-secondary">6</button>
+            <button type="button" class="btn btn-secondary">7</button>
+    </div>
 </div>

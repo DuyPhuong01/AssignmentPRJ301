@@ -197,15 +197,35 @@ public class DAO extends DBContext {
      * Product DAO
      */
     public List<Product> getAllProduct() {
-        return getProductByCategory(0);
-    }
-
-    public List<Product> getProducts(int categoryID, int[] brandID, int priceMin, int priceMax, String orderby) {
         List<Product> list = new ArrayList<>();
         String sql = "select * from Products";
         try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Product p = new Product();
+                p.setProductID(rs.getInt("ProductID"));
+                p.setProductName(rs.getString("ProductName"));
+                p.setBrandID(rs.getInt("BrandID"));
+                p.setPrice(rs.getDouble("Price"));
+                p.setQuantity(rs.getInt("Quantity"));
+                p.setImage(rs.getString("ProductImage"));
+                p.setStatus(rs.getInt("Status"));
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public List<Product> getProducts(int categoryID, int[] brandID, int priceMin, 
+            int priceMax, String orderby, String searchkey) {
+        List<Product> list = new ArrayList<>();
+        String sql = "select * from Products p";
+        try {
             if (categoryID != 0) {
-                sql += " p inner join CatePro cp on p.ProductID = cp.ProductID"
+                sql += " inner join CatePro cp on p.ProductID = cp.ProductID"
                         + " inner join Categories c on cp.CategoryID = c.CategoryID"
                         + " where c.CategoryID=" + categoryID + " and ";
             } else {
@@ -222,13 +242,15 @@ public class DAO extends DBContext {
                 }
                 System.out.println("test1");
             }
-            sql += " Price>? and Price<? order by " + orderby;
-            PreparedStatement st = connection.prepareStatement(sql);
+            sql += " Price>? and Price<? and ProductName like ? "
+                    + "order by p." + orderby;
+            PreparedStatement st = connection.prepareStatement(sql);System.out.println(sql);
             for (int i = 0; i < brandID.length; i++) {
                 st.setInt(1 + i, brandID[i]);
             }
             st.setInt(1 + brandID.length, priceMin);
             st.setInt(2 + brandID.length, priceMax);
+            st.setString(3 + brandID.length, "%" + searchkey + "%");
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Product p = new Product();
@@ -272,58 +294,6 @@ public class DAO extends DBContext {
         return null;
     }
 
-    public List<Product> getProductByCategory(int categoryID) {
-        List<Product> list = new ArrayList<>();
-        String sql = "select * from Products";
-        try {
-            if (categoryID != 0) {
-                sql += " p inner join CatePro cp on p.ProductID = cp.ProductID"
-                        + " inner join Categories c on cp.CategoryID = c.CategoryID"
-                        + " where c.CategoryID = " + categoryID;
-            }
-            PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                Product p = new Product();
-                p.setProductID(rs.getInt("ProductID"));
-                p.setProductName(rs.getString("ProductName"));
-                p.setBrandID(rs.getInt("BrandID"));
-                p.setPrice(rs.getDouble("Price"));
-                p.setQuantity(rs.getInt("Quantity"));
-                p.setImage(rs.getString("ProductImage"));
-                p.setStatus(rs.getInt("Status"));
-                list.add(p);
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return list;
-    }
-
-    public List<Product> getSearch(String input) {
-        List<Product> list = new ArrayList<>();
-        String sql = "select * from Products where ProductName like ?";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, "%" + input + "%");
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                Product p = new Product();
-                p.setProductID(rs.getInt("ProductID"));
-                p.setProductName(rs.getString("ProductName"));
-                p.setBrandID(rs.getInt("BrandID"));
-                p.setPrice(rs.getDouble("Price"));
-                p.setQuantity(rs.getInt("Quantity"));
-                p.setImage(rs.getString("ProductImage"));
-                p.setStatus(rs.getInt("Status"));
-                list.add(p);
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return list;
-    }
-
     public Product getLastProduct() {
         String sql = "select * from Products order by ProductID desc";
         try {
@@ -347,20 +317,22 @@ public class DAO extends DBContext {
     }
 
     public int addProduct(Product p, int categoryID) {
-        String sql1 = "insert into Products (ProductName, BrandID, Price, Quantity, ProductImage, Status) values (?, ?, ?, ?, ?, ?)";
+        String sql1 = "insert into Products (ProductID, ProductName, BrandID, Price, Quantity, ProductImage, Status) values (?, ?, ?, ?, ?, ?, ?)";
         String sql2 = "insert into CatePro (ProductID, CategoryID) values (?, ?)";
         try {
             connection.setAutoCommit(false);
+            int productID = getLastProduct().getProductID()+1;
+            
             PreparedStatement st1 = connection.prepareStatement(sql1);
-            st1.setString(1, p.getProductName());
-            st1.setInt(2, p.getBrandID());
-            st1.setDouble(3, p.getPrice());
-            st1.setInt(4, p.getQuantity());
-            st1.setString(5, p.getImage());
-            st1.setInt(6, p.getStatus());
+            st1.setInt(1, productID);
+            st1.setString(2, p.getProductName());
+            st1.setInt(3, p.getBrandID());
+            st1.setDouble(4, p.getPrice());
+            st1.setInt(5, p.getQuantity());
+            st1.setString(6, p.getImage());
+            st1.setInt(7, p.getStatus());
             st1.executeUpdate();
 
-            int productID = getLastProduct().getProductID();
             PreparedStatement st2 = connection.prepareStatement(sql2);
             st2.setInt(1, productID);
             st2.setInt(2, categoryID);

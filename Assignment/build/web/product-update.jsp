@@ -42,7 +42,11 @@
                         Name: <input type="text" name="name" value="${product.productName}"><br/>
                     Price: <input type="number" name="price" value="${product.price}"><br/>
                     Quantity: <input type="number" name="quantity" value="${product.quantity}"><br/>
-                    Picture: <img style="width: 100px" src="images/${product.image}" alt=""><br/>
+                    Picture: 
+                    <label>
+                        <img style="width: 100px" src="images/${product.image}" alt="">
+                        <input type="file" name="productPhoto"><br/>
+                    </label>
                     Activate Status: 
                         <input type="radio" name="activate" value="1" checked>In Stock<br/>
                         <input type="radio" name="activate" value="0">Out Of Stock<br/>
