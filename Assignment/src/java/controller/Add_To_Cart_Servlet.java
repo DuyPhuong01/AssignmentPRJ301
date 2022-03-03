@@ -10,10 +10,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Cart;
 import model.Item;
-import model.User;
 
 /**
  *
@@ -57,8 +54,15 @@ public class Add_To_Cart_Servlet extends HttpServlet {
         }
         try {
             int productID = Integer.parseInt(id_raw);
-            Item item = new Item(dao.getProductById(productID), 1, dao.getOrderID(user_cookie.getValue()));
-            dao.addItemToCart(item, user_cookie.getValue());
+            int orderID = dao.getOrderID(user_cookie.getValue());
+            Item  i = dao.getItemsByID(productID, orderID);
+            if(i!=null) {
+                dao.updateItemsQuantity(i.getQuantity()+1, productID, orderID);
+            }
+            else{
+                Item item = new Item(dao.getProductById(productID), 1, dao.getOrderID(user_cookie.getValue()));
+                dao.addItemToCart(item, user_cookie.getValue());
+            }
             response.sendRedirect("mycart");
         } catch(NumberFormatException nfe) {
             System.out.println(nfe);

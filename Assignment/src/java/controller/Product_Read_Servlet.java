@@ -19,7 +19,7 @@ import model.Product;
  */
 @WebServlet(name = "ProductServlet", urlPatterns = {"/product"})
 public class Product_Read_Servlet extends HttpServlet {
-    final int p_per_page = 30;
+    final int p_per_page = 12;
             
             
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
