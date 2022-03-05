@@ -63,7 +63,12 @@
             </a>
         </c:if> 
     </div>
-    <div class="nav-menu"><i class="fa fa-bars" aria-hidden="true"></i></div>
+        <div class="nav-menu">
+            <label class="menu-open-icon">
+                <input type="checkbox" name="menu-switch">
+                <i class="fa fa-bars" aria-hidden="true"></i>
+            </label>
+        </div>
 </div>
 <div class="header"></div>
 <script src="js/dark-theme.js"></script>

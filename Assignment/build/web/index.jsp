@@ -16,6 +16,8 @@
     <title>R'Store Page</title>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/menubar.css">
     <link rel="stylesheet" href="libraries/nouislider.css">
     <script src="js/bootstrap/jquery.min.js"></script>
     <script src="js/set-theme.js"></script>
@@ -52,6 +54,7 @@
             <c:import url="stall.jsp"></c:import>
         </div>
     </div>
+    <c:import url="footer.jsp"></c:import>
     <script src="js/ul-option.js"></script>
     <script>
         var order = document.querySelectorAll('#sorting li');
@@ -78,6 +81,7 @@
             window.location = url;
         }
     </script>
+    <script src="js/menubar.js"></script>
 </body>
 
 </html>

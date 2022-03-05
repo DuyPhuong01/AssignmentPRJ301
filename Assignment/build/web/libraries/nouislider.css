@@ -10,7 +10,7 @@
     user-select: none;
 }
 
-#slider {
+#slider, #slider2 {
     position: relative;
     height: 4px;
     background: var(--theme-hover-color);

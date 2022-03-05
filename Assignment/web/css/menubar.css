@@ -1,0 +1,12 @@
+#menubar {
+    background: var(--bg-light-color);
+    width: 0;
+    height: 60%;
+    position: absolute;
+    top: 55px;
+    left: 100%;
+    padding: 30px;
+    z-index: 100;
+    border-radius: 8px;
+    box-shadow: .5px .5px 5px gray;
+}

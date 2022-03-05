@@ -597,7 +597,9 @@ public class DAO extends DBContext {
                 + "on i.OrderID = o.OrderID "
                 + "inner join Products p "
                 + "on i.ProductID = p.ProductID "
-                + "where o.Username=? and o.Status=?";
+                + "inner join Users u "
+                + "on u.UserID = o.UserID "
+                + "where u.Username=? and o.Status=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);

@@ -8,7 +8,7 @@
 <%@page import="dal.DAO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<div class="navbar">
+<div class="menubar">
     <div class="logo">
         <a href="home">
             <img id="store-logo" src="images/logo.png" alt="logo">
@@ -63,12 +63,7 @@
             </a>
         </c:if> 
     </div>
-        <div class="nav-menu">
-            <label class="menu-open-icon">
-                <input type="checkbox" name="menu-switch">
-                <i class="fa fa-bars" aria-hidden="true"></i>
-            </label>
-        </div>
+    <div class="nav-menu"><i class="fa fa-bars" aria-hidden="true"></i></div>
 </div>
 <div class="header"></div>
 <script src="js/dark-theme.js"></script>
