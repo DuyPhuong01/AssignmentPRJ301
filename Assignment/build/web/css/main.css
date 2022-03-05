@@ -85,18 +85,125 @@ ul {
     align-items: center;
 }
 
-.col-2,
-.col-3,
-.col-6,
-.col-10,
-.col-9 {
+.col-ms-2, .col-ms-3, .col-ms-4 .col-ms-6, .col-ms-10, .col-ms-9,
+.col-md-2, .col-md-3, .col-md-4 .col-md-6, .col-md-10, .col-md-9,
+.col-xs-2, .col-xs-3, .col-xs-4 .col-xs-6, .col-xs-10, .col-xs-9,
+.col-lg-2, .col-lg-3, .col-lg-4 .col-lg-6, .col-lg-10, .col-lg-9,
+.col-2, .col-3, .col-6, .col-10, .col-9 {
     position: relative;
     min-height: 1px;
     float: left;
     padding-left: 15px;
     padding-right: 15px;
 }
-
+@media (min-width: 0px) {
+    .col-ms-2 {
+        width: 16.6666666667%;
+    }
+    
+    .col-ms-3 {
+        width: 25%;
+    }
+    .col-ms-4 {
+        width: 33.3333333333%;
+    }
+    .col-ms-6 {
+        width: 50%;
+    }
+    
+    .col-ms-8 {
+        width: 66.6666666667%;
+    }
+    
+    .col-ms-9 {
+        width: 75%;
+    }
+    
+    .col-ms-10 {
+        width: 83.3333333333%;
+    }
+}
+@media (min-width: 768px) {
+    .col-md-2 {
+        width: 16.6666666667%;
+    }
+    
+    .col-md-3 {
+        width: 25%;
+    }
+    .col-md-4 {
+        width: 33.3333333333%;
+    }
+    .col-md-6 {
+        width: 50%;
+    }
+    
+    .col-md-8 {
+        width: 66.6666666667%;
+    }
+    
+    .col-md-9 {
+        width: 75%;
+    }
+    
+    .col-md-10 {
+        width: 83.3333333333%;
+    }
+    
+}
+@media (min-width: 1024px) {
+    .col-xs-2 {
+        width: 16.6666666667%;
+    }
+    
+    .col-xs-3 {
+        width: 25%;
+    }
+    .col-xs-4 {
+        width: 33.3333333333%;
+    }
+    
+    .col-xs-6 {
+        width: 50%;
+    }
+    
+    .col-xs-8 {
+        width: 66.6666666667%;
+    }
+    
+    .col-xs-9 {
+        width: 75%;
+    }
+    
+    .col-xs-10 {
+        width: 83.3333333333%;
+    }
+}
+@media (min-width: 1400px) {
+    .col-lg-2 {
+        width: 16.6666666667%;
+    }
+    
+    .col-lg-3 {
+        width: 25%;
+    }
+    
+    .col-lg-6 {
+        width: 50%;
+    }
+    
+    .col-lg-8 {
+        width: 66.6666666667%;
+    }
+    
+    .col-lg-9 {
+        width: 75%;
+    }
+    
+    .col-lg-10 {
+        width: 83.3333333333%;
+    }
+}
 .col-2 {
     width: 16.6666666667%;
 }
@@ -124,8 +231,8 @@ ul {
 .row {
     display: flex;
     flex-wrap: wrap;
-    margin-left: -15px;
-    margin-right: -15px;
+    padding-left: -15px;
+    padding-right: -15px;
 }
 
 .row:after {
@@ -235,7 +342,30 @@ a {
 .account-navigation:hover ul {
     display: block;
 }
-
+@media (min-width: 0px) {
+    .option-container {
+        display: none;
+    }
+    .nav-menu {
+        display: block;
+    }
+    nav {
+        display: none;
+    }
+}
+@media (min-width: 768px) {
+    nav {
+        display: block;
+    }
+}
+@media (min-width: 1024px) {
+    .option-container {
+        display: flex;
+    }
+    .nav-menu {
+        display: none;
+    }
+}
 
 /* button */
 
@@ -282,15 +412,36 @@ label input[type="checkbox"] {
     align-items: center;
 }
 
-.content {
-    margin: 15px;
-}
 
 
 /* ////////////  sidebar  //////////// */
+@media (max-width: 1023px) {
+    #side-bar {
+        display: none;
+    }
+}
+@media (min-width: 1024px) and  (max-width: 1399px){
+    #side-bar {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-right: 2px solid var(--theme-light-color);
+    }
+    .stall {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+}
+@media (min-width: 1400px) {
+    #side-bar {
+        margin: 0 30px;
+    }
+    .content {
+        display: flex;
+        justify-content: center;
+    }
+}
 
 .option-list {
-    margin: 0 2%;
     border-radius: 8px;
     background-color: var(--bg-light-color);
 }
@@ -338,7 +489,11 @@ label input[type="checkbox"] {
 
 
 /* ////////////  header  //////////// */
-
+@media (max-width: 767px) {
+    .search-container {
+        display: none;
+    }
+}
 .heading {
     margin-bottom: 20px;
     display: flex;
@@ -463,6 +618,12 @@ label input[type="checkbox"] {
     background-color: var(--bg-light-color);
     padding: 20px;
     border-radius: 8px;
+}
+@media (min-width: 1024px) and  (max-width: 1399px){
+    .stall {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
 }
 
 .product {

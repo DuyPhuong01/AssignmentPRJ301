@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<div class="option-list col-2">
+<div id="side-bar" class="option-list col-xs-3 col-lg-2">
     <c:set var="min" value="10"></c:set>
     <c:set var="max" value="100"></c:set>
         <form action="product">

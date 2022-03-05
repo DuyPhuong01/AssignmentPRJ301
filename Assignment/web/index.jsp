@@ -12,6 +12,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>R'Store Page</title>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="css/main.css">
@@ -24,7 +25,7 @@
     <c:import url="navbar.jsp"></c:import>
     <div class="content row">
         <c:import url="sidebar.jsp"></c:import>
-        <div class="container col-9">
+        <div class="stall container col-xs-9">
             <div class="heading">
                 <div id="sorting" class="select-btn">
                     <div class="selected">
@@ -57,15 +58,6 @@
 
         order.forEach((o) => {
             o.addEventListener('click', function() {
-//                var order_value = 'orderby=' + o.getAttribute('value');
-//                console.log(order_value);
-//                if (url.includes('orderby')) {
-//                    window.location = url.replace('orderby=${requestScope.orderby}', order_value);
-//                } else if (url.includes('?')) {$
-//                    window.location += '&' + order_value;
-//                } else {
-//                    window.location += '?' + order_value;
-//                }
                 var val = [o.getAttribute('value')];
                 window.location = changeURL('orderby', val, window.location.href);
             });

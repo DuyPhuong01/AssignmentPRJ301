@@ -36,7 +36,7 @@
         </label>
         <c:if test="${cookie.userAccount.getValue()==null || cookie.userAccount.getValue()==''}">
             <a class="link-btn" href="signin">Sign In</a>
-            <a class="link-btn" href="signup">Sign Up</a>
+            <a class="link-btn sign-up-btn" href="signup">Sign Up</a>
         </c:if>
         <c:if test="${cookie.userAccount.getValue()!=null && cookie.userAccount.getValue()!=''}">
             <div class="account-navigation">
@@ -63,6 +63,7 @@
             </a>
         </c:if> 
     </div>
+    <div class="nav-menu"><i class="fa fa-bars" aria-hidden="true"></i></div>
 </div>
 <div class="header"></div>
 <script src="js/dark-theme.js"></script>
