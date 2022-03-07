@@ -16,11 +16,12 @@ import model.Product;
 public class OrderDAO extends DBContext {
 
     /* Cart DAO */
-    public int getOrderID(String username) {
-        String sql = "select * from Orders where Username=? and Status=1";
+    public int getOrderID(int userID) {
+        System.out.println(userID);
+        String sql = "select * from Orders where UserID=? and Status=1";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, username);
+            st.setInt(1, userID);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 return rs.getInt("OrderID");
@@ -63,9 +64,10 @@ public class OrderDAO extends DBContext {
         return (new Cart(list, true));
     }
 
-    public boolean addItemToCart(Item item, String username) {
-        String sql = "insert into Items values (?, ?, ?)";
+    public boolean addItemToCart(Item item) {
+        String sql = "insert into Items (OrderID, ProductID, Quantity) values (?, ?, ?)";
         try {
+            System.out.println("check2");
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, item.getOrderID());
             st.setInt(2, item.getProduct().getProductID());
@@ -78,7 +80,9 @@ public class OrderDAO extends DBContext {
         return false;
     }
     public Item getItemsByID(int productID, int orderID) {
-        String sql = "select i.OrderID, i.Quantity as Number, p.* from Items i inner join Products p on p.ProductID = i.ProductID where i.productID=? and i.orderID=?";
+        String sql = "select i.OrderID, i.Quantity as Number, p.* from Items i "
+                + "inner join Products p on p.ProductID = i.ProductID "
+                + "where i.productID=? and i.orderID=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, productID);

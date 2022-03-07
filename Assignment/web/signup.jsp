@@ -109,7 +109,7 @@
                                 </label>
                             </div>
                             <div class="row jt-spc-btw mrg-top-20">
-                                <a href="account?action=signin">Back to Sign In</a>
+                                <a href="signin">Back to Sign In</a>
                                 <input id="submit" class="link-btn" type="submit" name="password" disabled>
                             </div>
 

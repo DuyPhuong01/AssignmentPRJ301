@@ -28,8 +28,11 @@ public class CartServlet extends HttpServlet {
             for (Cookie cookie : cookies) {
                 if(cookie.getName().equals("userAccount")) user_cookie = cookie;
             }
-        if(user_cookie==null) response.sendRedirect("account?action=login");
-        String[] userAccount = user_cookie.getValue().split("|");
+        if(user_cookie==null){
+            response.sendRedirect("signin");
+            return;
+        }
+        String[] userAccount = user_cookie.getValue().split(",");
         try {
             int userID = Integer.parseInt(userAccount[0]);
             request.setAttribute("list", o_dao.getCart(userID).getList());

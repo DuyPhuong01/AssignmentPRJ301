@@ -35,16 +35,19 @@ public class Add_To_Cart_Servlet extends HttpServlet {
             response.sendRedirect("signin");
             return;
         }
+        String[] userAccount = user_cookie.getValue().split(",");
         try {
             int productID = Integer.parseInt(id_raw);
-            int orderID = o_dao.getOrderID(user_cookie.getValue());
+            int orderID = o_dao.getOrderID(Integer.parseInt(userAccount[0]));
             Item  i = o_dao.getItemsByID(productID, orderID);
             if(i!=null) {
                 o_dao.updateItemsQuantity(i.getQuantity()+1, productID, orderID);
             }
             else{
-                Item item = new Item(p_dao.getProductById(productID), 1, o_dao.getOrderID(user_cookie.getValue()));
-                o_dao.addItemToCart(item, user_cookie.getValue());
+                System.out.println("check");
+                Item item = new Item(p_dao.getProductById(productID), orderID, 1);
+                
+                if(o_dao.addItemToCart(item)) System.out.println("check3");
             }
             response.sendRedirect("mycart");
         } catch(NumberFormatException nfe) {

@@ -81,9 +81,11 @@ public class UserDAO extends DBContext {
                 + "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String sql2 = "insert into Orders (OrderID, UserID, Status) values (?, ?, ?)";
         try {
+            int userID = getLastUser().getUserID()+1;
+            
             /* Add User */
             PreparedStatement st1 = connection.prepareStatement(sql1);
-            st1.setInt(1, getLastUser().getUserID()+1);
+            st1.setInt(1, userID);
             st1.setString(2, u.getUsername());
             st1.setString(3, u.getPassword());
             st1.setInt(4, u.getRole());
@@ -98,7 +100,7 @@ public class UserDAO extends DBContext {
             OrderDAO order_dao = new OrderDAO();
             PreparedStatement st2 = connection.prepareStatement(sql2);
             st2.setInt(1, order_dao.getLastOrderID()+1);
-            st2.setInt(2, u.getUserID());
+            st2.setInt(2, userID);
             st2.setInt(3, 1);
             st2.executeUpdate();
             return true;
@@ -127,7 +129,7 @@ public class UserDAO extends DBContext {
     }
     
     public User getLastUser() {
-        String sql = "select * from Orders order by UserID desc";
+        String sql = "select * from Users order by UserID desc";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();

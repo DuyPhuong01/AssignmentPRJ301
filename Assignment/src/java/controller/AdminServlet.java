@@ -13,7 +13,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.User;
 
 /**
  *
@@ -31,19 +30,20 @@ public class AdminServlet extends HttpServlet {
         UserDAO u_dao = new UserDAO();
         
         String action = request.getParameter("action");
-        Cookie user_cookie = null;
         
+        Cookie user_cookie = null;
+        Cookie userRole_cookie = null;
         Cookie[] cookies = request.getCookies();
         if( cookies != null ){
             for (Cookie cookie : cookies) {
                     if(cookie.getName().equals("userAccount")) user_cookie = cookie;
+                    else if(cookie.getName().equals("userRole")) userRole_cookie = cookie;
                 }
         }
-        String[] userAccount = user_cookie.getValue().split("|");
         
-        if(user_cookie!=null && userAccount[2].equals("1")) {
+        if(user_cookie!=null && userRole_cookie.getValue().equals("1")) {
             if(action == null) action = "product";
-            else switch (action) {
+            switch (action) {
                 case "product":
                         request.setAttribute("productList", p_dao.getAllProduct());
                         request.setAttribute("page", "product-manager");

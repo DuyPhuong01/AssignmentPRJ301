@@ -280,7 +280,17 @@ a {
         display: none;
     }
     .nav-menu {
-        display: block;
+        display: flex;
+    }
+    .nav-menu .setting-dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0%;
+        padding: 20px;
+        border-radius: 8px;
+        background: var(--bg-light-color);
+        box-shadow: 1px 1px 5px var(--theme-light-color);
     }
     nav {
         display: none;
@@ -298,6 +308,15 @@ a {
     .nav-menu {
         display: none;
     }
+}
+.setting-dropdown-menu a {
+    display: flex;
+}
+.setting-dropdown-menu a span {
+    display: flex;
+    width: 20px;
+    height: 20px;
+    margin: auto;
 }
 
 /* button */
@@ -336,15 +355,16 @@ label input[type="checkbox"] {
     top: -10px;
     height: 20px;
     width: 20px;
-    border-radius: 50%;
+}
+.num-circle {
     background: var(--theme-color);
-    color: white;
     font-size: 0.6rem;
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 50%;
 }
-
 
 
 /* ////////////  content  //////////// */

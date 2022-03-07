@@ -26,7 +26,7 @@
                         <h1 class="text-center">Sign In!</h1>
                         <h3 style="color: red">${requestScope.error}</h3>
                         <h3 style="color: green">${requestScope.alert}</h3>
-                        <form action="account" method="post">
+                        <form action="signin" method="post">
                             <input type="text" name="action" value="signin" hidden>
                             <label class="rei-input-label">
                                 <input type="text" name="username" required>
@@ -45,7 +45,7 @@
                                 </div>
                             </label>
                             <div class="row jt-spc-btw mrg-top-20">
-                                <a href="account?action=signup">Create an Account</a>
+                                <a href="signup">Create an Account</a>
                                 <input class="link-btn" type="submit">
                             </div>
 

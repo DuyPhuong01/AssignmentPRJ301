@@ -39,6 +39,5 @@
             </div>
         </div>
     </body>
-    <script src="js/dark-theme.js"></script>
     <script src="js/banner.js"></script>
 </html>

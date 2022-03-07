@@ -31,7 +31,7 @@
                     <p>${product.brandID}</p>
                     <p>${product.price}</p>
                     <div class="add-btn">
-                        <a class="link-btn" href="">Add to Cart</a>
+                        <a class="link-btn" href="addtocart?productID=${product.productID}">Add to Cart</a>
                     </div>
                 </div>
             </div>
