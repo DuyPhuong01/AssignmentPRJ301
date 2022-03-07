@@ -6,6 +6,7 @@ package model;
  * @author Duy Phuong
  */
 public class User {
+    private int userID;
     private String username;
     private String password;
     private int role;
@@ -18,7 +19,9 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password, int role, String fullname, String city, String country, String address, String phone) {
+    public User(int userID, String username, String password, int role, 
+            String fullname, String city, String country, String address, String phone) {
+        this.userID = userID;
         this.username = username;
         this.password = password;
         this.role = role;
@@ -27,6 +30,14 @@ public class User {
         this.country = country;
         this.address = address;
         this.phone = phone;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public String getUsername() {

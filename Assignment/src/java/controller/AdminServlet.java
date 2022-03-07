@@ -1,7 +1,10 @@
 
 package controller;
 
-import dal.DAO;
+import dal.BrandDAO;
+import dal.CategoryDAO;
+import dal.ProductDAO;
+import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -19,56 +22,42 @@ import model.User;
 @WebServlet(name = "Admin", urlPatterns = {"/admin"})
 public class AdminServlet extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Admin</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Admin at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ProductDAO p_dao = new ProductDAO();
+        CategoryDAO c_dao = new CategoryDAO();
+        BrandDAO b_dao = new BrandDAO();
+        UserDAO u_dao = new UserDAO();
+        
         String action = request.getParameter("action");
-        DAO dao = new DAO();
         Cookie user_cookie = null;
+        
         Cookie[] cookies = request.getCookies();
         if( cookies != null ){
             for (Cookie cookie : cookies) {
                     if(cookie.getName().equals("userAccount")) user_cookie = cookie;
                 }
         }
-        User u = dao.getUser(user_cookie.getValue());
-        if(u.getUsername()!=null && u.getRole()==1) {
-            if(action == null) {
-                request.setAttribute("productList", dao.getAllProduct());
-                request.setAttribute("page", "product-manager");
-            }
+        String[] userAccount = user_cookie.getValue().split("|");
+        
+        if(user_cookie!=null && userAccount[2].equals("1")) {
+            if(action == null) action = "product";
             else switch (action) {
                 case "product":
-                        request.setAttribute("productList", dao.getAllProduct());
+                        request.setAttribute("productList", p_dao.getAllProduct());
                         request.setAttribute("page", "product-manager");
                         break;
                 case "category":
-                        request.setAttribute("categoryList", dao.getAllCategory());
+                        request.setAttribute("categoryList", c_dao.getAllCategory());
                         request.setAttribute("page", "category-manager");
                         break;
                 case "brand":
-                        request.setAttribute("brandList", dao.getAllBrand());
+                        request.setAttribute("brandList", b_dao.getAllBrand());
                         request.setAttribute("page", "brand-manager");
                         break;
                 case "user":
-                        request.setAttribute("userList", dao.getAllUser());
+                        request.setAttribute("userList", u_dao.getAllUser());
                         request.setAttribute("page", "user-manager");
                         break;
                 default:
@@ -80,14 +69,16 @@ public class AdminServlet extends HttpServlet {
             out.println("access denied");
         }
     }
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
     }
+    
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

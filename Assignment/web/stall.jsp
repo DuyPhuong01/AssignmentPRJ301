@@ -8,7 +8,7 @@
 
 <div id="product-list-1" class="product-list row">
     <c:forEach var="product" items="${requestScope.productList}">
-        <div class="product col-md-6 col-xs-4 col-lg-3">
+        <div class="product col-ms-6 col-md-4 col-lg-3">
             <a href="product?action=details&productID=${product.productID}"><img src="images/${product.image}" alt=""></a>
             <p class="product-name">${product.productName}</p>
             <div>

@@ -1,7 +1,7 @@
 
 package controller;
 
-import dal.DAO;
+import dal.CategoryDAO;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +17,6 @@ import model.Category;
 @WebServlet(name = "AddCategoryServlet", urlPatterns = {"/createcategory"})
 public class Category_Create_Servlet extends HttpServlet {
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -32,9 +31,9 @@ public class Category_Create_Servlet extends HttpServlet {
         String activate_raw = request.getParameter("activate");
         try {
             int activate = Integer.parseInt(activate_raw);
-            DAO dao = new DAO();
+            CategoryDAO c_dao = new CategoryDAO();
             Category c = new Category(1, name, describe, activate);
-            dao.addCategory(c);
+            c_dao.addCategory(c);
             response.sendRedirect("main");
         } catch(NumberFormatException e) {
             System.out.println(e);
@@ -44,5 +43,5 @@ public class Category_Create_Servlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 }

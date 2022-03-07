@@ -45,7 +45,9 @@ public class Product_Read_Servlet extends HttpServlet {
         DAO dao = new DAO();
         String action = request.getParameter("action");
         
-        if(action == null){
+        if(action == null) action = "read";
+        
+        {
             String categoryID_raw = request.getParameter("categoryID");
             if(categoryID_raw == null) categoryID_raw = "0";
             

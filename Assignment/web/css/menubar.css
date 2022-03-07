@@ -1,12 +1,25 @@
 #menubar {
-    background: var(--bg-light-color);
-    width: 0;
-    height: 60%;
     position: absolute;
-    top: 55px;
-    left: 100%;
-    padding: 30px;
+    display: none;
+    top: 100%;
+    background: var(--bg-light-color);
+    width: inherit;
+    height: 0px;
     z-index: 100;
-    border-radius: 8px;
-    box-shadow: .5px .5px 5px gray;
+    border-top: 1px solid var(--theme-light-color);
+    padding: 0 20px;
+    overflow: scroll;
+    text-align: center;
+}
+#menubar::-webkit-scrollbar {
+    display: none;
+}
+#menubar .price-range input {
+    width: 100%;
+}
+
+@media (max-width: 1023px) {
+    #menubar {
+        display: block;
+    }
 }

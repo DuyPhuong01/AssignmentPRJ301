@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/menubar.css">
+    <link rel="stylesheet" href="css/rei-input.css">
     <link rel="stylesheet" href="libraries/nouislider.css">
     <script src="js/bootstrap/jquery.min.js"></script>
     <script src="js/set-theme.js"></script>

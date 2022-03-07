@@ -1,0 +1,63 @@
+.rei-input-label {
+    position: relative;
+    margin-top: 20px;
+    display: flex;
+    cursor:text;
+}
+.rei-input-label input {
+    border: none;
+    padding-left: 20px;
+    z-index: calc(inherit+1);
+}
+.rei-input-label input:focus {
+    outline: none;
+}
+.rei-input-name {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: inherit;
+    pointer-events: none;
+}
+.rei-float-name {
+    display: flex;
+}
+.rei-float-name > p {
+    margin: auto;
+}
+.rei-input-name >span {
+    text-align: center;
+    border-top: 2px solid var(--text-color);
+    border-bottom: 2px solid var(--text-color);
+    position: relative;
+    width: fit-content;
+}
+
+.rei-input-name>span:first-child {
+    width: 20px;
+    border-left: 2px solid var(--text-color);
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.rei-input-name>span:last-child {
+    width: auto;
+    flex-grow: 1;
+    border-right: 2px solid var(--text-color);
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.rei-float,
+.rei-input-label input:focus + .rei-input-name span.rei-float-name {
+    border-top: none !important;
+    display: flex;
+    align-items: center;
+}
+.rei-float > p,
+.rei-input-label input:focus + .rei-input-name .rei-float-name > p {
+    transform: translate(-3px, -70%) scale(.75);
+}

@@ -1,8 +1,8 @@
 
-var menu = document.getElementById('side-bar');
+var menu = document.getElementById('menubar');
 document.querySelector('input[name="menu-switch"]').addEventListener('change', function() {
     if(this.checked) {
-        menu.style = 'left: 0';
+        menu.style = 'height: 80vh';
     } else {
         menu.style = '';
     }
