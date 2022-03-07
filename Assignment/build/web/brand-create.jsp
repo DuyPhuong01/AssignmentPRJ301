@@ -17,7 +17,8 @@
     </head>
     <body>
         <div class="center row" style="justify-content: center">
-            <form class="container col-6" action="createcategory" method="post">
+            <form class="container col-6" action="category" method="post">
+                <input type="text" name="action" value="create" hidden>
                 <table>
                     <tr>
                         <td>

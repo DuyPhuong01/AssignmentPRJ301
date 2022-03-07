@@ -11,6 +11,6 @@
 
 <script>
     function deleteAccount(username){
-        if(confirm('Are you sure to delete your Account?')) window.location = "deleteaccount?username="+username;
+        if(confirm('Are you sure to delete your Account?')) window.location = "account?acion=delete&username="+username;
     }
 </script>

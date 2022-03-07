@@ -19,7 +19,7 @@
         <script src="js/bootstrap/jquery.min.js"></script>
     </head>
     <body>
-        <jsp:include page="navbar.jsp"></jsp:include>
+        <jsp:include page="element/navbar.jsp"></jsp:include>
         <div class="rei_banner_container">
             <div class="rei_banner_body">
                 <div>

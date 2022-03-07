@@ -21,7 +21,8 @@
         <div class="row center">
             <div class="col-6 container">
                 <h1 class="text-center">Update Account!</h1>
-                <form class="container" action="updateaccount" method="post">
+                <form class="container" action="account" method="post">
+                <input type="text" name="action" value="update" hidden><br/>
                     <div class="row">
                         <div class="col-6">
                             First Name<br/>

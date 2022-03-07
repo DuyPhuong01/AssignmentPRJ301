@@ -3,18 +3,19 @@
     Author     : Duy Phuong
 --%>
 
+<%@page import="dal.BrandDAO"%>
+<%@page import="dal.CategoryDAO"%>
 <%@page import="model.Category"%>
 <%@page import="model.Brand"%>
 <%@page import="java.util.List"%>
-<%@page import="dal.DAO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <div id="menubar">
     <ul class="categories">
     <%
-        DAO dao = new DAO();
-        List<Category> categoryList = dao.getAllCategory();
+        CategoryDAO c_dao = new CategoryDAO();
+        List<Category> categoryList = c_dao.getAllCategory();
         for (Category category : categoryList) {
     %>
             <li><a href="product?categoryID=<%= category.getCategoryID() %>"><%= category.getCategoryName() %></a></li>
@@ -25,7 +26,8 @@
         <form action="product">
             <ul class="option-list"><span>Brands</span>
             <%
-                List<Brand> brandList = dao.getAllBrand();
+                BrandDAO b_dao = new BrandDAO();
+                List<Brand> brandList = b_dao.getAllBrand();
                 if (brandList.size() == 0) {
             %>
                     <li name="brand">Empty</li>

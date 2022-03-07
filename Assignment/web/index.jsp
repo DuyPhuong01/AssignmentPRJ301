@@ -25,9 +25,9 @@
 </head>
 
 <body>
-    <c:import url="navbar.jsp"></c:import>
+    <c:import url="element/navbar.jsp"></c:import>
     <div class="content row">
-        <c:import url="sidebar.jsp"></c:import>
+        <c:import url="element/sidebar.jsp"></c:import>
         <div class="stall container col-xs-9">
             <div class="heading">
                 <div id="sorting" class="select-btn">
@@ -55,7 +55,7 @@
             <c:import url="stall.jsp"></c:import>
         </div>
     </div>
-    <c:import url="footer.jsp"></c:import>
+    <c:import url="element/footer.jsp"></c:import>
     <script src="js/ul-option.js"></script>
     <script>
         var order = document.querySelectorAll('#sorting li');

@@ -3,9 +3,10 @@
     Author     : Duy Phuong
 --%>
 
+<%@page import="dal.OrderDAO"%>
+<%@page import="dal.CategoryDAO"%>
 <%@page import="java.util.List"%>
 <%@page import="model.Category"%>
-<%@page import="dal.DAO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div class="navbar">
@@ -20,8 +21,8 @@
             <ul>
                 <li><a href="product">All</a></li>
                 <%
-                    DAO dao = new DAO();
-                    List<Category> categoryList = dao.getAllCategory();
+                    CategoryDAO c_dao = new CategoryDAO();
+                    List<Category> categoryList = c_dao.getAllCategory();
                     for (Category category : categoryList) {
                 %>
                         <li><a href="product?categoryID=<%= category.getCategoryID() %>"><%= category.getCategoryName() %></a></li>
@@ -52,16 +53,25 @@
                     </ul>
                 </div>
                 <%
+                    OrderDAO o_dao = new OrderDAO();
                     Cookie[] cookies = request.getCookies();
                     Cookie user_cookie = null;
                     if (cookies != null)
                         for (Cookie cookie : cookies) {
                             if(cookie.getName().equals("userAccount")) user_cookie = cookie;
                         }
+                    String[] userAccount = user_cookie.getValue().split("|");
+                    try {
+                        int userID = Integer.parseInt(userAccount[0]);
                 %>
                 <a class="link-btn notification" href="mycart">My Cart
-                    <span class="badge"><%= dao.getCartByUsername(user_cookie.getValue()).getList().size() %></span>
+                    <span class="badge"><%= o_dao.getCart(userID).getList().size() %></span>
                 </a>
+                <%
+                    } catch(NumberFormatException nfe){
+                        System.out.println(nfe);
+                    }
+                %>
             </c:if> 
         </div>
         <div class="nav-menu">
@@ -71,7 +81,7 @@
             </label>
         </div>
     </div>
-    <c:import url="menubar.jsp"></c:import> 
+    <c:import url="element/menubar.jsp"></c:import> 
 </div>
 <div class="header"></div>
 <script src="js/dark-theme.js"></script>

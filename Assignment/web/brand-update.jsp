@@ -18,8 +18,9 @@
     <body>
         <c:set var="category" value="${requestScope.category}"></c:set>
         <div class="center row" style="justify-content: center">
-            <form class="container col-6" action="updatecategory" method="post">
-                <input type="text" name="categoryID" value="${category.categoryID}" hidden><br/>
+            <form class="container col-6" action="category" method="post">
+                <input type="text" name="action" value="update" hidden>
+                <input type="text" name="categoryID" value="${category.categoryID}" hidden>
                 <table>
                     <tr>
                         <td>

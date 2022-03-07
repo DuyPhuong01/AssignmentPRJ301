@@ -33,7 +33,7 @@
         </style>
     </head>
     <body>
-        <c:import url="navbar.jsp"></c:import>
+        <c:import url="element/navbar.jsp"></c:import>
         <div class="row" style="justify-content: center">
             <div class="col-10">
                 <a href="home">Home</a><br/>
