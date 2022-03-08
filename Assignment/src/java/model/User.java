@@ -31,6 +31,14 @@ public class User {
         this.address = address;
         this.phone = phone;
     }
+    public User(String username, String fullname, String city, String country, String address, String phone) {
+        this.username = username;
+        this.fullname = fullname;
+        this.city = city;
+        this.country = country;
+        this.address = address;
+        this.phone = phone;
+    }
 
     public int getUserID() {
         return userID;

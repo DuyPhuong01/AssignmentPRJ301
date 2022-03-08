@@ -7,10 +7,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<a onclick="deleteAccount('${sessionScope.userAccount.username}')">Delete this Account</a>
+<a href="account?action=update">Change Information</a><br/>
+<a href="account?action=changeusernameandpassword">Change Username and Password</a><br/>
+<a onclick="deleteAccount()">Delete this Account</a>
 
 <script>
-    function deleteAccount(username){
-        if(confirm('Are you sure to delete your Account?')) window.location = "account?acion=delete&username="+username;
+    function deleteAccount(){
+        if(confirm('Are you sure to delete your Account?')) window.location = "account?action=delete";
     }
 </script>

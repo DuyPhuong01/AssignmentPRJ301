@@ -44,7 +44,7 @@
                                     <span></span>
                                 </div>
                             </label>
-                            <div class="row jt-spc-btw mrg-top-20">
+                            <div class="row jt-spc-btw mrg-top-20 pd-lr-15">
                                 <a href="signup">Create an Account</a>
                                 <input class="link-btn" type="submit">
                             </div>

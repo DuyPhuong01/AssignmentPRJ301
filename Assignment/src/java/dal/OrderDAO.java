@@ -17,7 +17,6 @@ public class OrderDAO extends DBContext {
 
     /* Cart DAO */
     public int getOrderID(int userID) {
-        System.out.println(userID);
         String sql = "select * from Orders where UserID=? and Status=1";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -30,6 +29,21 @@ public class OrderDAO extends DBContext {
             System.out.println(e);
         }
         return 0;
+    }
+    public List<Integer> getAllOrderID(int userID) {
+        List<Integer> list = new ArrayList<>();
+        String sql = "select * from Orders where UserID=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, userID);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                list.add(rs.getInt("OrderID"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
     }
 
     public Cart getCart(int userID) {

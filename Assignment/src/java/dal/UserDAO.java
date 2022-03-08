@@ -110,17 +110,27 @@ public class UserDAO extends DBContext {
         return false;
     }
 
-    public boolean deleteUser(String username) {
-        String sql1 = "delete Orders where Username=?";
-        String sql2 = "delete Users where Username=?";
+    public boolean deleteUser(int userID) {
+        OrderDAO o_dao = new OrderDAO();
+        List<Integer> orderIDList = o_dao.getAllOrderID(userID);
+        
+        String sql1 = "delete Items where OrderID=?";
+        String sql2 = "delete Orders where UserID=?";
+        String sql3 = "delete Users where UserID=?";
         try {
-            PreparedStatement st1 = connection.prepareStatement(sql1);
-            st1.setString(1, username);
-            st1.executeUpdate();
-
+            for(int orderID : orderIDList){
+                PreparedStatement st1 = connection.prepareStatement(sql1);
+                st1.setInt(1, orderID);
+                st1.executeUpdate();
+            }
             PreparedStatement st2 = connection.prepareStatement(sql2);
-            st2.setString(1, username);
+            st2.setInt(1, userID);
             st2.executeUpdate();
+            
+            PreparedStatement st3 = connection.prepareStatement(sql3);
+            st3.setInt(1, userID);
+            st3.executeUpdate();
+
             return true;
         } catch (SQLException sqle) {
             System.out.println(sqle);
@@ -145,6 +155,39 @@ public class UserDAO extends DBContext {
             System.out.println(sqle);
         }
         return null;
+    }
+    
+    public boolean updateUserInformation(User u) {
+        String sql = "update Users set Fullname=?, Country=?, City=?, Address=?, Phone=? where Username=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, u.getFullname());
+            st.setString(2, u.getCountry());
+            st.setString(3, u.getCity());
+            st.setString(4, u.getAddress());
+            st.setString(5, u.getPhone());
+            st.setString(6, u.getUsername());
+            st.executeUpdate();
+            return true;
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return false;
+    }
+    
+    public boolean updateUser(String username, String password, int userID) {
+        String sql = "update Users set Username=?, Password=? where UserID=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+            st.setString(2, password);
+            st.setInt(3, userID);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return false;
     }
     
 }

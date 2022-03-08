@@ -70,7 +70,7 @@ public class Product_Servlet extends HttpServlet {
                 String page_number_raw = request.getParameter("page");
                 if(page_number_raw==null) page_number_raw="1";
 
-                /* search key*/
+                /* search key */
                 String searchkey = request.getParameter("searchkey");
                 if(searchkey==null) searchkey="";
 

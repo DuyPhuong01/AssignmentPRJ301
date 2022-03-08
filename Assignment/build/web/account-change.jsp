@@ -15,70 +15,69 @@
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/login.css">
         <link rel="stylesheet" href="css/rei-input.css">
-        <script src="js/jquery.min.js"></script>
-        <script src="js/gallery.js"></script>
+        <script src="js/bootstrap/jquery.min.js"></script>
     </head>
     <body>
         <c:set var="user" value="${requestScope.user}"></c:set>
         <div class="row center">
-            <div class="col-6">
+            <div class="col-4">
                 <a href="home">Home</a>
                 <form class="container" action="account" method="post">
-                    <h1 class="text-center">Update Account!</h1>
+                    <h1 class="text-center">Update for ${user.username}!</h1>
                     <h3 style="color: red">${requestScope.error}</h3>
                     <h3 style="color: green">${requestScope.alert}</h3>
-                    <input type="text" name="action" value="update" hidden>
+                    <input type="text" name="action" value="changeusernameandpassword" hidden>
                     <div class="row">
                         <label class="col-ms-12 rei-input-label">
-                            <input type="text" name="fullname" value="${user.fullname}" required>
+                            <input type="text" name="username" value="${user.username}" required>
                             <div class="rei-input-name">
                                 <span></span>
-                                <span class="rei-float-name"><p>Full Name</p></span>
+                                <span class="rei-float-name"><p>Username</p></span>
                                 <span></span>
                             </div>
                         </label>
                     </div>
                     <div class="row">
-                        <label class="col-ms-6 rei-input-label">
-                            <input type="text" name="country"  value="${user.country}">
+                        <label class="col-ms-12 col-md-6 rei-input-label">
+                            <input id="password" type="password" name="password" value="${user.password}" required>
                             <div class="rei-input-name">
                                 <span></span>
-                                <span class="rei-float-name"><p>Country</p></span>
+                                <span class="rei-float-name"><p>Password</p></span>
                                 <span></span>
                             </div>
                         </label>
-                        <label class="col-ms-6 rei-input-label">
-                            <input type="text" name="city"  value="${user.city}">
+                        <label class="col-ms-12 col-md-6 rei-input-label">
+                            <input id="confirm_password" type="password" name="confirm-password" value="${user.password}" required>
                             <div class="rei-input-name">
                                 <span></span>
-                                <span class="rei-float-name"><p>City</p></span>
-                                <span></span>
-                            </div>
-                        </label>
-                        <label class="col-ms-12 col-md-8 rei-input-label">
-                            <input type="text" name="address"  value="${user.address}">
-                            <div class="rei-input-name">
-                                <span></span>
-                                <span class="rei-float-name"><p>Address</p></span>
-                                <span></span>
-                            </div>
-                        </label>
-                        <label class="col-ms-12 col-md-4 rei-input-label">
-                            <input type="text" name="phone" value="${user.phone}">
-                            <div class="rei-input-name">
-                                <span></span>
-                                <span class="rei-float-name"><p>Phone</p></span>
+                                <span class="rei-float-name"><p>Confirm Password</p></span>
                                 <span></span>
                             </div>
                         </label>
                     </div>
+                    <p id="message"></p>
                     <div class="row jt-spc-btw mrg-top-20 pd-lr-15">
                         <a href="account">Back to Account</a>
-                        <input class="link-btn" type="submit" name="password" value="Update">
+                        <input id="submit" class="link-btn" type="submit" name="password" value="Update">
                     </div>
                 </form>
             </div>
         </div>
         <script src="js/rei-input.js"></script>
     </body>
+    <script>
+        $('#password, #confirm_password').on('keyup', function () {
+            if ($('#password').val() == ''){
+                $('#message').html('');
+                $('#submit')[0].disabled = true;
+            } else if ($('#password').val() == $('#confirm_password').val()) {
+                $('#message').html('Matching').css('color', 'green');
+                $('#submit')[0].disabled = false;
+            }
+            else {
+                $('#message').html('Not Matching').css('color', 'red');
+                $('#submit')[0].disabled = true;
+            }
+        });
+    </script>
 </html>
