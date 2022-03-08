@@ -41,8 +41,7 @@
             brands.forEach((b) => {
                 if(url.includes('brand='+b.value))
                     b.setAttribute('checked', true);
-            })
-            
+            });
         </script>
         <hr>
         Price:

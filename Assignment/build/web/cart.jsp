@@ -14,48 +14,40 @@
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/menubar.css">
+        <link rel="stylesheet" href="css/cart.css">
         <script src="js/bootstrap/jquery.min.js"></script>
         <script src="js/set-theme.js"></script>
-        <style>
-            .item img {
-                width:100px;
-            }
-            td{
-                text-align: center;
-            }
-            tr:hover {
-                border-radius: 8px;
-                box-shadow: 0.5px 0.5px 5px gray;
-            }
-            tr:first-child {
-                box-shadow: none;
-            }
-        </style>
     </head>
     <body>
         <c:import url="element/navbar.jsp"></c:import>
-        <div class="row" style="justify-content: center">
-            <div class="col-10">
-                <a href="home">Home</a><br/>
-                <div class="container">
-                    <table>
-                        <tr>
-                            <th>ProductID</th>
-                            <th>Product Name</th>
-                            <th>Product Image</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                        </tr>
-                        <c:forEach var="item" items="${requestScope.list}">
-                            <tr class="item">
-                                <td>${item.getProduct().productID}</td>
-                                <td>${item.getProduct().productName}</td>
-                                <td><img src="images/${item.getProduct().image}"></td>
-                                <td>${item.getProduct().price}</td>
-                                <td>${item.quantity}</td>
+        <div class="pd-lr-15 mycart">
+            <div class="row" style="justify-content: center">
+                <div class="col-10">
+                    <a href="home">Home</a><br/>
+                    <div class="container">
+                        <table>
+                            <tr>
+                                <th></th>
+                                <th>ProductID</th>
+                                <th>Product Name</th>
+                                <th>Product Image</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th></th>
                             </tr>
-                        </c:forEach>
-                    </table>
+                            <c:forEach var="item" items="${requestScope.list}">
+                                <tr class="item">
+                                    <td><input type="checkbox" name="chooseitems"></td>
+                                    <td>${item.getProduct().productID}</td>
+                                    <td>${item.getProduct().productName}</td>
+                                    <td><img src="images/${item.getProduct().image}"></td>
+                                    <td>${item.getProduct().price}</td>
+                                    <td>${item.quantity}</td>
+                                    <td><i class="fa fa-times removeicon" aria-hidden="true"></i></td>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
