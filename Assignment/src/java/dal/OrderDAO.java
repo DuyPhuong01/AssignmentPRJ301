@@ -145,4 +145,49 @@ public class OrderDAO extends DBContext {
         }
         return 0;
     }
+    public boolean removeFromCart(int[] productID, int userID) {
+        int orderID = getOrderID(userID);
+        String sql = "delete Items where OrderID=? and ProductID=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, orderID);
+            for(int id : productID) {
+                st.setInt(2, id);
+                st.executeUpdate();
+            }
+                
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+    public boolean removeAllFromCart(int userID) {
+        int orderID = getOrderID(userID);
+        String sql = "delete Items where OrderID=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, orderID);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+    public boolean updateQuantity(int productID, int quantity, int userID) {
+        int orderID = getOrderID(userID);
+        String sql = "update Items set Quantity=? where OrderID=? and ProductID=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, quantity);
+            st.setInt(2, orderID);
+            st.setInt(3, productID);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
 }

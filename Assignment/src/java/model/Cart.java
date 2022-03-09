@@ -1,6 +1,7 @@
 
 package model;
 
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -9,7 +10,10 @@ import java.util.List;
  */
 public class Cart {
     private List<Item> list;
+    private Date orderDate;
+    private int totalPrice;
     private boolean status;
+    private int paymentID;
     
     public Cart() {
     }
@@ -19,6 +23,14 @@ public class Cart {
         this.status = status;
     }
 
+    public Cart(List<Item> list, Date orderDate, int totalPrice, boolean status, int paymentID) {
+        this.list = list;
+        this.orderDate = orderDate;
+        this.totalPrice = totalPrice;
+        this.status = status;
+        this.paymentID = paymentID;
+    }
+    
     public List<Item> getList() {
         return list;
     }
@@ -33,5 +45,29 @@ public class Cart {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public Date getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public int getPaymentID() {
+        return paymentID;
+    }
+
+    public void setPaymentID(int paymentID) {
+        this.paymentID = paymentID;
     }
 }

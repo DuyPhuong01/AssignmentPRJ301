@@ -12,8 +12,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sign In</title>
         <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="css/login.css">
-        <link rel="stylesheet" href="css/rei-input.css">
         <script src="js/bootstrap/jquery.min.js"></script>
         <script src="js/set-theme.js"></script>
     </head>
