@@ -1,5 +1,6 @@
 package dal;
 
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -188,6 +189,53 @@ public class OrderDAO extends DBContext {
         } catch (SQLException e) {
             System.out.println(e);
         }
+        return false;
+    }
+    
+    public boolean buy(int[] productIDList, int[] quantityList, int userID){
+        int orderID = getOrderID(userID);
+        try {
+            /* create new unactivate Cart */
+            String sql1 = "insert into Orders (OrderID, UserID, Status) values (?, ?, ?)";
+            OrderDAO order_dao = new OrderDAO();
+            int new_orderID = order_dao.getLastOrderID()+1;
+            PreparedStatement st1 = connection.prepareStatement(sql1);
+            st1.setInt(1, new_orderID);
+            st1.setInt(2, userID);
+            st1.setInt(3, 0);
+            st1.executeUpdate();
+            
+            /* move items to new cart */
+            String sql2 = "update Items set OrderID=?, Quantity=? where ProductID=? and OrderID=?";
+            PreparedStatement st2 = connection.prepareStatement(sql2);
+            st2.setInt(1, new_orderID);
+            st2.setInt(4, orderID);
+            for(int i=0; i<productIDList.length; i++) {
+                st2.setInt(2, quantityList[i]);
+                st2.setInt(3, productIDList[i]);
+                System.out.println("update Items set OrderID="+new_orderID+
+                        ", Quantity="+quantityList[i]+" where ProductID="+productIDList[i]+
+                        " and OrderID="+orderID);
+                System.out.println(st2.executeUpdate());
+                System.out.println("done");
+            }
+            
+            /* set other value for new cart */
+            String sql3 = "update Orders set TotalPrice=("
+                    + "select SUM(p.Price*i.Quantity) from Items i "
+                    + "inner join Products p on i.ProductID = p.ProductID "
+                    + "where OrderID=?"
+                    + "), OrderDate=GETDATE() where OrderID=?";
+            PreparedStatement st3 = connection.prepareStatement(sql3);
+            st3.setInt(1, new_orderID);
+            st3.setInt(2, new_orderID);
+            st3.executeUpdate();
+            return true;
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        
+        
         return false;
     }
 }

@@ -20,36 +20,43 @@
         <c:import url="element/navbar.jsp"></c:import>
         <div class="pd-lr-15 mycart">
             <div class="row" style="justify-content: center">
-                <div class="col-10">
-                    <a href="home">Home</a><br/>
+                <div class="col-ms-12 col-lg-10">
+                    <div class="row jt-spc-btw pd-lr-15">
+                        <a href="home">Home</a>
+                        <a href="mycart?action=history"><i class="fa fa-history" aria-hidden="true"></i>Buy History</a>
+                    </div>
                     <div class="container">
                         <form action="mycart">
                             <input type="text" name="action" value="buy" hidden>
-                            <table>
-                                <tr>
-                                    <th><a onclick="chooseAll()">Choose All</input></th>
-                                    <th>ProductID</th>
-                                    <th>Product Name</th>
-                                    <th>Product Image</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th></th>
-                                </tr>
-                                <c:forEach var="item" items="${requestScope.list}">
-                                    <tr class="item">
-                                        <td><input type="checkbox" name="chooseitems" value="${item.getProduct().productID}"></td>
-                                        <td>${item.getProduct().productID}</td>
-                                        <td>${item.getProduct().productName}</td>
-                                        <td><img src="images/${item.getProduct().image}"></td>
-                                        <td>${item.getProduct().price}</td>
-                                        <td><input type="number" name="quantity" value="${item.quantity}" min="1"></td>
-                                        <td>
-                                            <a class="save-quantity-icon" style="visibility: hidden" onclick="updateQuantity()">save</a>
-                                            <a class="reset-quantity-icon" style="visibility: hidden">reset</a>
-                                        </td>
+                            <div class="row">
+                                <table>
+                                    <tr>
+                                        <th><a onclick="chooseAll()">Choose All</input></th>
+                                        <th>Product Name</th>
+                                        <th>Product Image</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th></th>
                                     </tr>
-                                </c:forEach>
-                            </table>
+                                    <c:forEach var="item" items="${requestScope.list}">
+                                        <tr class="item">
+                                            <!--  productID: ${item.getProduct().productID}  -->
+                                            <td><input type="checkbox" name="chooseitems" value="${item.getProduct().productID}"></td>
+                                            <td>${item.getProduct().productName}</td>
+                                            <td><img src="images/${item.getProduct().image}"></td>
+                                            <td>${item.getProduct().price}</td>
+                                            <td><input type="number" name="quantity" value="${item.quantity}" min="1"></td>
+                                            <td>
+                                                <a class="save-quantity-icon" style="visibility: hidden" onclick="updateQuantity()">save</a>
+                                                <a class="reset-quantity-icon" style="visibility: hidden">reset</a>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </table>
+                                <div class="bill">
+                                    <h1 style="text-align: center">Your Bill</h1>
+                                </div>
+                            </div>
                             <div class="row jt-spc-btw mrg-top-20 pd-lr-15">
                                 <div>
                                     <a onclick="removeAll()">Clear All</input>&nbsp;&nbsp;&nbsp;

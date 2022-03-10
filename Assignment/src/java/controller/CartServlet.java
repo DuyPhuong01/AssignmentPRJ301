@@ -65,7 +65,6 @@ public class CartServlet extends HttpServlet {
                     int productid = Integer.parseInt(request.getParameter("productid"));
                     int quantity = Integer.parseInt(request.getParameter("quantity"));
                     o_dao.updateQuantity(productid, quantity, userID);
-                    request.setAttribute("list", o_dao.getCart(userID).getList());
                     response.sendRedirect("mycart");
                     break;
                     
@@ -78,7 +77,8 @@ public class CartServlet extends HttpServlet {
                         productid_list[i] = Integer.parseInt(productid_raw_list[i]);
                         quantity_list[i] = Integer.parseInt(quantity_raw_list[i]);
                     }
-                    
+                    o_dao.buy(productid_list, quantity_list, userID);
+                    response.sendRedirect("mycart");
                     break;
             }
         } catch(NumberFormatException nfe) {

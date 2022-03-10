@@ -60,6 +60,11 @@ a {
     cursor: pointer;
 }
 
+i {
+    cursor: pointer;
+    color: var(--font-color)
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -256,6 +261,10 @@ ul {
     width: 83.3333333333%;
 }
 
+.col-12 {
+    width: 100%;
+}
+
 .col-ms-2,
 .col-ms-3,
 .col-ms-4,
@@ -287,8 +296,9 @@ ul {
 .col-2,
 .col-3,
 .col-6,
+.col-9,
 .col-10,
-.col-9 {
+.col-12 {
     position: relative;
     min-height: 1px;
     padding-left: 15px;
@@ -460,11 +470,6 @@ nav a:hover {
 
 
 /* button */
-
-label i {
-    cursor: pointer;
-    color: var(--font-color)
-}
 
 label input[type="checkbox"] {
     -webkit-appearance: none;
@@ -788,12 +793,21 @@ label input[type="checkbox"] {
 
 /*   /////////////////////// Cart //////////////////////////   */
 
-.item img {
+.mycart .item img {
     width: 100px;
 }
 
-.item td {
+.mycart .item td {
     text-align: center;
+}
+
+@media (min-width: 1400px) {
+    .mycart table {
+        border-right: 1px solid var(--theme-color);
+    }
+    .mycart .bill {
+        flex-grow: 1;
+    }
 }
 
 .mycart table tr:hover {
@@ -825,6 +839,7 @@ label input[type="checkbox"] {
 .mycart button {
     cursor: pointer;
 }
+
 .mycart table input[name="quantity"] {
     width: 100%;
     max-width: 100px;
@@ -832,6 +847,7 @@ label input[type="checkbox"] {
     border-radius: 8px;
     padding-left: 15px;
 }
+
 
 /*   /////////////////////// Login //////////////////////////   */
 
