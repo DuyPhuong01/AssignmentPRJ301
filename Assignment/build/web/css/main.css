@@ -37,8 +37,7 @@ html[data-theme='dark'] {
 }
 
 ::-webkit-scrollbar {
-    position: absolute;
-    width: 20px;
+    width: 2px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -70,10 +69,12 @@ html {
 }
 
 body {
+    scroll-behavior: smooth;
     background: var(--bg-color);
     position: relative;
     min-height: 100vh;
     padding-bottom: 90px;
+    overflow-x: hidden;
 }
 
 input {
@@ -108,6 +109,10 @@ ul {
     justify-content: space-between;
 }
 
+.jt-center {
+    justify-content: center;
+}
+
 .mrg-top-20 {
     margin-top: 20px;
 }
@@ -115,6 +120,11 @@ ul {
 .pd-lr-15 {
     padding-left: 15px;
     padding-right: 15px;
+}
+
+.mrg-lr-0 {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
 }
 
 @media (min-width: 0px) {
@@ -237,6 +247,10 @@ ul {
     }
 }
 
+.col-1 {
+    width: 8.3333333333%
+}
+
 .col-2 {
     width: 16.6666666667%;
 }
@@ -293,6 +307,7 @@ ul {
 .col-lg-10,
 .col-lg-9,
 .col-lg-12,
+.col-1,
 .col-2,
 .col-3,
 .col-6,
@@ -742,14 +757,27 @@ label input[type="checkbox"] {
     }
 }
 
+.product .product-image,
 .product {
     position: relative;
     margin: 15px 0;
 }
 
+.product .product-image::before {
+    content: "";
+    display: block;
+    padding-top: 100%;
+}
+
 .product img {
     width: 100%;
     border-radius: 8px;
+    height: 250px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    object-fit: cover;
 }
 
 .product .add-btn {
@@ -1035,4 +1063,67 @@ table * {
 .rei-input-label .rei-float>p,
 .rei-input-label input:focus+.rei-input-name .rei-float-name>p {
     transform: translate(-3px, -70%) scale(.75);
+}
+
+
+/*   /////////////////////// Home //////////////////////////   */
+
+.home-show {
+    margin: 0 auto;
+}
+
+.home-show .home-block {
+    position: relative;
+    box-shadow: 1px 1px 5px var(--theme-light-color);
+    border-radius: 8px;
+    background-color: var(--bg-light-color);
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.home-show .home-block>div {
+    position: relative;
+    overflow: hidden;
+}
+
+.home-show .bestseller h2 {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 15px;
+}
+
+.home-show .product-home {
+    width: 300%;
+}
+
+.home-show .left-btn,
+.home-show .right-btn {
+    border: none;
+    border-radius: 50%;
+    background-color: var(--bg-light-color);
+    color: var(--text-color);
+    position: absolute;
+    top: 50%;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    transform: translateY(-50%);
+}
+
+.home-show .left-btn:hover,
+.home-show .right-btn:hover {
+    box-shadow: 1px 1px 5px var(--theme-light-color);
+    transform: translateY(-50%) scale(1.5);
+}
+
+.home-show .left-btn {
+    left: -10px;
+}
+
+.home-show .right-btn {
+    right: -10px;
+}
+
+.home-show .allcategory ul {
+    display: flex;
 }

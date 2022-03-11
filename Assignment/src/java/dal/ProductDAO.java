@@ -234,5 +234,32 @@ public class ProductDAO extends DBContext {
             }
         }
     }
-
+    public List<Product> getBestSellerProduct(){
+        String sql = "select p.BrandID, p.Price, p.ProductID, p.ProductImage, "
+                + "p.ProductName, p.Quantity, p.Status, SUM(i.Quantity) as SoldQuantity "
+                + "from Products p inner join Items i on p.ProductID = i.ProductID "
+                + "group by p.BrandID, p.Price, p.ProductID, p.ProductImage, "
+                + "p.ProductName, p.Quantity, p.Status "
+                + "order by SUM(i.Quantity) desc";
+        List<Product> list = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Product p = new Product();
+                p.setProductID(rs.getInt("ProductID"));
+                p.setProductName(rs.getString("ProductName"));
+                p.setBrandID(rs.getInt("BrandID"));
+                p.setPrice(rs.getDouble("Price"));
+                p.setQuantity(rs.getInt("Quantity"));
+                p.setImage(rs.getString("ProductImage"));
+                p.setStatus(rs.getInt("Status"));
+                list.add(p);
+                System.out.println(p);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
 }
