@@ -21,11 +21,11 @@
             </div>
         </div>
     </c:forEach>
-    <div class="btn-group">
+    <div class="paging-btn-grp">
+        <div class="btn-group">
         <% 
             int number_of_page = (Integer)request.getAttribute("number_of_page");
             try{
-//                int number_of_page = Integer.parseInt(number_of_page_raw);
                 for(int i=1; i<=number_of_page; i++){
         %>
             <button type="button" class="" onclick="movePage(<%= i %>)"><%= i %></button>
@@ -35,6 +35,7 @@
                 System.out.println(nfe);
             }
         %>
+        </div>
     </div>
     <script>
         function movePage(page_number) {

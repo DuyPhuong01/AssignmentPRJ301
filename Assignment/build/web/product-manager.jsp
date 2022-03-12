@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <h1>product manager</h1>
-<a href="createproduct">Create product</a>
+<a href="product?action=create">Create product</a>
 <table>
     <tr>
         <td>ID</td>
@@ -26,7 +26,7 @@
             <td><i style="color: ${product.status==0 ? "red" : "green"}" class="fa fa-circle" aria-hidden="true"></i></td>
             <td>
                 <i onclick="deleteProduct('${product.productID}')" class="fa fa-trash" aria-hidden="true"></i>&nbsp;
-                <a href="updateproduct?id=${product.productID}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                <a href="product?action=update&id=${product.productID}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
             </td>
         </tr>
     </c:forEach>
@@ -34,6 +34,6 @@
 
 <script>
     function deleteProduct(id){
-        if(confirm("Are you sure to delete Product with id = "+id+"?")) window.location="deleteproduct?id="+id;
+        if(confirm("Are you sure to delete Product with id = "+id+"?")) window.location="product?action=delete&id="+id;
     }
 </script>

@@ -16,8 +16,7 @@
         <script src="js/set-theme.js"></script>
     </head>
     <body>
-        
-        <div class="row center">
+        <div class="admin row center">
             <div class="col-10">
                 <a href="home">Home</a>
                 <label>
@@ -33,7 +32,7 @@
                         <a href="admin?action=brand">Brands</a><br/>
                         <a href="admin?action=user">Users</a><br/>
                     </div>
-                    <div class="col-10">
+                    <div class="admin-content col-10">
                         <jsp:include page="${requestScope.page}.jsp"></jsp:include>
                     </div>
                 </div>

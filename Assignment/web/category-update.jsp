@@ -13,13 +13,14 @@
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <link rel="stylesheet" href="css/main.css">
         <script src="js/jquery.min.js"></script>
-        <script src="js/gallery.js"></script>
+        <script src="js/set-theme.js"></script>
     </head>
     <body>
         <c:set var="category" value="${requestScope.category}"></c:set>
         <div class="center row" style="justify-content: center">
-            <form class="container col-6" action="updatecategory" method="post">
-                <input type="text" name="categoryID" value="${category.categoryID}" hidden><br/>
+            <form class="container col-6" action="category" method="post">
+                <input type="text" name="action" value="update" hidden>
+                <input type="text" name="categoryID" value="${category.categoryID}" hidden>
                 <table>
                     <tr>
                         <td>

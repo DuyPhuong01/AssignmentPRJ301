@@ -23,6 +23,7 @@ public class Category_Servlet extends HttpServlet {
         CategoryDAO c_dao = new CategoryDAO();
         
         String action = request.getParameter("action");
+        System.out.println(action);
         
         if(action==null) action = "view";
         switch(action) {
@@ -46,7 +47,7 @@ public class Category_Servlet extends HttpServlet {
                 try {
                     int id = Integer.parseInt(delete_id_raw);
                     c_dao.deleteCategory(id);
-                    response.sendRedirect("main");
+                    response.sendRedirect("admin?action=category");
                 } catch(NumberFormatException e) {
                     System.out.println(e);
                 }
@@ -61,26 +62,39 @@ public class Category_Servlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         CategoryDAO c_dao = new CategoryDAO();
-        
+        String name, describe, activate_raw, categoryID_raw;
         String action = request.getParameter("action");
         
         if(action==null) action = "view";
         switch(action) {
             case "create":
-                String name = request.getParameter("name");
-                String describe = request.getParameter("describe");
-                String activate_raw = request.getParameter("activate");
+                name = request.getParameter("name");
+                describe = request.getParameter("describe");
+                activate_raw = request.getParameter("activate");
                 try {
                     int activate = Integer.parseInt(activate_raw);
                     Category c = new Category(1, name, describe, activate);
                     c_dao.addCategory(c);
-                    response.sendRedirect("main");
+                    response.sendRedirect("admin?action=category");
                 } catch(NumberFormatException e) {
                     System.out.println(e);
                 }
                 break;
                 
             case "update":
+                categoryID_raw = request.getParameter("categoryID");
+                name = request.getParameter("name");
+                describe = request.getParameter("describe");
+                activate_raw = request.getParameter("activate");
+                try {
+                    int activate = Integer.parseInt(activate_raw);
+                    int categoryID = Integer.parseInt(categoryID_raw);
+                    Category c = new Category(categoryID, name, describe, activate);
+                    c_dao.updateCategory(c);
+                    response.sendRedirect("admin?action=category");
+                } catch(NumberFormatException e) {
+                    System.out.println(e);
+                }
                 break;
 
             default :

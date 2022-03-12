@@ -7,7 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <h1>Category manager</h1>
-<a href="createcategory">Create Category</a>
+<a href="category?action=create">Create Category</a>
 <table>
     <tr>
         <td>ID</td>
@@ -24,7 +24,7 @@
             <td><i style="color: ${category.status==0 ? "red" : "green"}" class="fa fa-circle" aria-hidden="true"></i></td>
             <td>
                 <i onclick="deleteCategory('${category.categoryID}')" class="fa fa-trash" aria-hidden="true"></i>&nbsp;
-                <a href="updatecategory?id=${category.categoryID}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                <a href="category?action=update&id=${category.categoryID}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
             </td>
         </tr>
     </c:forEach>
@@ -32,6 +32,6 @@
 
 <script>
     function deleteCategory(id){
-        if(confirm('Are you sure to delete category with id = ' + id + "?")) window.location = "deletecategory?id="+id;
+        if(confirm('Are you sure to delete category with id = ' + id + "?")) window.location = "category?action=delete&id="+id;
     }
 </script>

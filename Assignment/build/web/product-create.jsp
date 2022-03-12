@@ -24,7 +24,8 @@
             <div class="col-6">
                 <a href="home">Home</a>
                 <div class="container">
-                    <form action="createproduct" method="post" enctype="multipart/form-data">
+                    <form action="product" method="post" enctype="multipart/form-data">
+                        <input type="text" name="action" value="create" hidden>
                         <h3 style="text-transform: uppercase">Add Product</h3>    
                         Category: 
                         <select name="categoryID">
@@ -41,7 +42,22 @@
                             </c:forEach>
                         </select>
                             <br/>
-                        Name: <input type="text" name="name"><br/>
+                        <label class="col-ms-12 rei-input-label">
+                            <input type="text" name="name">
+                            <div class="rei-input-name">
+                                <span></span>
+                                <span class="rei-float-name"><p>Name</p></span>
+                                <span></span>
+                            </div>
+                        </label>
+                        <label class="col-ms-6 rei-input-label">
+                            <input type="number" name="price">
+                            <div class="rei-input-name">
+                                <span></span>
+                                <span class="rei-float-name"><p>Price</p></span>
+                                <span></span>
+                            </div>
+                        </label>
                         Price: <input type="number" name="price"><br/>
                         Quantity: <input type="number" name="quantity"><br/>
                         Picture: <input type="file" name="productPhoto"><br/>
@@ -54,4 +70,5 @@
             </div>
         </div>
     </body>
+    <script src="js/rei-input.js"></script>
 </html>

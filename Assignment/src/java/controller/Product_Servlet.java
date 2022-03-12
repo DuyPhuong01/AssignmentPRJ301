@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,7 @@ import model.Product;
  *
  * @author Duy Phuong
  */
+@MultipartConfig
 @WebServlet(name = "ProductServlet", urlPatterns = {"/product"})
 public class Product_Servlet extends HttpServlet {
     final int p_per_page = 12;
@@ -158,7 +160,7 @@ public class Product_Servlet extends HttpServlet {
         ProductDAO p_dao = new ProductDAO();
         
         String action = request.getParameter("action");
-        
+        System.out.println(action);
         if(action == null) action = "read";
         switch(action) {
             case "create":
@@ -203,7 +205,7 @@ public class Product_Servlet extends HttpServlet {
                         out.close();
                     }
                     TimeUnit.SECONDS.sleep(2);
-                    response.sendRedirect("createproduct");
+                    response.sendRedirect("admin?action=product");
                 } catch(NumberFormatException | InterruptedException nfe) {
                     System.out.println(nfe);
                 } catch (FileNotFoundException fne) {

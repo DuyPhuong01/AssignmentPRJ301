@@ -22,9 +22,9 @@
         <c:set var="product" value="${requestScope.product}"></c:set>
         <div class="center row" style="justify-content: center">
             <div class="container col-6">
-                <form action="updateproduct" method="post" enctype="multipart/form-data">
+                <form action="product" method="post" enctype="multipart/form-data">
                     <h3 style="text-transform: uppercase">Update Product</h3>
-                    <input type="text" name="target" value="product" hidden>
+                    <input type="text" name="action" value="update" hidden>
                     Category: 
                     <select name="categoryID"><c:if test="${requestScope.categoryList == '[]'}"><option name="category">Empty</option></c:if>
                         <c:forEach items="${requestScope.categoryList}" var="c">
@@ -39,7 +39,7 @@
                         </c:forEach>
                     </select>
                     <br/>
-                    <input type="text" name="productID" value="${product.productID}"><br/>
+                    <input type="text" name="productID" value="${product.productID}" hidden>
                         Name: <input type="text" name="name" value="${product.productName}"><br/>
                     Price: <input type="number" name="price" value="${product.price}"><br/>
                     Quantity: <input type="number" name="quantity" value="${product.quantity}"><br/>
@@ -56,4 +56,5 @@
             </div>
         </div>
     </body>
+    <script src="js/rei-input.js"></script>
 </html>

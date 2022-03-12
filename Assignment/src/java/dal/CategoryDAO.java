@@ -54,7 +54,7 @@ public class CategoryDAO extends DBContext {
         String sql = "insert into Categories (CategoryID, CategoryName, Description, Status) values (?, ?, ?, ?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, getLastCategory().getCategoryID());
+            st.setInt(1, getLastCategory().getCategoryID()+1);
             st.setString(2, c.getCategoryName());
             st.setString(3, c.getDescription());
             st.setInt(4, c.getStatus());

@@ -97,11 +97,12 @@ ul {
 }
 
 .center {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
     display: flex;
-    height: 100vh;
-    width: 100vw;
     justify-content: center;
-    align-items: center;
 }
 
 .jt-spc-btw {
@@ -810,6 +811,30 @@ label input[type="checkbox"] {
     cursor: pointer;
 }
 
+#product-list-1 {
+    position: relative;
+    padding-bottom: 50px;
+}
+
+#product-list-1 .paging-btn-grp {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+#product-list-1 .paging-btn-grp .btn-group {
+    display: flex;
+    justify-content: center;
+}
+
+#product-list-1 .paging-btn-grp .btn-group button {
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 2px solid var(--theme-light-color);
+    border-radius: 8px;
+    cursor: pointer;
+}
+
 
 /*   /////////////////////// Footer //////////////////////////   */
 
@@ -1168,4 +1193,16 @@ table * {
 
 .mini-banner .button:hover {
     transform: translateY(-8px) scale(1.2);
+}
+
+
+/*   /////////////////////// Admin //////////////////////////   */
+
+.admin .container {
+    height: 90vh;
+}
+
+.admin .admin-content {
+    max-height: 100%;
+    overflow-y: scroll;
 }

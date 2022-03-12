@@ -17,20 +17,18 @@
         <script src="js/set-theme.js"></script>
     </head>
     <body>
-        <div class="pd-lr-15">
-            <div class="row center">
-                <div class="col-ms-12 col-lg-8">
-                    <a href="home">Home</a>
-                    <div class="container row">
-                            <div class="admin-menu col-2">
-                                <h1>My Account</h1>
-                                <a href="account?action=details">Information</a><br/>
-                                <a href="account?action=setting">Setting</a><br/>
-                            </div>
-                            <div class="col-10">
-                                <jsp:include page="${requestScope.page}.jsp"></jsp:include>
-                            </div>
-                    </div>
+        <div class="row mrg-lr-0 center">
+            <div class="col-ms-12 col-lg-8">
+                <a href="home">Home</a>
+                <div class="container row">
+                        <div class="admin-menu col-2">
+                            <h1>My Account</h1>
+                            <a href="account?action=details">Information</a><br/>
+                            <a href="account?action=setting">Setting</a><br/>
+                        </div>
+                        <div class="col-10">
+                            <jsp:include page="${requestScope.page}.jsp"></jsp:include>
+                        </div>
                 </div>
             </div>
         </div>
