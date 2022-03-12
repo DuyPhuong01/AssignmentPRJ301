@@ -259,6 +259,10 @@ ul {
     width: 25%;
 }
 
+.col-4 {
+    width: 33.3333333333%;
+}
+
 .col-6 {
     width: 50%;
 }
@@ -310,6 +314,7 @@ ul {
 .col-1,
 .col-2,
 .col-3,
+.col-4,
 .col-6,
 .col-9,
 .col-10,
@@ -1126,4 +1131,41 @@ table * {
 
 .home-show .allcategory ul {
     display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.home-show .allcategory li {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.home-show .allcategory ul button {
+    cursor: pointer;
+    border: none;
+    transition: 0s;
+    font-size: 1.2rem;
+}
+
+.home-show .allcategory ul button.focus {
+    font-weight: bold;
+    border-bottom: 2px solid var(--theme-color);
+}
+
+.mini-banner img {
+    width: 100%;
+}
+
+.mini-banner .button {
+    background-color: var(--bg-light-color);
+    color: var(--text-color);
+    padding: 5px 10px;
+    border-radius: 20px;
+    position: absolute;
+    bottom: 20px;
+    left: 30px;
+}
+
+.mini-banner .button:hover {
+    transform: translateY(-8px) scale(1.2);
 }

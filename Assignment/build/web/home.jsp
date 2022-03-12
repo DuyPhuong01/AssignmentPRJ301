@@ -3,6 +3,8 @@
     Author     : Duy Phuong
 --%>
 
+<%@page import="model.Product"%>
+<%@page import="dal.ProductDAO"%>
 <%@page import="model.Category"%>
 <%@page import="java.util.List"%>
 <%@page import="dal.CategoryDAO"%>
@@ -42,46 +44,12 @@
             </div>
         </div>
         <div class="home-show col-ms-12 col-lg-10">
+            <!-- Best Seller -->
             <div class="home-block">
-                <div class="allcategory">
-                    <form action="product" method="get">
-                        <ul>
-                            <%
-                                CategoryDAO c_dao = new CategoryDAO();
-                                List<Category> categoryList = c_dao.getAllCategory();
-                                for (Category category : categoryList) {
-                            %>
-                                <li><label><input type="radio" name="categoryID" value="<%= category.getCategoryID() %>" hidden><%= category.getCategoryName() %></label></li>  
-                            <%
-                                }
-                            %>
-                        </ul>
-                    </form>
-                    <div class="product-home row mrg-lr-0">
-                        <c:forEach begin="0" end="12" var="product" items="${requestScope.bestseller_productlist}">
-                            <div class="product col-1">
-                                <div class="product-image">
-                                    <a href="product?action=details&productID=${product.productID}"><img src="images/${product.image}" alt=""></a>
-                                </div>
-                                <p class="product-name">${product.productName}</p>
-                                <div>
-                                    <p><b class="price">$${product.price}</b></p>
-                                </div>
-                                <div class="add-btn">
-                                    <a class="link-button" href="addtocart?productID=${product.productID}">Add to Cart</a>
-                                </div>
-                            </div>
-                        </c:forEach>
-                    </div>
-                </div>
-                <button class="left-btn"><</button>
-                <button class="right-btn">></button>
-            </div>
-            <div class="home-block">
-                <div class="bestseller">
+                <div class="slide bestseller">
                     <h2>Bestseller</h2>
                     <div class="product-home row mrg-lr-0">
-                        <c:forEach begin="0" end="12" var="product" items="${requestScope.bestseller_productlist}">
+                        <c:forEach begin="0" end="11" var="product" items="${requestScope.bestseller_productlist}">
                             <div class="product col-1">
                                 <div class="product-image">
                                     <a href="product?action=details&productID=${product.productID}"><img src="images/${product.image}" alt=""></a>
@@ -96,16 +64,133 @@
                             </div>
                         </c:forEach>
                     </div>
+                    <button class="left-btn"><</button>
+                    <button class="right-btn">></button>
                 </div>
-                <button class="left-btn"><</button>
-                <button class="right-btn">></button>
             </div>
+            <!-- Mini Banner -->
+            <div class="mini-banner">
+                <div class="row mrg-lr-0">
+                    <div class="col-4">
+                        <a class="button" href="product?categoryID=1">Men</a>
+                        <a href="product?categoryID=1">
+                            <img src="img/men.jpg">
+                        </a>
+                    </div>
+                    <div class="col-4">
+                        <a class="button" href="product?categoryID=2">Women</a>
+                        <a href="product?categoryID=2">
+                            <img src="img/women.jpg">
+                        </a>
+                    </div>
+                    <div class="col-4">
+                        <a class="button" href="product?categoryID=3">Kid</a>
+                        <a href="product?categoryID=3">
+                            <img src="img/kid.jpg">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- All Category -->
+            <div class="home-block allcategory">
+                <div>
+                    <ul>
+                        <li><button class="focus" name="categoryID" onclick="moveTab('.product_cate_0')">All</button></li>  
+                        <%
+                            CategoryDAO c_dao = new CategoryDAO();
+                            List<Category> categoryList = c_dao.getAllCategory();
+                            for (Category category : categoryList) {
+                        %>
+                        <li><button name="categoryID" onclick="moveTab('.product_cate_<%= category.getCategoryID()%>')"><%= category.getCategoryName() %></button></li>  
+                        <%
+                            }
+                        %>
+                    </ul>
+                </div>
+                <div class="tab slide product_cate_0">
+                    <div class="product-home row mrg-lr-0">
+                        <c:forEach begin="0" end="11" var="product" items="${requestScope.productlist_all}">
+                            <div class="product col-1">
+                                <div class="product-image">
+                                    <a href="product?action=details&productID=${product.productID}"><img src="images/${product.image}" alt=""></a>
+                                </div>
+                                <p class="product-name">${product.productName}</p>
+                                <div>
+                                    <p><b class="price">$${product.price}</b></p>
+                                </div>
+                                <div class="add-btn">
+                                    <a class="link-button" href="addtocart?productID=${product.productID}">Add to Cart</a>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                    <button class="left-btn"><</button>
+                    <button class="right-btn">></button>
+                </div>
+                <%
+                    for (Category category : categoryList) {
+                %>
+                <div class="tab slide product_cate_<%= category.getCategoryID()%>">
+                    <div class="product-home row mrg-lr-0">
+                    <%
+                            ProductDAO p_dao = new ProductDAO();
+                            List<Product> productList = p_dao.getProducts(category.getCategoryID());
+                            for (Product product : productList) {
+                    %>
+                        <div class="product-list product col-1">
+                            <div class="product-image">
+                                <a href="product?action=details&productID=<%= product.getProductID() %>"><img src="images/<%= product.getImage()%>" alt=""></a>
+                            </div>
+                            <p class="product-name"><%= product.getProductName()%></p>
+                            <div>
+                                <p><b class="price">$<%= product.getPrice()%></b></p>
+                            </div>
+                            <div class="add-btn">
+                                <a class="link-button" href="addtocart?productID=<%= product.getProductID() %>">Add to Cart</a>
+                            </div>
+                        </div>
+                    <%
+                            }
+                    %>
+                    </div>
+                    <button class="left-btn"><</button>
+                    <button class="right-btn">></button>
+                </div>
+                <%
+                    }
+                %>
+                
+            </div>
+            <script>
+                var x = document.querySelectorAll('.allcategory .tab');
+                for (var i = 0; i < x.length; i++) {
+                    x[i].style = "display: none";
+                }
+                document.querySelector('.product_cate_0').style = '';
+                function moveTab(b) {
+                    for (var i = 0; i < x.length; i++) {
+                        x[i].style = "display: none";
+                    }
+                    document.querySelector(b).style = '';
+                }
+                
+                var y = document.querySelectorAll('.allcategory ul button');
+                y.forEach((b) => {
+                    
+                    b.addEventListener('click', function(){
+                        for(var i=0; i<y.length; i++) {
+                            y[i].classList = '';
+                        }
+                        b.classList='focus';
+                    });
+                });
+            </script>
         </div>
         <c:import url="element/footer.jsp"></c:import>
     </body>
     <script src="js/banner.js"></script>
     <script>
-        document.querySelectorAll('.home-block').forEach((d) => {
+        document.querySelectorAll('.home-block>.slide').forEach((d) => {
             var index=0;
             var area = d.querySelector('.product-home');
             d.querySelector('.left-btn').addEventListener('click', function(){
@@ -115,7 +200,7 @@
                 }
             });
             d.querySelector('.right-btn').addEventListener('click', function(){
-                if(index!=3){
+                if(index!=2){
                     index++;
                     area.style = 'transform: translateX(-'+ index*33.3333333333 +'%);';
                 }

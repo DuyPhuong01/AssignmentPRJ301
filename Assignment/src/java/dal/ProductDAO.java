@@ -36,6 +36,30 @@ public class ProductDAO extends DBContext {
         }
         return list;
     }
+    public List<Product> getProducts(int categoryID) {
+        List<Product> list = new ArrayList<>();
+        String sql = "select * from Products p inner join CatePro cp on p.ProductID = cp.ProductID"
+                        + " inner join Categories c on cp.CategoryID = c.CategoryID"
+                        + " where c.CategoryID=" + categoryID;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Product p = new Product();
+                p.setProductID(rs.getInt("ProductID"));
+                p.setProductName(rs.getString("ProductName"));
+                p.setBrandID(rs.getInt("BrandID"));
+                p.setPrice(rs.getDouble("Price"));
+                p.setQuantity(rs.getInt("Quantity"));
+                p.setImage(rs.getString("ProductImage"));
+                p.setStatus(rs.getInt("Status"));
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
 
     public List<Product> getProducts(int categoryID, int[] brandID, int priceMin, 
             int priceMax, String orderby, String searchkey) {

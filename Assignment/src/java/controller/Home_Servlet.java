@@ -25,7 +25,11 @@ public class Home_Servlet extends HttpServlet {
         ProductDAO p_dao = new ProductDAO();
         CategoryDAO c_dao = new CategoryDAO();
         List<Category> c_list = c_dao.getAllCategory();
-        
+        for(Category c : c_list) {
+            request.setAttribute("productlist_category_"+c.getCategoryID(), p_dao.getProducts(c.getCategoryID()));
+        }
+        request.setAttribute("productlist_all", p_dao.getAllProduct());
+        request.setAttribute("categorylist", c_list);
         request.setAttribute("bestseller_productlist", p_dao.getBestSellerProduct());
         request.getRequestDispatcher("home.jsp").forward(request, response);
     }
