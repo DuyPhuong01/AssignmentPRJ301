@@ -66,6 +66,7 @@
                     <ul class="dropdown-menu">
                         <c:if test="${cookie.userRole.getValue() == '1'}">
                             <li><a href="admin">Admin</a></li>
+                            <li><a href="analytics">Analytics</a></li>
                             <hr style="margin: 5px 0;">
                         </c:if>
                         <li><a href="account?action=details">My Account</a></li>
@@ -89,6 +90,7 @@
                     <c:if test="${cookie.userAccount.getValue()!=null && cookie.userAccount.getValue()!=''}">
                         <c:if test="${cookie.userRole.getValue() == '1'}">
                             <li><a href="admin">Admin</a></li>
+                            <li><a href="analytics">Analytics</a></li>
                             <hr style="margin: 5px 0;">
                         </c:if>
                         <li><a href="account?action=details">My Account</a></li>

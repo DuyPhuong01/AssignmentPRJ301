@@ -234,8 +234,28 @@ public class OrderDAO extends DBContext {
         } catch (SQLException sqle) {
             System.out.println(sqle);
         }
-        
-        
         return false;
     }
+    
+    public List<List> getRevenue(){
+        List<List> list = new ArrayList<>();
+        List<Date> date = new ArrayList<>();
+        List<Integer> revenue = new ArrayList<>();
+        
+        String sql = "select SUM(TotalPrice) as Revenue, OrderDate from Orders where Status=0 group by OrderDate order by OrderDate asc";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                date.add(rs.getDate("OrderDate"));
+                revenue.add(rs.getInt("Revenue"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        list.add(date);
+        list.add(revenue);
+        return list;
+    }
+    
 }
