@@ -7,7 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <h1>user manager</h1>
-<a href="signup"> Add an account</a>
+<a href="user?action=create">Add an account</a>
 <table>
     <tr>
         <td>Username</td>
@@ -23,8 +23,8 @@
             <td><c:if test="${user.role==1}">Admin</c:if><c:if test="${user.role==0}">Customer</c:if></td>
             <td>${user.fullname}</td>
             <td>
-                <i onclick="deleteAccount('${user.username}')" class="fa fa-trash" aria-hidden="true"></i>&nbsp;
-                <a href="update?target=user&id=${user.username}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                <i onclick="deleteAccount('${user.username}')" class="fa fa-trash" aria-hidden="true"></i>
+                <a href="user?action=update&&username=${user.username}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                 <i onclick="showInformation('${user}')" class="fa fa-info-circle" aria-hidden="true"></i>
                 <i onclick="setAdmin('${user.username}')" class="fa fa-cog" aria-hidden="true"></i>
             </td>
@@ -33,10 +33,10 @@
 </table>
 <script>
     function deleteAccount(username) {
-        if(confirm('Are you sure to delete Account with username = ' + username + "?")) window.location = "deleteaccount?username="+username;
+        if(confirm('Are you sure to delete Account with username = ' + username + "?")) window.location = "user?action=delete&username="+username;
     }
     function setAdmin(username) {
-        if(confirm('Are you sure to set Account with username = ' + username + " to be an Admin?")) window.location = "setadmin?username="+username;
+        if(confirm('Are you sure to set Account with username = ' + username + " to be an Admin?")) window.location = "user?action=setadmin&username="+username;
     }
     function showInformation(username) {
         

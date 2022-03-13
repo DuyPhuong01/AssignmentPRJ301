@@ -15,8 +15,8 @@ import model.User;
  *
  * @author Duy Phuong
  */
-@WebServlet(name = "Account_Servlet", urlPatterns = {"/account"})
-public class Account_Servlet extends HttpServlet {
+@WebServlet(name = "User_Servlet", urlPatterns = {"/user"})
+public class User_Servlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

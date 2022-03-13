@@ -17,43 +17,46 @@
     </head>
     <body>
         <c:set var="category" value="${requestScope.category}"></c:set>
-        <div class="center row" style="justify-content: center">
-            <form class="container col-6" action="category" method="post">
-                <input type="text" name="action" value="update" hidden>
-                <input type="text" name="categoryID" value="${category.categoryID}" hidden>
-                <table>
-                    <tr>
-                        <td>
-                            Name:
-                        </td>
-                        <td>
-                            <input type="text" name="name" value="${category.categoryName}"><br/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Describe:
-                        </td>
-                        <td>
-                            <input type="text" name="describe" value="${category.description}"><br/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Activate:
-                        </td>
-                        <td>
-                            <input type="radio" name="activate" value="1" <c:if test="${category.status ==1}">checked</c:if>>Yes
-                            <input type="radio" name="activate" value="0" <c:if test="${category.status ==0}">checked</c:if>>No
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <input type="submit" value="Update Category">
-                        </td>
-                    </tr>
-                </table>
-            </form>
+            <div class="center row mrg-lr-0" style="justify-content: center">
+                <div class="col-ms-12 col-md-6 col-lg-4">
+                    <a href="home">Home</a>
+                    <form class="container" action="category" method="post">
+                        <input type="text" name="action" value="update" hidden>
+                        <input type="text" name="categoryID" value="${category.categoryID}" hidden>
+                    <div class="row">
+                        <label class="col-ms-12 rei-input-label">
+                            <input type="text" name="name" value="${category.categoryName}">
+                            <div class="rei-input-name">
+                                <span></span>
+                                <span class="rei-float-name"><p>Name</p></span>
+                                <span></span>
+                            </div>
+                        </label>
+                        <label class="col-ms-12 rei-input-label">
+                            <input type="text" name="describe" value="${category.description}">
+                            <div class="rei-input-name">
+                                <span></span>
+                                <span class="rei-float-name"><p>Describe</p></span>
+                                <span></span>
+                            </div>
+                        </label>
+                        <div class="col-ms-12 rei-input-radio">
+                            <span class="input-radio-name">Activate</span>
+                            <label>
+                                <input type="radio" name="activate" value="1" <c:if test="${category.status ==1}">checked</c:if>>
+                                <span>Yes</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="activate" value="0" <c:if test="${category.status ==0}">checked</c:if>>
+                                <span>No</span>
+                            </label>
+                        </div>
+                    </div>
+                    <br/>
+                    <input type="submit" value="Update Category">   
+                </form>
+            </div>
         </div>
     </body>
+    <script src="js/rei-input.js"></script>
 </html>

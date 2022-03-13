@@ -6,10 +6,18 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-<a href="account?action=update">Change Information</a><br/>
-<a href="account?action=changeusernameandpassword">Change Username and Password</a><br/>
-<a onclick="deleteAccount()">Delete this Account</a>
+<div class="account-setting">
+    <div>
+        <a href="account?action=update">Change Information</a>
+    </div>
+    <div>
+        <a href="account?action=changeusernameandpassword">Change Username and Password</a>
+    </div>
+    <div>
+        <a name="deleteaccount" onclick="deleteAccount()">Delete this Account</a>
+    </div>
+    
+</div>
 
 <script>
     function deleteAccount(){

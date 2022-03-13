@@ -41,29 +41,50 @@
                                 <option value="${b.brandID}">${b.brandName}</option>
                             </c:forEach>
                         </select>
-                            <br/>
-                        <label class="col-ms-12 rei-input-label">
-                            <input type="text" name="name">
-                            <div class="rei-input-name">
-                                <span></span>
-                                <span class="rei-float-name"><p>Name</p></span>
-                                <span></span>
+                        <div class="row">
+                            <label class="col-ms-12 rei-input-label">
+                                <input type="text" name="name">
+                                <div class="rei-input-name">
+                                    <span></span>
+                                    <span class="rei-float-name"><p>Name</p></span>
+                                    <span></span>
+                                </div>
+                            </label>
+                            <label class="col-ms-6 rei-input-label">
+                                <input type="number" name="price">
+                                <div class="rei-input-name">
+                                    <span></span>
+                                    <span class="rei-float-name"><p>Price</p></span>
+                                    <span></span>
+                                </div>
+                            </label>
+                            <label class="col-ms-6 rei-input-label">
+                                <input type="number" name="quantity">
+                                <div class="rei-input-name">
+                                    <span></span>
+                                    <span class="rei-float-name"><p>Quantity</p></span>
+                                    <span></span>
+                                </div>
+                            </label>
+                            <label class="rei-input-file-image col-ms-4">
+                                <span class="input-name">Product Picture</span>
+                                <input type="file" name="productPhoto">
+                                <div class="preview">
+                                    <div class="box-hover"><p>Upload File</p></div>
+                                </div>
+                            </label>
+                            <div class="col-ms-12 rei-input-radio">
+                                <span class="input-radio-name">Activate Status</span>
+                                <label>
+                                    <input type="radio" name="activate" value="1" checked>
+                                    <span>In Stock</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="activate" value="0">
+                                    <span>Out Of Stock</span>
+                                </label>
                             </div>
-                        </label>
-                        <label class="col-ms-6 rei-input-label">
-                            <input type="number" name="price">
-                            <div class="rei-input-name">
-                                <span></span>
-                                <span class="rei-float-name"><p>Price</p></span>
-                                <span></span>
-                            </div>
-                        </label>
-                        Price: <input type="number" name="price"><br/>
-                        Quantity: <input type="number" name="quantity"><br/>
-                        Picture: <input type="file" name="productPhoto"><br/>
-                        Activate Status: 
-                            <input type="radio" name="activate" value="1" checked>In Stock<br/>
-                            <input type="radio" name="activate" value="0">Out Of Stock<br/>
+                        </div>
                         <input type="submit" value="Add Product">
                     </form>
                 </div>

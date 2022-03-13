@@ -193,6 +193,20 @@ public class ProductDAO extends DBContext {
         }
         return -1;
     }
+    public int getCategoryID(int productID) {
+        String sql = "select * from CatePro where productID=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, productID);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                return rs.getInt("CategoryID");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return -1;
+    }
 
     public void deleteProduct(int productID) {
         String sql1 = "delete from CatePro where productID=?";

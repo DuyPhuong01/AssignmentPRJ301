@@ -20,13 +20,13 @@
     </head>
     <body>
         <c:set var="product" value="${requestScope.product}"></c:set>
-        <div class="center row" style="justify-content: center">
-            <div class="container col-6">
-                <form action="product" method="post" enctype="multipart/form-data">
-                    <h3 style="text-transform: uppercase">Update Product</h3>
-                    <input type="text" name="action" value="update" hidden>
-                    Category: 
-                    <select name="categoryID"><c:if test="${requestScope.categoryList == '[]'}"><option name="category">Empty</option></c:if>
+            <div class="center row" style="justify-content: center">
+                <div class="container col-6">
+                    <form action="product" method="post" enctype="multipart/form-data">
+                        <h3 style="text-transform: uppercase">Update Product</h3>
+                        <input type="text" name="action" value="update" hidden>
+                        Category: 
+                        <select name="categoryID"><c:if test="${requestScope.categoryList == '[]'}"><option name="category">Empty</option></c:if>
                         <c:forEach items="${requestScope.categoryList}" var="c">
                             <option value="${c.categoryID}">${c.categoryName}</option>
                         </c:forEach>
@@ -40,17 +40,51 @@
                     </select>
                     <br/>
                     <input type="text" name="productID" value="${product.productID}" hidden>
-                        Name: <input type="text" name="name" value="${product.productName}"><br/>
-                    Price: <input type="number" name="price" value="${product.price}"><br/>
-                    Quantity: <input type="number" name="quantity" value="${product.quantity}"><br/>
-                    Picture: 
-                    <label>
-                        <img style="width: 100px" src="images/${product.image}" alt="">
-                        <input type="file" name="productPhoto"><br/>
-                    </label>
-                    Activate Status: 
-                        <input type="radio" name="activate" value="1" checked>In Stock<br/>
-                        <input type="radio" name="activate" value="0">Out Of Stock<br/>
+                    <div class="row">
+                        <label class="col-ms-12 rei-input-label">
+                            <input type="text" name="name" value="${product.productName}">
+                            <div class="rei-input-name">
+                                <span></span>
+                                <span class="rei-float-name"><p>Name</p></span>
+                                <span></span>
+                            </div>
+                        </label>
+                        <label class="col-ms-6 rei-input-label">
+                            <input type="number" name="price" value="${product.price}">
+                            <div class="rei-input-name">
+                                <span></span>
+                                <span class="rei-float-name"><p>Price</p></span>
+                                <span></span>
+                            </div>
+                        </label>
+                        <label class="col-ms-6 rei-input-label">
+                            <input type="number" name="quantity" value="${product.quantity}">
+                            <div class="rei-input-name">
+                                <span></span>
+                                <span class="rei-float-name"><p>Quantity</p></span>
+                                <span></span>
+                            </div>
+                        </label>
+                        <label class="rei-input-file-image col-ms-4">
+                            <span class="input-name">Product Picture</span>
+                            <input type="file" name="productPhoto">
+                            <div class="preview">
+                                <img class="preview-img" src="images/${product.image}" alt="">
+                                <div class="box-hover"><p>Upload File</p></div>
+                            </div>
+                        </label>
+                        <div class="col-ms-12 rei-input-radio">
+                            <span class="input-radio-name">Activate Status</span>
+                            <label>
+                                <input type="radio" name="activate" value="1" <c:if test="${product.status ==1}">checked</c:if>>
+                                    <span>In Stock</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="activate" value="0" <c:if test="${product.status ==0}">checked</c:if>>
+                                <span>Out Of Stock</span>
+                            </label>
+                        </div>
+                    </div>
                     <input type="submit" value="Update Product">
                 </form>
             </div>

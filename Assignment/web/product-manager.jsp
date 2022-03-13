@@ -4,7 +4,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<h1>product manager</h1>
+<h1>Product manager</h1>
 <a href="product?action=create">Create product</a>
 <table>
     <tr>

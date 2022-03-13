@@ -145,6 +145,7 @@ public class Product_Servlet extends HttpServlet {
                 try{
                     int productID = Integer.parseInt(productID_raw);
                     request.setAttribute("product", p_dao.getProductById(productID));
+                    request.setAttribute("relatedproduct", p_dao.getProducts(p_dao.getCategoryID(productID)));
                     request.getRequestDispatcher("product.jsp").forward(request, response);
                 }catch (NumberFormatException e){
                     System.out.println(e);
