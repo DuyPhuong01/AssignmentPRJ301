@@ -69,7 +69,7 @@
                             <span class="input-name">Product Picture</span>
                             <input type="file" name="productPhoto">
                             <div class="preview">
-                                <img class="preview-img" src="images/${product.image}" alt="">
+                                <img id="uploadPreview" class="preview-img" src="images/${product.image}" alt="">
                                 <div class="box-hover"><p>Upload File</p></div>
                             </div>
                         </label>
@@ -91,4 +91,19 @@
         </div>
     </body>
     <script src="js/rei-input.js"></script>
+    <script>
+        var imgPreview =document.querySelector('#uploadPreview');
+        document.querySelector('input[name="productPhoto"]').addEventListener('change', function(){
+            const files = this.files[0];
+            if (files) {
+              const fileReader = new FileReader();
+              fileReader.readAsDataURL(files);
+              fileReader.addEventListener("load", function () {
+                imgPreview.style = '';
+                imgPreview.classList = 'preview-img';
+                imgPreview.setAttribute('src', this.result);
+              });    
+            }
+        });
+    </script>
 </html>

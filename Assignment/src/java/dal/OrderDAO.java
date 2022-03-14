@@ -54,7 +54,7 @@ public class OrderDAO extends DBContext {
                 + "on i.OrderID = o.OrderID "
                 + "inner join Products p "
                 + "on i.ProductID = p.ProductID "
-                + "where o.UserID=? and o.Status=?";
+                + "where p.Status=1 and o.UserID=? and o.Status=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, userID);
@@ -230,6 +230,18 @@ public class OrderDAO extends DBContext {
             st3.setInt(1, new_orderID);
             st3.setInt(2, new_orderID);
             st3.executeUpdate();
+            
+            /* set new Quantity to Product */
+            String sql4 = "update Products set Quantity-=? where ProductID=?";
+            PreparedStatement st4 = connection.prepareStatement(sql4);
+            for(int i=0; i<productIDList.length; i++) {
+                st4.setInt(1, quantityList[i]);
+                st4.setInt(2, productIDList[i]);
+                st4.executeUpdate();
+                System.out.println("update Products set Quantity-="+quantityList[i]+" where ProductID="+productIDList[i]);
+                System.out.println("done");
+            }
+            
             return true;
         } catch (SQLException sqle) {
             System.out.println(sqle);
@@ -255,6 +267,45 @@ public class OrderDAO extends DBContext {
         }
         list.add(date);
         list.add(revenue);
+        return list;
+    }
+    public List<Cart> getHistory(int userID){
+        List<Cart> list = new ArrayList<>();
+        
+        String sql1 = "select * from Orders where UserID=? and Status=0";
+        try {
+            PreparedStatement st1 = connection.prepareStatement(sql1);
+            st1.setInt(1, userID);
+            ResultSet rs1 = st1.executeQuery();
+            while (rs1.next()) {
+                int orderID = rs1.getInt("OrderID");
+                List<Item> i_list = new ArrayList<>();
+                String sql2 = "select p.*, i.Quantity as SoldQuantity from Items i "
+                        + "inner join Products p "
+                        + "on i.ProductID = p.ProductID "
+                        + "where i.OrderID=?";
+                PreparedStatement st2 = connection.prepareStatement(sql2);
+                st2.setInt(1, orderID);
+                ResultSet rs2 = st2.executeQuery();
+                while (rs2.next()) {
+                    Product p = new Product();
+                    p.setProductID(rs2.getInt("ProductID"));
+                    p.setProductName(rs2.getString("ProductName"));
+                    p.setBrandID(rs2.getInt("BrandID"));
+                    p.setPrice(rs2.getDouble("Price"));
+                    p.setQuantity(rs2.getInt("Quantity"));
+                    p.setImage(rs2.getString("ProductImage"));
+                    p.setStatus(rs2.getInt("Status"));
+
+                    Item i = new Item(p, rs2.getInt("OrderID"), rs2.getInt("SoldQuantity"));
+                    i_list.add(i);
+                }
+                Cart c = new Cart(i_list, rs1.getDate("OrderDate"), rs1.getInt("TotalPrice"), rs1.getInt("Status")==1);
+                list.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
         return list;
     }
     

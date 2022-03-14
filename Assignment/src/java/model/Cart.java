@@ -23,12 +23,11 @@ public class Cart {
         this.status = status;
     }
 
-    public Cart(List<Item> list, Date orderDate, int totalPrice, boolean status, int paymentID) {
+    public Cart(List<Item> list, Date orderDate, int totalPrice, boolean status) {
         this.list = list;
         this.orderDate = orderDate;
         this.totalPrice = totalPrice;
         this.status = status;
-        this.paymentID = paymentID;
     }
     
     public List<Item> getList() {

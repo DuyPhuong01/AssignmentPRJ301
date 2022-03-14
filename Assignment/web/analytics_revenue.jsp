@@ -39,21 +39,8 @@
         }));
         cursor.lineY.set("visible", false);
 
-        // Generate random data
-        var date = new Date();
-        date.setHours(0, 0, 0, 0);
-        var value = 100;
-
-        function generateData() {
-            value = Math.round((Math.random() * 10 - 5) + value);
-            am5.time.add(date, "day", 1);
-            return {
-                date: date.getTime(),
-                value: value
-            };
-        }
-
-        function generateDatas(count) {
+        // Set Data
+        function generateDatas() {
             var data = [
                 <%
                 OrderDAO o_dao = new OrderDAO();
@@ -104,7 +91,7 @@
 
 
         // Set data
-        var data = generateDatas(1200);
+        var data = generateDatas();
         series.data.setAll(data);
 
         // Make stuff animate on load

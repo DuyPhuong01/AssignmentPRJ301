@@ -44,6 +44,11 @@
             </div>
         </div>
         <div class="home-show col-ms-12 col-lg-10">
+            <form class="search-form" action="product">
+                <input type="text" id="search" class="search-input" name="searchkey" value="${requestScope.searchkey}" placeholder="Search" autocomplete="off">
+                <div class="search-icon"><i class="fa fa-search" aria-hidden="true"></i></div>
+            </form>
+            
             <!-- Best Seller -->
             <div class="home-block">
                 <div class="slide bestseller">
@@ -126,6 +131,9 @@
                     </div>
                     <button class="left-btn"><</button>
                     <button class="right-btn">></button>
+                    <div class="extend-link">
+                        <a href="product">See more...</a>
+                    </div>
                 </div>
                 <%
                     for (Category category : categoryList) {
@@ -135,7 +143,9 @@
                     <%
                             ProductDAO p_dao = new ProductDAO();
                             List<Product> productList = p_dao.getProducts(category.getCategoryID());
+                            int start=0;
                             for (Product product : productList) {
+                                if(start<12){
                     %>
                         <div class="product-list product col-1">
                             <div class="product-image">
@@ -150,11 +160,16 @@
                             </div>
                         </div>
                     <%
+                                }
+                                start++;
                             }
                     %>
                     </div>
                     <button class="left-btn"><</button>
                     <button class="right-btn">></button>
+                    <div class="extend-link">
+                        <a href="product?categoryID=<%= category.getCategoryID()%>">See more...</a>
+                    </div>
                 </div>
                 <%
                     }

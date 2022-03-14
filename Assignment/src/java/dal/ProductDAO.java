@@ -40,7 +40,7 @@ public class ProductDAO extends DBContext {
         List<Product> list = new ArrayList<>();
         String sql = "select * from Products p inner join CatePro cp on p.ProductID = cp.ProductID"
                         + " inner join Categories c on cp.CategoryID = c.CategoryID"
-                        + " where c.CategoryID=" + categoryID;
+                        + " where p.Status=1 and c.CategoryID=" + categoryID;
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -69,9 +69,9 @@ public class ProductDAO extends DBContext {
             if (categoryID != 0) {
                 sql += " inner join CatePro cp on p.ProductID = cp.ProductID"
                         + " inner join Categories c on cp.CategoryID = c.CategoryID"
-                        + " where c.CategoryID=" + categoryID + " and ";
+                        + " where p.Status=1 and c.CategoryID=" + categoryID + " and ";
             } else {
-                sql += " where ";
+                sql += " where p.Status=1 and ";
             }
             for (int i = 0; i < brandID.length; i++) {
                 if (i == 0) {

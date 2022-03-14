@@ -40,7 +40,7 @@
     <script>
         function movePage(page_number) {
             var page = [page_number];
-            window.location = changeURL('page', page, window.location.href);
+            window.location.search = changeURL('page', page, window.location.search);
         }
     </script>
 </div>

@@ -101,7 +101,7 @@ public class Product_Servlet extends HttpServlet {
                     int end = page_number*p_per_page<p_list.size() ? page_number*p_per_page : p_list.size();
                     for(int i=start; i<end; i++){
                         productList.add(p_list.get(i));
-                    };
+                    }
 
                     request.setAttribute("number_of_page", number_of_page);
                     request.setAttribute("productList", productList);
@@ -205,7 +205,7 @@ public class Product_Servlet extends HttpServlet {
                         filecontent.close();
                         out.close();
                     }
-                    TimeUnit.SECONDS.sleep(2);
+                    TimeUnit.SECONDS.sleep(3);
                     response.sendRedirect("admin?action=product");
                 } catch(NumberFormatException | InterruptedException nfe) {
                     System.out.println(nfe);
@@ -265,7 +265,7 @@ public class Product_Servlet extends HttpServlet {
                     Product p = new Product(update_productID, update_name, brandID, price, quantity, fileName, activate);
                     p_dao.updateProduct(p, categoryID);
 
-                    TimeUnit.SECONDS.sleep(2);
+                    TimeUnit.SECONDS.sleep(3);
                     response.sendRedirect("admin");
                 } catch(NumberFormatException | InterruptedException nfe) {
                     System.out.println(nfe);

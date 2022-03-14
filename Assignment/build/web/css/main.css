@@ -502,6 +502,14 @@ label input[type="checkbox"] {
     border: none;
 }
 
+.extend-link {
+    display: flex;
+    justify-content: right;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+}
+
 .link-btn {
     background-color: transparent;
     border: 1px solid var(--theme-light-color);
@@ -1233,6 +1241,10 @@ table * {
 
 .home-show {
     margin: 0 auto;
+}
+
+.home-show .search-form {
+    margin-top: 30px;
 }
 
 .home-show .home-block {

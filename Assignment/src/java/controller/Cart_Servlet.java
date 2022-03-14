@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Duy Phuong
  */
-@WebServlet(name = "CartServlet", urlPatterns = {"/mycart"})
-public class CartServlet extends HttpServlet {
+@WebServlet(name = "Cart_Servlet", urlPatterns = {"/mycart"})
+public class Cart_Servlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -79,6 +79,11 @@ public class CartServlet extends HttpServlet {
                     }
                     o_dao.buy(productid_list, quantity_list, userID);
                     response.sendRedirect("mycart");
+                    break;
+                    
+                case "history":
+                    request.setAttribute("history_cart", o_dao.getHistory(userID));
+                    request.getRequestDispatcher("cart-history.jsp").forward(request, response);
                     break;
             }
         } catch(NumberFormatException nfe) {

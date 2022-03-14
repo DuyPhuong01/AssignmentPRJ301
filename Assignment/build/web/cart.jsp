@@ -45,7 +45,7 @@
                                             <td>${item.getProduct().productName}</td>
                                             <td><img src="images/${item.getProduct().image}"></td>
                                             <td>${item.getProduct().price}</td>
-                                            <td><input type="number" name="quantity" value="${item.quantity}" min="1"></td>
+                                            <td><input type="number" name="quantity" value="${item.quantity}" min="1" max="${item.getProduct().quantity}"></td>
                                             <td>
                                                 <a class="save-quantity-icon" style="visibility: hidden" onclick="updateQuantity()">save</a>
                                                 <a class="reset-quantity-icon" style="visibility: hidden">reset</a>

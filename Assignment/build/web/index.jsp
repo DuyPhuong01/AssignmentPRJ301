@@ -60,7 +60,7 @@
         order.forEach((o) => {
             o.addEventListener('click', function() {
                 var val = [o.getAttribute('value')];
-                window.location = changeURL('orderby', val, window.location.href);
+                window.location.search = changeURL('orderby', val, window.location.search);
             });
         });
     </script>
@@ -74,9 +74,9 @@
         function search(){
             var searchkey = [];
             searchkey.push(document.querySelector('input[name="searchkey"]').value);
-            url = window.location.href;
+            url = window.location.search;
             url = changeURL('searchkey', searchkey, url);
-            window.location = url;
+            window.location.search = url;
         }
     </script>
     <script src="js/menubar.js"></script>
