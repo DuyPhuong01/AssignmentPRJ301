@@ -15,115 +15,64 @@
         <link rel="stylesheet" href="css/main.css">
         <script src="js/bootstrap/jquery.min.js"></script>
         <script src="js/set-theme.js"></script>
+        <style>
+            .cart {
+                display: flex; 
+                justify-content: space-between;
+                width: 100%;
+            }
+        </style>
     </head>
     <body>
         <c:import url="element/navbar.jsp"></c:import>
-        <div class="pd-lr-15 mycart">
+        <div class="pd-lr-15">
             <div class="row" style="justify-content: center">
                 <div class="col-ms-12 col-lg-10">
-                    <div class="row jt-spc-btw pd-lr-15">
-                        <a href="home">Home</a>
-                        <a href="mycart?action=history"><i class="fa fa-history" aria-hidden="true"></i>Buy History</a>
-                    </div>
                     <div class="container">
-                        <form action="mycart">
-                            <input type="text" name="action" value="buy" hidden>
-                            <div class="row">
-                                <table>
-                                    <tr>
-                                        <th><a onclick="chooseAll()">Choose All</input></th>
-                                        <th>Product Name</th>
-                                        <th>Product Image</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        <th></th>
-                                    </tr>
-                                    <c:forEach var="item" items="${requestScope.list}">
-                                        <tr class="item">
-                                            <!--  productID: ${item.getProduct().productID}  -->
-                                            <td><input type="checkbox" name="chooseitems" value="${item.getProduct().productID}"></td>
-                                            <td>${item.getProduct().productName}</td>
-                                            <td><img src="images/${item.getProduct().image}"></td>
-                                            <td>${item.getProduct().price}</td>
-                                            <td><input type="number" name="quantity" value="${item.quantity}" min="1" max="${item.getProduct().quantity}"></td>
-                                            <td>
-                                                <a class="save-quantity-icon" style="visibility: hidden" onclick="updateQuantity()">save</a>
-                                                <a class="reset-quantity-icon" style="visibility: hidden">reset</a>
-                                            </td>
+                        <div class="cart-history col-8">
+                            <div class="cart">
+                                <p>Order Date</p>
+                                <p>Total Price</p>
+                            </div>
+                            <c:forEach var="cart" items="${requestScope.history_cart}">
+                                <div class="cart-details">
+                                    <label class="cart">
+                                        <input type="checkbox" name="cart" hidden>
+                                        <div>${cart.orderDate}</div>
+                                        <div>${cart.totalPrice}</div>
+                                    </label>
+                                    <table style="display: none">
+                                        <tr>
+                                            <th>Product Name</th>
+                                            <th>Product Image</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
                                         </tr>
-                                    </c:forEach>
-                                </table>
-                                <div class="bill">
-                                    <h1 style="text-align: center">Your Bill</h1>
+                                        <c:forEach var="item" items="${cart.list}">
+                                            <tr class="item">
+                                                <td>${item.getProduct().productName}</td>
+                                                <td><img src="images/${item.getProduct().image}"></td>
+                                                <td>${item.getProduct().price}</td>
+                                                <td>${item.quantity}</td>
+                                            </tr>
+                                        </c:forEach>
+                                    </table>
                                 </div>
-                            </div>
-                            <div class="row jt-spc-btw mrg-top-20 pd-lr-15">
-                                <div>
-                                    <a onclick="removeAll()">Clear All</input>&nbsp;&nbsp;&nbsp;
-                                    <a onclick="removeItem()">Remove</a>
-                                </div>
-                                <a class="link-btn" name="buy-btn">Buy</a>
-                            </div>
-                        </form>
+                            </c:forEach>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <c:import url="element/footer.jsp"></c:import>
         <script>
-            function removeItem(){
-                if(confirm('Do you want to remove all Choosen Items in your cart?')){
-                    document.querySelector('input[name="action"]').value = 'remove';
-                    document.querySelector('form[action="mycart"]').submit();
-                }
-            }
-            function removeAll(){
-                if(confirm('Do you want to remove all Items in your cart?'))
-                    window.location = "mycart?action=clear";
-            }
-            function chooseAll(){   
-                document.querySelectorAll('input[name="chooseitems"]').forEach((i) => {
-                    if(i.checked === true) i.checked = false;
-                    else i.checked = true;
-                    
-                });
-            }
-            
-            document.querySelectorAll('.item').forEach((item) => {
-                var save_icon = item.querySelector('.save-quantity-icon');
-                var reset_icon = item.querySelector('.reset-quantity-icon');
-                var input_quantity = item.querySelector('input[name="quantity"');
-                
-                input_quantity.addEventListener('change', function(){
-                    save_icon.style = 'visibility: visible';
-                    reset_icon.style = 'visibility: visible';
-                });
-                reset_icon.addEventListener('click', function() {
-                    input_quantity.value = input_quantity.getAttribute('value');
-                    save_icon.style = 'visibility: hidden';
-                    reset_icon.style = 'visibility: hidden';
-                });
-                save_icon.addEventListener('click', function() {
-                    window.location = 'mycart?action=updatequantity&productid=' 
-                            + item.querySelector('input[name="chooseitems"').value 
-                            + '&quantity='+input_quantity.value;
+            document.querySelectorAll('.cart-details').forEach((c) => {
+                c.querySelector('input[name="cart"]').addEventListener('change', function () {
+                    if (this.checked) {
+                        c.querySelector('table').style = '';
+                    } else c.querySelector('table').style = 'display: none;';
                 });
             });
-            
-            document.querySelector('a[name="buy-btn"]').addEventListener('click', function(){
-                var url = 'mycart?action=buy';
-                
-                document.querySelectorAll('.item').forEach((item) => {
-                    var checkbox = item.querySelector('input[name="chooseitems"]');
-                    if(checkbox.checked){
-                        url += '&productid='+checkbox.value;
-                        url += '&quantity='+item.querySelector('input[name="quantity"]').value;
-                    };
-                });
-                window.location = url;
-            });
-            
-            
         </script>
     </body>
 </html>

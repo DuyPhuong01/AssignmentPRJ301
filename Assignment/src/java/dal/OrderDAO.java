@@ -254,7 +254,9 @@ public class OrderDAO extends DBContext {
         List<Date> date = new ArrayList<>();
         List<Integer> revenue = new ArrayList<>();
         
-        String sql = "select SUM(TotalPrice) as Revenue, OrderDate from Orders where Status=0 group by OrderDate order by OrderDate asc";
+        String sql = "select SUM(TotalPrice) as Revenue, CONVERT(DATE, OrderDate) as OrderDate "
+                + "from Orders where Status=0 group by CONVERT(DATE, OrderDate) "
+                + "order by CONVERT(DATE, OrderDate) asc";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -272,7 +274,7 @@ public class OrderDAO extends DBContext {
     public List<Cart> getHistory(int userID){
         List<Cart> list = new ArrayList<>();
         
-        String sql1 = "select * from Orders where UserID=? and Status=0";
+        String sql1 = "select * from Orders where UserID=? and Status=0 order by OrderDate asc";
         try {
             PreparedStatement st1 = connection.prepareStatement(sql1);
             st1.setInt(1, userID);
@@ -280,8 +282,8 @@ public class OrderDAO extends DBContext {
             while (rs1.next()) {
                 int orderID = rs1.getInt("OrderID");
                 List<Item> i_list = new ArrayList<>();
-                String sql2 = "select p.*, i.Quantity as SoldQuantity from Items i "
-                        + "inner join Products p "
+                String sql2 = "select p.*, i.Quantity as SoldQuantity, i.OrderID "
+                        + "from Items i inner join Products p "
                         + "on i.ProductID = p.ProductID "
                         + "where i.OrderID=?";
                 PreparedStatement st2 = connection.prepareStatement(sql2);

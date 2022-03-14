@@ -21,8 +21,7 @@
         <div class="pd-lr-15 mycart">
             <div class="row" style="justify-content: center">
                 <div class="col-ms-12 col-lg-10">
-                    <div class="row jt-spc-btw pd-lr-15">
-                        <a href="home">Home</a>
+                    <div class="row jt-right pd-lr-15">
                         <a href="mycart?action=history"><i class="fa fa-history" aria-hidden="true"></i>Buy History</a>
                     </div>
                     <div class="container">
