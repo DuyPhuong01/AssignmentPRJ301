@@ -302,7 +302,7 @@ public class OrderDAO extends DBContext {
                     Item i = new Item(p, rs2.getInt("OrderID"), rs2.getInt("SoldQuantity"));
                     i_list.add(i);
                 }
-                Cart c = new Cart(i_list, rs1.getDate("OrderDate"), rs1.getInt("TotalPrice"), rs1.getInt("Status")==1);
+                Cart c = new Cart(i_list, rs1.getTimestamp("OrderDate"), rs1.getInt("TotalPrice"), rs1.getInt("Status")==1);
                 list.add(c);
             }
         } catch (SQLException e) {
@@ -310,5 +310,18 @@ public class OrderDAO extends DBContext {
         }
         return list;
     }
-    
+    public int getTotalSpend(int userID){
+        String sql = "select SUM(TotalPrice) as TotalSpend from Orders where UserID=? and Status=0";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, userID);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("TotalSpend");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return 0;
+    }
 }

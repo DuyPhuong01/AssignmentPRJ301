@@ -948,6 +948,36 @@ input[type="submit"],
     padding-left: 15px;
 }
 
+.cart-history {
+    height: 78vh;
+    /* overflow-y: scroll; */
+}
+
+.cart {
+    padding: 15px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cart>div {
+    width: 33%;
+    text-align: center;
+}
+
+.cart-details .cart:hover {
+    box-shadow: 0 .5px 5px var(--theme-light-color);
+    border-radius: 8px;
+}
+
+.total-spend {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 
 /*   /////////////////////// Login //////////////////////////   */
 

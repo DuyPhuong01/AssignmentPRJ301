@@ -74,6 +74,25 @@ public class UserDAO extends DBContext {
         }
         return null;
     }
+    public User getUser(int userID) {
+        String sql = "select * from Users where UserID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, userID);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                User u = new User(rs.getInt("UserID"), 
+                        rs.getString("Username"), rs.getString("Password"), 
+                        rs.getInt("Role"), rs.getString("FullName"), 
+                        rs.getString("City"), rs.getString("Country"), 
+                        rs.getString("Address"), rs.getString("Phone"));
+                return u;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
 
     public boolean createUser(User u) {
         String sql1 = "insert into Users (UserID, Username, Password, Role, "
@@ -182,6 +201,37 @@ public class UserDAO extends DBContext {
             st.setString(1, username);
             st.setString(2, password);
             st.setInt(3, userID);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return false;
+    }
+    public boolean updateUser(User u, int userID) {
+        String sql = "update Users set Username=?, Password=?, Fullname=?, Country=?, City=?, Address=?, Phone=? where UserID=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, u.getUsername());
+            st.setString(2, u.getPassword());
+            st.setString(3, u.getFullname());
+            st.setString(4, u.getCountry());
+            st.setString(5, u.getCity());
+            st.setString(6, u.getAddress());
+            st.setString(7, u.getPhone());
+            st.setInt(8, userID);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return false;
+    }
+    public boolean setAdmin(int userID) {
+        String sql = "update Users set Role=1 where UserID=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, userID);
             st.executeUpdate();
             return true;
         } catch (SQLException sqle) {

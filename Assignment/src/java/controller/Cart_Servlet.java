@@ -82,6 +82,7 @@ public class Cart_Servlet extends HttpServlet {
                     break;
                     
                 case "history":
+                    request.setAttribute("total_spend", o_dao.getTotalSpend(userID));
                     request.setAttribute("history_cart", o_dao.getHistory(userID));
                     request.getRequestDispatcher("cart-history.jsp").forward(request, response);
                     break;

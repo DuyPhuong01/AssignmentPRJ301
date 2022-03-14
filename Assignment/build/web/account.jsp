@@ -20,6 +20,11 @@
         <div class="row mrg-lr-0 center">
             <div class="col-ms-12 col-lg-8">
                 <a href="home">Home</a>
+                <label>
+                    <input id="theme-checkbox" type="checkbox" name="theme">
+                    <span class="btn"></span>
+                    <i class="fa fa-moon-o" aria-hidden="true"></i>
+                </label>
                 <div class="container row">
                         <div class="admin-menu col-2">
                             <h1>My Account</h1>
@@ -33,4 +38,5 @@
             </div>
         </div>
     </body>
+    <script src="js/dark-theme.js"></script>
 </html>

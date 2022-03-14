@@ -2,6 +2,7 @@
 package model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  */
 public class Cart {
     private List<Item> list;
-    private Date orderDate;
+    private Timestamp orderDate;
     private int totalPrice;
     private boolean status;
     private int paymentID;
@@ -23,7 +24,7 @@ public class Cart {
         this.status = status;
     }
 
-    public Cart(List<Item> list, Date orderDate, int totalPrice, boolean status) {
+    public Cart(List<Item> list, Timestamp orderDate, int totalPrice, boolean status) {
         this.list = list;
         this.orderDate = orderDate;
         this.totalPrice = totalPrice;
@@ -46,11 +47,11 @@ public class Cart {
         this.status = status;
     }
 
-    public Date getOrderDate() {
+    public Timestamp getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(Timestamp orderDate) {
         this.orderDate = orderDate;
     }
 

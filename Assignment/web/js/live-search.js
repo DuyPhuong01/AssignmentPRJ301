@@ -1,4 +1,4 @@
-var items = document.getElementsByClassName('product');
+var items = document.getElementsByClassName('productlist');
 var data_name = document.getElementsByClassName('product-name');
 var data = [];
 for(var i=0; i<data_name.length; i++){
@@ -11,7 +11,7 @@ let search_term = "";
 const showList = () => {
     for(var i=0; i<items.length; i++){
         items[i].style.display = 'none';
-        if(data[i].toLowerCase().includes(search_term)) items[i].style.display = 'block';
+        if(data[i].toLowerCase().includes(search_term)) items[i].style.display = '';
     }
 };
 

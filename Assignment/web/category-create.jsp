@@ -19,6 +19,11 @@
         <div class="center row mrg-lr-0" style="justify-content: center">
             <div class="col-ms-12 col-md-6 col-lg-4">
                 <a href="home">Home</a>
+                <label>
+                    <input id="theme-checkbox" type="checkbox" name="theme">
+                    <span class="btn"></span>
+                    <i class="fa fa-moon-o" aria-hidden="true"></i>
+                </label>
                 <form class="container" action="category" method="post">
                     <input type="text" name="action" value="create" hidden>
                     <div class="row">
@@ -57,4 +62,5 @@
         </div>
     </body>
     <script src="js/rei-input.js"></script>
+    <script src="js/dark-theme.js"></script>
 </html>

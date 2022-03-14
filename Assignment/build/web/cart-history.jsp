@@ -15,31 +15,26 @@
         <link rel="stylesheet" href="css/main.css">
         <script src="js/bootstrap/jquery.min.js"></script>
         <script src="js/set-theme.js"></script>
-        <style>
-            .cart {
-                display: flex; 
-                justify-content: space-between;
-                width: 100%;
-            }
-        </style>
     </head>
     <body>
         <c:import url="element/navbar.jsp"></c:import>
         <div class="pd-lr-15">
             <div class="row" style="justify-content: center">
                 <div class="col-ms-12 col-lg-10">
-                    <div class="container">
+                    <div class="container row">
                         <div class="cart-history col-8">
                             <div class="cart">
-                                <p>Order Date</p>
-                                <p>Total Price</p>
+                                <div>Order Date</div>
+                                <div>Order Time</div>
+                                <div>Total Price</div>
                             </div>
                             <c:forEach var="cart" items="${requestScope.history_cart}">
                                 <div class="cart-details">
                                     <label class="cart">
                                         <input type="checkbox" name="cart" hidden>
-                                        <div>${cart.orderDate}</div>
-                                        <div>${cart.totalPrice}</div>
+                                        <div>${cart.orderDate.date}/${cart.orderDate.month+1}/${cart.orderDate.year+1900}</div>
+                                        <div>${cart.orderDate.hours}:${cart.orderDate.minutes}:${cart.orderDate.seconds}</div>
+                                        <div>$${cart.totalPrice}</div>
                                     </label>
                                     <table style="display: none">
                                         <tr>
@@ -52,13 +47,17 @@
                                             <tr class="item">
                                                 <td>${item.getProduct().productName}</td>
                                                 <td><img src="images/${item.getProduct().image}"></td>
-                                                <td>${item.getProduct().price}</td>
+                                                <td>$${item.getProduct().price}</td>
                                                 <td>${item.quantity}</td>
                                             </tr>
                                         </c:forEach>
                                     </table>
                                 </div>
                             </c:forEach>
+                        </div>
+                        <div class="col-4 total-spend">
+                            <h2>Total Spend</h2>
+                            <div>$${requestScope.total_spend}</div>
                         </div>
                     </div>
                 </div>

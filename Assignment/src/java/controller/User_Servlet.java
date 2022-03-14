@@ -23,7 +23,8 @@ public class User_Servlet extends HttpServlet {
             throws ServletException, IOException {
         /* */
         UserDAO u_dao = new UserDAO();
-        
+        int userID;
+                
         String action = request.getParameter("action");
         Cookie[] cookies = request.getCookies();
         Cookie user_cookie = null;
@@ -38,53 +39,32 @@ public class User_Servlet extends HttpServlet {
         }
         String[] userAccount = user_cookie.getValue().split(",");
         
-        if(action == null) action = "details";
-        switch(action) {
-            case "signout":
-                if (cookies != null)
-                    for (Cookie cookie : cookies) {
-                        if(cookie.getName().equals("userAccount") || cookie.getName().equals("userRole")){
-                            cookie.setValue("");
-                            cookie.setMaxAge(0);
-                            response.addCookie(cookie);
-                        }
-                    }
-                response.sendRedirect("home");
-                break;
-                
-            case "details":
-                request.setAttribute("user", u_dao.getUser(userAccount[1]));
-                request.setAttribute("page", "account-details");
-                request.getRequestDispatcher("account.jsp").forward(request, response);
-                break;
-                
-            case "setting":
-                request.setAttribute("page", "account-setting");
-                request.getRequestDispatcher("account.jsp").forward(request, response);
-                break;
-                
-            case "changeusernameandpassword":
-                request.setAttribute("user", u_dao.getUser(userAccount[1]));
-                request.getRequestDispatcher("account-change.jsp").forward(request, response);
-                break;
-                
-            case "update":
-                request.setAttribute("user", u_dao.getUser(userAccount[1]));
-                request.getRequestDispatcher("account-update.jsp").forward(request, response);
-                break;
-                
-            case "delete":
-                try {
-                    int userID = Integer.parseInt(userAccount[0]);
+        try {
+            if(action == null) action = "details";
+            switch(action) {
+                case "update":
+                    userID = Integer.parseInt(request.getParameter("id"));
+                    request.setAttribute("user", u_dao.getUser(userID));
+                    request.getRequestDispatcher("user-update.jsp").forward(request, response);
+                    break;
+
+                case "delete":
+                    userID = Integer.parseInt(request.getParameter("id"));
                     u_dao.deleteUser(userID);
-                } catch(NumberFormatException nfe) {
-                    System.out.println(nfe);
-                }
-                response.sendRedirect("account?action=signout");
-                break;
-                
-            default:
-                break;
+                    response.sendRedirect("admin?action=user");
+                    break;
+                    
+                case "setadmin":
+                    userID = Integer.parseInt(request.getParameter("id"));
+                    u_dao.setAdmin(userID);
+                    response.sendRedirect("admin?action=user");
+                    break;
+
+                default:
+                    break;
+            }
+        } catch(NumberFormatException nfe) {
+            System.out.println(nfe);
         }
     }
 
@@ -112,34 +92,23 @@ public class User_Servlet extends HttpServlet {
         
         if(action == null) action = "details";
         switch(action) {
-            case "changeusernameandpassword":
-                String username = request.getParameter("username");
-                String password = request.getParameter("password");
-                int userID = Integer.parseInt(userAccount[0]);
-                if(u_dao.updateUser(username, password, userID)){
-                    Cookie userAccount_cookie = new Cookie("userAccount", userID+ "," + username);
-                    userAccount_cookie.setMaxAge(24*60*60);
-                    response.addCookie(userAccount_cookie);
-                    request.setAttribute("alert", "Change information successful!");
-                }
-                else request.setAttribute("error", "Change information fail!");
-                request.setAttribute("user", u_dao.getUser(username));
-                request.getRequestDispatcher("account-change.jsp").forward(request, response);
-                break;
                 
             case "update":
+                String userID_raw = request.getParameter("userID");
                 String fullname = request.getParameter("fullname");
+                String username = request.getParameter("username");
+                String password = request.getParameter("password");
                 String country = request.getParameter("country");
                 String city = request.getParameter("city");
                 String address = request.getParameter("address");
                 String phone = request.getParameter("phone");
-                System.out.println(city);
+                int userID = Integer.parseInt(userID_raw);
                 
-                User u = new User(userAccount[1], fullname, city, country, address, phone);
-                if(u_dao.updateUserInformation(u)) request.setAttribute("alert", "Change information successful!");
-                else request.setAttribute("error", "Change information fail!");
-                request.setAttribute("user", u_dao.getUser(userAccount[1]));
-                request.getRequestDispatcher("account-update.jsp").forward(request, response);
+                User u = new User(userID, username, password, 0, fullname, city, country, address, phone);
+                
+                u_dao.updateUser(u, userID);
+                request.setAttribute("user", u_dao.getUser(username));
+                response.sendRedirect("admin?action=user");
                 break;
         }
         

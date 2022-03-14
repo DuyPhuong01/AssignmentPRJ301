@@ -6,8 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<h1>user manager</h1>
-<a href="user?action=create">Add an account</a>
+<h1>User manager</h1>
 <table>
     <tr>
         <td>Username</td>
@@ -23,22 +22,18 @@
             <td><c:if test="${user.role==1}">Admin</c:if><c:if test="${user.role==0}">Customer</c:if></td>
             <td>${user.fullname}</td>
             <td>
-                <i onclick="deleteAccount('${user.username}')" class="fa fa-trash" aria-hidden="true"></i>
-                <a href="user?action=update&&username=${user.username}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                <i onclick="showInformation('${user}')" class="fa fa-info-circle" aria-hidden="true"></i>
-                <i onclick="setAdmin('${user.username}')" class="fa fa-cog" aria-hidden="true"></i>
+                <i onclick="deleteAccount('${user.userID}')" class="fa fa-trash" aria-hidden="true"></i>
+                <a href="user?action=update&id=${user.userID}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                <i onclick="setAdmin('${user.userID}')" class="fa fa-cog" aria-hidden="true"></i>
             </td>
         </tr>
     </c:forEach>
 </table>
 <script>
-    function deleteAccount(username) {
-        if(confirm('Are you sure to delete Account with username = ' + username + "?")) window.location = "user?action=delete&username="+username;
+    function deleteAccount(id) {
+        if(confirm('Are you sure to delete Account with id = ' + id + "?")) window.location = "user?action=delete&id="+id;
     }
-    function setAdmin(username) {
-        if(confirm('Are you sure to set Account with username = ' + username + " to be an Admin?")) window.location = "user?action=setadmin&username="+username;
-    }
-    function showInformation(username) {
-        
+    function setAdmin(id) {
+        if(confirm('Are you sure to set Account with id = ' + id + " to be an Admin?")) window.location = "user?action=setadmin&id="+id;
     }
 </script>

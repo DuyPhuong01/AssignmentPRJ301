@@ -46,14 +46,14 @@
                                             <td>${item.getProduct().price}</td>
                                             <td><input type="number" name="quantity" value="${item.quantity}" min="1" max="${item.getProduct().quantity}"></td>
                                             <td>
-                                                <a class="save-quantity-icon" style="visibility: hidden" onclick="updateQuantity()">save</a>
-                                                <a class="reset-quantity-icon" style="visibility: hidden">reset</a>
+                                                <a class="save-quantity-icon" style="visibility: hidden" onclick="updateQuantity()"><i class="fa fa-floppy-o" aria-hidden="true"></i></a>
+                                                <a class="reset-quantity-icon" style="visibility: hidden"><i class="fa fa-refresh" aria-hidden="true"></i></a>
                                             </td>
                                         </tr>
                                     </c:forEach>
                                 </table>
                                 <div class="bill">
-                                    <h1 style="text-align: center">Your Bill</h1>
+                                    <h1 style="text-align: center">Your Information</h1>
                                 </div>
                             </div>
                             <div class="row jt-spc-btw mrg-top-20 pd-lr-15">
