@@ -17,6 +17,7 @@ function submitFilter() {
 
 function changeURL(atb, vals, url) {
     let searchParams = new URLSearchParams(url);
+    if(searchParams.has('page')) searchParams.delete('page');
     if(searchParams.has(atb)) searchParams.delete(atb);
     for (var i = 0; i < vals.length; i++) {
         searchParams.append(atb, vals[i]);

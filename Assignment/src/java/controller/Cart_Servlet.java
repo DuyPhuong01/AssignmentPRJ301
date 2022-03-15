@@ -2,6 +2,7 @@
 package controller;
 
 import dal.OrderDAO;
+import dal.UserDAO;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,6 +22,7 @@ public class Cart_Servlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         OrderDAO o_dao = new OrderDAO();
+        UserDAO u_dao = new UserDAO();
         
         Cookie[] cookies = request.getCookies();
         Cookie user_cookie = null;
@@ -40,8 +42,9 @@ public class Cart_Servlet extends HttpServlet {
             int userID = Integer.parseInt(userAccount[0]);
             switch(action) {
                 case "showlist":
-                        request.setAttribute("list", o_dao.getCart(userID).getList());
-                        request.getRequestDispatcher("cart.jsp").forward(request, response);
+                    request.setAttribute("list", o_dao.getCart(userID).getList());
+                    request.setAttribute("account", u_dao.getUser(userID));
+                    request.getRequestDispatcher("cart.jsp").forward(request, response);
                     break;
 
                 case "remove":
@@ -52,6 +55,7 @@ public class Cart_Servlet extends HttpServlet {
                         productID[i] = Integer.parseInt(productID_raw[i]);
                     o_dao.removeFromCart(productID, userID);
                     request.setAttribute("list", o_dao.getCart(userID).getList());
+                    request.setAttribute("account", u_dao.getUser(userID));
                     request.getRequestDispatcher("cart.jsp").forward(request, response);
                     break;
                     
@@ -65,19 +69,6 @@ public class Cart_Servlet extends HttpServlet {
                     int productid = Integer.parseInt(request.getParameter("productid"));
                     int quantity = Integer.parseInt(request.getParameter("quantity"));
                     o_dao.updateQuantity(productid, quantity, userID);
-                    response.sendRedirect("mycart");
-                    break;
-                    
-                case "buy":
-                    String[] productid_raw_list = request.getParameterValues("productid");
-                    String[] quantity_raw_list = request.getParameterValues("quantity");
-                    int[] productid_list = new int[productid_raw_list.length];
-                    int[] quantity_list = new int[productid_raw_list.length];
-                    for(int i=0; i<productid_raw_list.length; i++) {
-                        productid_list[i] = Integer.parseInt(productid_raw_list[i]);
-                        quantity_list[i] = Integer.parseInt(quantity_raw_list[i]);
-                    }
-                    o_dao.buy(productid_list, quantity_list, userID);
                     response.sendRedirect("mycart");
                     break;
                     
@@ -95,7 +86,40 @@ public class Cart_Servlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        OrderDAO o_dao = new OrderDAO();
         
+        Cookie[] cookies = request.getCookies();
+        Cookie user_cookie = null;
+        if (cookies != null)
+            for (Cookie cookie : cookies) {
+                if(cookie.getName().equals("userAccount")) user_cookie = cookie;
+            }
+        if(user_cookie==null){
+            response.sendRedirect("signin");
+            return;
+        }
+        String[] userAccount = user_cookie.getValue().split(",");
+        String action = request.getParameter("action");
+        try {
+            int userID = Integer.parseInt(userAccount[0]);
+            switch(action) {
+                case "buy":
+                    System.out.println(request.getParameter("city"));
+                    String[] productid_raw_list = request.getParameterValues("productid");
+                    String[] quantity_raw_list = request.getParameterValues("quantity");
+                    int[] productid_list = new int[productid_raw_list.length];
+                    int[] quantity_list = new int[productid_raw_list.length];
+                    for(int i=0; i<productid_raw_list.length; i++) {
+                        productid_list[i] = Integer.parseInt(productid_raw_list[i]);
+                        quantity_list[i] = Integer.parseInt(quantity_raw_list[i]);
+                    }
+                    o_dao.buy(productid_list, quantity_list, userID);
+                    response.sendRedirect("mycart");
+                    break;
+            }
+        } catch(NumberFormatException nfe) {
+            System.out.println(nfe);
+        }
     }
 
     @Override

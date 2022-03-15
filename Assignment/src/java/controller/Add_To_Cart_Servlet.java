@@ -48,10 +48,8 @@ public class Add_To_Cart_Servlet extends HttpServlet {
                 o_dao.updateItemsQuantity(i.getQuantity()+num, productID, orderID);
             }
             else{
-                System.out.println("check");
                 Item item = new Item(p_dao.getProductById(productID), orderID, num);
-                
-                if(o_dao.addItemToCart(item)) System.out.println("check3");
+                o_dao.addItemToCart(item);
             }
             response.sendRedirect("mycart");
         } catch(NumberFormatException nfe) {

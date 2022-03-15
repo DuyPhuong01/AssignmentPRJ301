@@ -20,6 +20,8 @@ public class Category_Servlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
         CategoryDAO c_dao = new CategoryDAO();
         
         String action = request.getParameter("action");
@@ -61,6 +63,8 @@ public class Category_Servlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
         CategoryDAO c_dao = new CategoryDAO();
         String name, describe, activate_raw, categoryID_raw;
         String action = request.getParameter("action");

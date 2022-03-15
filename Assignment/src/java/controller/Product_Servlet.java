@@ -34,6 +34,8 @@ public class Product_Servlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
         ProductDAO p_dao = new ProductDAO();
         CategoryDAO c_dao = new CategoryDAO();
         BrandDAO b_dao = new BrandDAO();
@@ -158,6 +160,8 @@ public class Product_Servlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
         ProductDAO p_dao = new ProductDAO();
         
         String action = request.getParameter("action");

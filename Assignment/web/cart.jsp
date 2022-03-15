@@ -20,14 +20,13 @@
         <c:import url="element/navbar.jsp"></c:import>
         <div class="pd-lr-15 mycart">
             <div class="row" style="justify-content: center">
-                <div class="col-ms-12 col-lg-10">
+                <div class="col-ms-12">
                     <div class="row jt-right pd-lr-15">
                         <a href="mycart?action=history"><i class="fa fa-history" aria-hidden="true"></i>Buy History</a>
                     </div>
                     <div class="container">
-                        <form action="mycart">
-                            <input type="text" name="action" value="buy" hidden>
-                            <div class="row">
+                        <div class="row">
+                            <div class="col-9 itemlist">
                                 <table>
                                     <tr>
                                         <th><a onclick="chooseAll()">Choose All</input></th>
@@ -52,18 +51,54 @@
                                         </tr>
                                     </c:forEach>
                                 </table>
-                                <div class="bill">
-                                    <h1 style="text-align: center">Your Information</h1>
-                                </div>
                             </div>
-                            <div class="row jt-spc-btw mrg-top-20 pd-lr-15">
-                                <div>
-                                    <a onclick="removeAll()">Clear All</input>&nbsp;&nbsp;&nbsp;
-                                    <a onclick="removeItem()">Remove</a>
-                                </div>
-                                <a class="link-btn" name="buy-btn">Buy</a>
+                            <div class="infor col-3">
+                                <h1>Your Information</h1>
+                                <a onclick="fillInfor()">Use my Address</a>
+                                <h3 id="form-alert" style="color: red"></h3>
+                                <form id="buy-form" action="" class="row" method="post">
+                                    <label class="col-ms-12 rei-input-label">
+                                        <input type="text" name="city" value="" required>
+                                        <div class="rei-input-name">
+                                            <span></span>
+                                            <span class="rei-float-name"><p>City</p></span>
+                                            <span></span>
+                                        </div>
+                                    </label>
+                                    <label class="col-ms-12 rei-input-label">
+                                        <input type="text" name="country" value="" required>
+                                        <div class="rei-input-name">
+                                            <span></span>
+                                            <span class="rei-float-name"><p>Country</p></span>
+                                            <span></span>
+                                        </div>
+                                    </label>
+                                    <label class="col-ms-12 rei-input-label">
+                                        <input type="text" name="address" value="" required>
+                                        <div class="rei-input-name">
+                                            <span></span>
+                                            <span class="rei-float-name"><p>Address</p></span>
+                                            <span></span>
+                                        </div>
+                                    </label>
+                                    <label class="col-ms-12 rei-input-label">
+                                        <input type="text" name="phone" value="" required>
+                                        <div class="rei-input-name">
+                                            <span></span>
+                                            <span class="rei-float-name"><p>Phone</p></span>
+                                            <span></span>
+                                        </div>
+                                    </label>
+                                </form>
                             </div>
-                        </form>
+                        </div>
+                        <div class="row jt-spc-btw mrg-top-20 pd-lr-15">
+                            <div>
+                                <a onclick="removeAll()">Clear All</input>&nbsp;&nbsp;&nbsp;
+                                <a onclick="removeItem()">Remove</a>
+                            </div>
+                            <a class="link-btn" name="buy-btn">Buy</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -86,6 +121,13 @@
                     else i.checked = true;
                     
                 });
+            }
+            function fillInfor() {
+                document.querySelector('input[name="city"]').value = '${requestScope.account.city}';
+                document.querySelector('input[name="country"]').value = '${requestScope.account.country}';
+                document.querySelector('input[name="address"]').value = '${requestScope.account.address}';
+                document.querySelector('input[name="phone"]').value = '${requestScope.account.phone}';
+                setFloat();
             }
             
             document.querySelectorAll('.item').forEach((item) => {
@@ -119,10 +161,16 @@
                         url += '&quantity='+item.querySelector('input[name="quantity"]').value;
                     };
                 });
-                window.location = url;
+                var form = document.getElementById('buy-form');
+                if(form.checkValidity()){
+                    form.action = url;
+                    form.submit();
+                } else {
+                    document.getElementById('form-alert').innerHTML = 'You must be enter your Information';
+                }
+                
             });
-            
-            
         </script>
     </body>
+    <script src="js/rei-input.js"></script>
 </html>

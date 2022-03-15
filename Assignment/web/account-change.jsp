@@ -14,12 +14,19 @@
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <link rel="stylesheet" href="css/main.css">
         <script src="js/bootstrap/jquery.min.js"></script>
+        <script src="js/set-theme.js"></script>
+
     </head>
     <body>
         <c:set var="user" value="${requestScope.user}"></c:set>
         <div class="row center">
             <div class="col-4">
                 <a href="home">Home</a>
+                <label>
+                    <input id="theme-checkbox" type="checkbox" name="theme">
+                    <span class="btn"></span>
+                    <i class="fa fa-moon-o" aria-hidden="true"></i>
+                </label>
                 <form class="container" action="account" method="post">
                     <h1 class="text-center">Update for ${user.username}!</h1>
                     <h3 style="color: red">${requestScope.error}</h3>
@@ -62,17 +69,17 @@
             </div>
         </div>
         <script src="js/rei-input.js"></script>
+        <script src="js/dark-theme.js"></script>
     </body>
     <script>
         $('#password, #confirm_password').on('keyup', function () {
-            if ($('#password').val() == ''){
+            if ($('#password').val() == '') {
                 $('#message').html('');
                 $('#submit')[0].disabled = true;
             } else if ($('#password').val() == $('#confirm_password').val()) {
                 $('#message').html('Matching').css('color', 'green');
                 $('#submit')[0].disabled = false;
-            }
-            else {
+            } else {
                 $('#message').html('Not Matching').css('color', 'red');
                 $('#submit')[0].disabled = true;
             }

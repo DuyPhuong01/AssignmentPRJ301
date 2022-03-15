@@ -39,7 +39,7 @@
                             <div class="number-input">
                                 <span>Quantity:</span>
                                 <label class="col-ms-9 col-md-3 col-lg-2 rei-input-label">
-                                    <input min="1" type="number" name="num" value="1">
+                                    <input min="1" type="number" name="num" value="1" max="${product.quantity}">
                                     <div class="rei-input-name">
                                         <span></span>
                                         <span class="rei-float-name"><p></p></span>

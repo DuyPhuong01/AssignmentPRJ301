@@ -86,6 +86,7 @@ public class UserDAO extends DBContext {
                         rs.getInt("Role"), rs.getString("FullName"), 
                         rs.getString("City"), rs.getString("Country"), 
                         rs.getString("Address"), rs.getString("Phone"));
+                System.out.println(u);
                 return u;
             }
         } catch (SQLException e) {

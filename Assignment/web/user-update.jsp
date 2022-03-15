@@ -21,6 +21,11 @@
         <div class="row center">
             <div class="col-6">
                 <a href="home">Home</a>
+                <label>
+                    <input id="theme-checkbox" type="checkbox" name="theme">
+                    <span class="btn"></span>
+                    <i class="fa fa-moon-o" aria-hidden="true"></i>
+                </label>
                 <form class="container" action="user" method="post">
                     <h1 class="text-center">User Update</h1>
                     <h3 style="color: red">${requestScope.error}</h3>
@@ -92,5 +97,6 @@
             </div>
         </div>
         <script src="js/rei-input.js"></script>
+        <script src="js/dark-theme.js"></script>
     </body>
 </html>

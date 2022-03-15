@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import model.Brand;
-import model.Product;
 
 /**
  *
@@ -28,11 +27,12 @@ import model.Product;
 @MultipartConfig
 @WebServlet(name = "Brand_Servlet", urlPatterns = {"/brand"})
 public class Brand_Servlet extends HttpServlet {
-    final int p_per_page = 12;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
         BrandDAO b_dao = new BrandDAO();
         
         String action = request.getParameter("action");
@@ -77,11 +77,14 @@ public class Brand_Servlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
         BrandDAO b_dao = new BrandDAO();
+        
         int brandID = 0;
         String name; Part filePart;
+        
         String action = request.getParameter("action");
-        System.out.println(action);
         if(action == null) action = "read";
         switch(action) {
             case "create":

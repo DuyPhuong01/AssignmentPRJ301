@@ -73,7 +73,6 @@ body {
     background: var(--bg-color);
     position: relative;
     min-height: 100vh;
-    padding-bottom: 90px;
     overflow-x: hidden;
 }
 
@@ -382,6 +381,7 @@ html[data-theme='dark'] .flexible-img {
     height: 55px;
     z-index: 1000;
     background-color: var(--bg-light-color);
+    border-bottom: 2px solid var(--bg-color);
 }
 
 .navigator {
@@ -877,11 +877,9 @@ input[type="submit"],
 
 .footer {
     width: 100%;
-    position: absolute;
-    bottom: 0;
     min-height: 60px;
     background: var(--bg-light-color);
-    text-align: center;
+    padding: 20px;
     margin-top: 30px;
 }
 
@@ -895,17 +893,6 @@ input[type="submit"],
 
 .mycart .item td {
     text-align: center;
-}
-
-@media (min-width: 1400px) {
-    .cart-history,
-    .mycart table {
-        padding-right: 20px;
-        border-right: 1px solid var(--theme-color);
-    }
-    .mycart .bill {
-        flex-grow: 1;
-    }
 }
 
 .cart-history .cart-details table tr:hover,
@@ -948,9 +935,21 @@ input[type="submit"],
     padding-left: 15px;
 }
 
-.cart-history {
+.mycart .infor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cart-history,
+.mycart .itemlist {
     height: 78vh;
-    /* overflow-y: scroll; */
+    overflow-y: scroll;
+}
+
+.cart-history>div {
+    margin-right: 15px;
+    margin-left: 15px;
 }
 
 .cart {

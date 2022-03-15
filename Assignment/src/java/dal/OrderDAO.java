@@ -86,7 +86,7 @@ public class OrderDAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, item.getOrderID());
             st.setInt(2, item.getProduct().getProductID());
-            st.setInt(3, 1);
+            st.setInt(3, item.getQuantity());
             st.executeUpdate();
             return true;
         } catch (SQLException e) {
